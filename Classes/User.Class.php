@@ -3,6 +3,7 @@
         
         private $email;
         private $pw; //password
+        private $pwConfirm; // passwordConfirmation
         private $photo; 
         private $profileText; //avatar
  
@@ -17,11 +18,21 @@
         }
 
         public function getPw(){
-             return $this->pw;
+            return $this->pw;
         }
+        
         public function setPw($pw){
-            $this->pw = $pw;
-            return $this;
+           $this->pw = $pw;
+           return $this;
+        }
+        
+        public function getPwConfirm(){
+            return $this->pwConfirm;
+        }
+       
+        public function setPwConfirm($pwConfirm){
+           $this->pwConfirm = $pwConfirm;
+           return $this;
         }
         
         public function getPhoto() {
@@ -39,5 +50,25 @@
         public function getProfileText() {
             return $this->profileText;
             return $this;
+        }
+
+        public function register(){
+            $options = [
+		        'cost' => 12,
+		    ];
+            
+            $password = password_hash($this->pw,PASSWORD_DEFAULT,$options);
+
+		    try {
+			    $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null); // DB CONNECTIE AANPASSEN / ROOT
+			    $statement = $conn->prepare("INSERT into users (email,password) VALUES (:email,:password)");
+			    $statement->bindParam(":email",$this->email);
+			    $statement->bindParam(":password",$password);
+			    $result = $statement->execute();
+			    return $result;
+
+		    } catch(Throwable $t){
+			    return false;
+            }
         }
     }
