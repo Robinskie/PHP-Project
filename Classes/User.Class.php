@@ -4,8 +4,8 @@
         private $email;
         private $pw; //password
         private $pwConfirm; // passwordConfirmation
-        private $photo; 
-        private $profileText; //avatar
+        private $photo; //avatar
+        private $profileText; 
  
         //GETTER & SETTERS in de volgorde dat de variabelen hierboven staan
  
