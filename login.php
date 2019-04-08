@@ -1,35 +1,35 @@
 
 <?php
 
-function canLogin ($email, $password){ 
-
-    if( $email != "example@example.com" || $password != "bingewatch"){
-    return false;
-    } else {
-    return true;
-    }
-}
+session_start();
+require_once("classes/User.class.php");
 
 if( !empty($_POST))	{
     // gegevens uit velden halen
     $email =  $_POST['Email'];
     $password = $_POST['Password'];
 
-    // functie gebruiken die we aangemaakt hebben 
-    if (canLogin($email, $password) === true){
+    // databank connectie
+    $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null); 
+    $statement = $conn->prepare("select * from users where email = :email "); 
+    $statement->bindParam(":email", $email); 
+    $result = $statement->execute();
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-        session_start();
-        $_SESSION['email'] = $email; 
-        header('Location: index.php');
-        // hashen is niet nodig want je kan niets aanpassen op server
-    } else {
-   
-        $error = true;
+    // functie gebruiken die we aangemaakt hebben 
+    if ( password_verify($password, $user['password']) ){
+
+    session_start();        
+    $_SESSION['userid'] = $user['id'];
+    header('Location:index.php');
+    }
+
+    else {
+    echo "Your email or password is invalid!";
     }
 }
-?>
 
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -42,13 +42,6 @@ if( !empty($_POST))	{
 
 <form action="" method="post">
 <h2 form__title>Sign In</h2>
-
-<!-- een errormelding maken -->
-<?php if(isset($error)): ?>
-<div class="form__error"> <!-- hidden toevoegen zodat de error melding weggaat -->
-<p> Sorry, we can't log you in. Can you try again?</p>
-</div>
-<?php endif; ?>
 
             <div class="form__field">
             <label for="Email">Email</label>

@@ -9,7 +9,7 @@
 		$result = $user->register();
         
         if($result){
-            header("Location: login.php");
+        header("Location: login.php");
         }
     }
     
