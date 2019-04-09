@@ -2,6 +2,8 @@
     class User {
         
         private $email;
+        private $firstName;
+        private $lastName;
         private $pw; //password
         private $pwConfirm; // passwordConfirmation
         private $photo; //avatar
@@ -14,6 +16,24 @@
         }
         public function setEmail($email) {
             $this->email = $email;
+            return $this;
+        }
+
+        public function getFirstName() {
+            return $this->firstName;
+        }
+
+        public function setFirstName($firstName){
+            $this->firstName = $firstName;
+            return $this;
+        }
+
+        public function getLastName() {
+            return $this->lastName;
+        }
+
+        public function setLastName($lastName){
+            $this->lastName = $lastName;
             return $this;
         }
 
@@ -52,20 +72,57 @@
             return $this;
         }
 
+        public function filledIn($field){
+            if(empty($field)){
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        public function itemsAreEqual($item1, $item2){
+            if($item1 != $item2){
+                return false;
+            } 
+            return true;
+        }
+
+        public function checkIfEmailAlreadyExists($email){
+            $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null);
+            $statement = $conn->prepare("select * from users where email = :email");
+            $statement->bindParam(":email",$email);
+            $result = $statement->execute();
+
+            if(!$result == 0){
+                return false; // there's no account with this email
+            } else {
+                return true; // there's already an account with this email
+            }
+        }
+
+        public function isPwStrongEnough($pw){
+            if(strlen($pw) < 8){
+                return false; // password is not strong enough
+            }
+            return true; // password is strong enough
+        }
+
         public function register(){
             $options = [
 		        'cost' => 12,
 		    ];
-            
+
             $password = password_hash($this->pw,PASSWORD_DEFAULT,$options);
 
 		    try {
 			    $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null); // DB CONNECTIE AANPASSEN / ROOT
-			    $statement = $conn->prepare("INSERT into users (email,password) VALUES (:email,:password)");
-			    $statement->bindParam(":email",$this->email);
+			    $statement = $conn->prepare("INSERT into users (email,firstName,lastName,password) VALUES (:email,:firstName,:lastName,:password)");
+                $statement->bindParam(":email",$this->email);
+                $statement->bindParam(":firstName",$this->firstName);
+                $statement->bindParam(":lastName",$this->lastName);
 			    $statement->bindParam(":password",$password);
 			    $result = $statement->execute();
-			    return $result;
+			    return true;
 
 		    } catch(Throwable $t){
 			    return false;
