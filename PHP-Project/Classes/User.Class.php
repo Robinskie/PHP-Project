@@ -91,9 +91,10 @@
             $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null);
             $statement = $conn->prepare("select * from users where email = :email");
             $statement->bindParam(":email",$email);
-            $result = $statement->execute();
-
-            if(!$result == 0){
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+ 
+            if(empty($result)){
                 return false; // there's no account with this email
             } else {
                 return true; // there's already an account with this email
