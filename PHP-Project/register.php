@@ -28,7 +28,7 @@
         } else if(!$user->itemsAreEqual($password,$passwordConfirmation)){
             echo "these passwords don't match";
         } else if($user->checkIfEmailAlreadyExists($email)){
-            echo "there's already an account with this email, try logging in instead";
+            echo "there's already an account with this email, try logging in instead or use a different email";
         } else if(!$user->isPwStrongEnough($password)){
             echo "this password is not strong enough";
         } else {
@@ -52,6 +52,8 @@
     <form action="" method="post">
         <h2 form__title>Sign up for an account</h2>
 
+        <p><?php echo $errorMessage; ?></p>
+
         <label for="email">Email</label>
         <input type="text" id="email" name="email">
         <br>
@@ -69,5 +71,6 @@
         <br>
         <input type="submit" value="Sign up">
     </form>
+    <a href="login.php">Log in instead</a>
 </body>
 </html>
