@@ -10,7 +10,7 @@
         $user->setLastName($_POST['lastName']);
 		$user->setPw($_POST['password']);
         $user->setPwConfirm($_POST['passwordConfirmation']);
-        $user->setAvatar($_FILES['avatar'];)
+        $user->setAvatar($_FILES['avatar']['name']);
 
         $email = $user->getEmail();
         $firstName = $user->getFirstName();

@@ -6,7 +6,7 @@
         private $lastName;
         private $pw; //password
         private $pwConfirm; // passwordConfirmation
-        private $photo; //avatar
+        private $avatar; //avatar
         private $profileText; 
  
         //GETTER & SETTERS in de volgorde dat de variabelen hierboven staan
@@ -55,11 +55,11 @@
            return $this;
         }
         
-        public function getPhoto() {
-            return $this->photo;
+        public function getAvatar() {
+            return $this->avatar;
         }
-        public function setPhoto($photo) {
-            $this->photo = $photo;
+        public function setPhoto($avatar) {
+            $this->avatar = $avatar;
             return $this;
         }
 
@@ -106,6 +106,13 @@
                 return false; // password is not strong enough
             }
             return true; // password is strong enough
+        }
+
+        public function checkIfFileTypeIsImage() {
+            if(preg_match('!image!', $_FILES['avatar']['type'])) {
+                return true;
+            }
+            return false;
         }
 
         public function register(){
