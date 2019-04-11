@@ -41,7 +41,7 @@ if(isset($_POST['submit'])) {
             $sqlImg = "select * from profileimg where userid=$id";
             $resultImg = mysqli($conn, $sqlImg);
             while ($rowImg = mysqli_fetch_assoc($resultImg)) {
-                if ($rowImg['statis'] == 0) {
+                if ($rowImg['status'] == 0) {
                     echo "<img src='images/profile" . $id . "jpg";
                 } else {
                     echo "<img src='images/profiledefault.jpg'>";
