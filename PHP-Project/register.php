@@ -88,6 +88,8 @@
         <label for="password_confirmation">Confirm your password</label>
         <input type="password" id="passwordConfirmation" name="passwordConfirmation">
         <br>
+        <label for="avatar">Choose an avatar</label>
+        <input type="file" name="avatar" accept="image/*"/>
         <input type="submit" value="Sign up">
     </form>
     <a href="login.php">Log in instead</a>
