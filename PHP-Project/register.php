@@ -59,6 +59,7 @@
             global $errorMessage;
             $errorMessage = "the uploaded file for your avatar is not an image";
         } else {
+            $user->copyAvatartoImageFolder($avatar);
             $result = $user->register();
             if($result){
                 header("Location: login.php");

@@ -137,7 +137,6 @@
 
         public function copyAvatartoImageFolder($avatar) {
             copy($_FILES['avatar']['tmp_name'], $avatar))
-
         }
 
         public function register(){
