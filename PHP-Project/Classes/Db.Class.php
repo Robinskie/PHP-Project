@@ -6,12 +6,16 @@
             $config = parse_ini_file('./config/config.ini');
 
             if(self::$conn != null) {
-                echo "🚀";
                 return self::$conn;
             } else {
-                echo "💥";
-                self::$conn = new PDO("mysql:host=localhost;dbname=" . $config['db_name'], $config['db_user'], $config['db_password']);
+                self::$conn = new PDO("mysql:host=" . $config['db_host'] . ";dbname=" . $config['db_name'], $config['db_user'], $config['db_password']);
                 return self::$conn;
             }
+        }
+
+        public static function simpleFetch($query) {
+            $statement = self::$conn->prepare($query);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_ASSOC);
         }
     }
