@@ -8,9 +8,9 @@
 </head>
 <body>
     <form method="POST" action="changepassword.php">
-    <p><input type="password" name="oldpasswd" id="oldpasswd" maxlength="30" placeholder="Old Password"></p>
-    <p><input type="password" name="newpasswd1" id="newpasswd1" maxlength="30" placeholder="New Password"></p>
-    <p><input type="password" name="newpasswd2" id="newpasswd2"maxlength="30" placeholder="Confirm Password"></p>
+    <p><input type="password" name="oldPw" id="oldPW" maxlength="30" placeholder="Old Password"></p>
+    <p><input type="password" name="newPw" id="newPw" maxlength="30" placeholder="New Password"></p>
+    <p><input type="password" name="confirmNewPw" id="ConfirmNewPw"maxlength="30" placeholder="Confirm Password"></p>
     <input type="submit" name="submit" id="submit" value="change password">
     </form>  
 </body>
