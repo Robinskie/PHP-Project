@@ -21,7 +21,7 @@
         $passwordConfirmation = $user->getPwConfirm();
         $avatar = $user->getAvatar();
         $avatarType = $user->getAvatarType();
-        $avatarTmpName = $user->getTmpName();
+        $avatarTmpName = $user->getAvatarTmpName();
 
         if(!$user->filledIn($email)){
             //echo "you did not fill in your email";
@@ -77,7 +77,7 @@
     <title>PROJECT</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <h2 form__title>Sign up for an account</h2>
 
         <p><?php echo $errorMessage; ?></p>
