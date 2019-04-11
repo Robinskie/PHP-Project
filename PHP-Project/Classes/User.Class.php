@@ -71,10 +71,8 @@
 
         public function setAvatarType($avatarType){
                 $this->avatarType = $avatarType;
-
                 return $this;
         }
-
         
         public function getAvatarTmpName(){
                 return $this->avatarTmpName;
@@ -82,7 +80,6 @@
  
         public function setAvatarTmpName($avatarTmpName){
                 $this->avatarTmpName = $avatarTmpName;
-
                 return $this;
         }
 
