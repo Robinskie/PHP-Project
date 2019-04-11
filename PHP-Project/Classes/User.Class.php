@@ -92,6 +92,7 @@
             return $this;
         }
 
+        //all the functions except GETTERS and SETTERS
         public function filledIn($field){
             if(empty($field)){
                 return false;
