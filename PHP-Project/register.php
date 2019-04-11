@@ -11,12 +11,17 @@
 		$user->setPw($_POST['password']);
         $user->setPwConfirm($_POST['passwordConfirmation']);
         $user->setAvatar($_FILES['avatar']['name']);
+        $user->setAvatarType($_FILES['avatar']['type']);
+        $user->setAvatarTmpName($_FILES['avatar']['tmp_name']);
 
         $email = $user->getEmail();
         $firstName = $user->getFirstName();
         $lastName = $user->getLastName();
         $password = $user->getPw();
         $passwordConfirmation = $user->getPwConfirm();
+        $avatar = $user->getAvatar();
+        $avatarType = $user->getAvatarType();
+        $avatarTmpName = $user->getTmpName();
 
         if(!$user->filledIn($email)){
             //echo "you did not fill in your email";
@@ -50,6 +55,9 @@
             //echo "this password is not strong enough";
             global $errorMessage;
             $errorMessage = "this password is not strong enough";
+        } else if (!$user->checkIfFileTypeIsImage($avatarType)) {
+            global $errorMessage;
+            $errorMessage = "the uploaded file for your avatar is not an image";
         } else {
             $result = $user->register();
             if($result){

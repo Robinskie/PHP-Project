@@ -6,7 +6,7 @@ if(isset($_POST['submit'])) {
     $avatarTmpName = $_FILES['avatar']['tmp_name'];
     $avatarSize = $_FILES['avatar']['size'];
     $avatarError = $_FILES['avatar']['error'];
-    $avatarType = $_FILES['avatar']['type'];
+
 
     $avatarExt = explode('.', $avatarName);
     $fileActualExt = strolower(end($avatarExt));

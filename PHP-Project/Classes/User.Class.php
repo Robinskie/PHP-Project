@@ -7,6 +7,8 @@
         private $pw; //password
         private $pwConfirm; // passwordConfirmation
         private $avatar; //avatar
+        private $avatarType; //filetype of uploaded avatar
+        private $avatarTmpName;
         private $profileText; 
  
         //GETTER & SETTERS in de volgorde dat de variabelen hierboven staan
@@ -58,9 +60,30 @@
         public function getAvatar() {
             return $this->avatar;
         }
-        public function setPhoto($avatar) {
-            $this->avatar = $avatar;
+        public function setAvatar($avatar) {
+            $this->avatar = 'images/' . $avatar;
             return $this;
+        }
+
+        public function getAvatarType() {
+                return $this->avatarType;
+        }
+
+        public function setAvatarType($avatarType){
+                $this->avatarType = $avatarType;
+
+                return $this;
+        }
+
+        
+        public function getAvatarTmpName(){
+                return $this->avatarTmpName;
+        }
+ 
+        public function setAvatarTmpName($avatarTmpName){
+                $this->avatarTmpName = $avatarTmpName;
+
+                return $this;
         }
 
         public function setProfileText($profileText) {
@@ -108,11 +131,16 @@
             return true; // password is strong enough
         }
 
-        public function checkIfFileTypeIsImage() {
+        public function checkIfFileTypeIsImage($avatarType) {
             if(preg_match('!image!', $_FILES['avatar']['type'])) {
                 return true;
             }
             return false;
+        }
+
+        public function copyAvatartoImageFolder($avatar) {
+            copy($_FILES['avatar']['tmp_name'], $avatar))
+
         }
 
         public function register(){
@@ -136,4 +164,5 @@
 			    return false;
             }
         }
+
     }
