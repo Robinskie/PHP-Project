@@ -152,11 +152,12 @@
 
 		    try {
 			    $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null); // DB CONNECTIE AANPASSEN / ROOT
-			    $statement = $conn->prepare("INSERT into users (email,firstName,lastName,password) VALUES (:email,:firstName,:lastName,:password)");
+			    $statement = $conn->prepare("INSERT into users (email,firstName,lastName,password, avatar) VALUES (:email,:firstName,:lastName,:password, :avatar)");
                 $statement->bindParam(":email",$this->email);
                 $statement->bindParam(":firstName",$this->firstName);
                 $statement->bindParam(":lastName",$this->lastName);
-			    $statement->bindParam(":password",$password);
+                $statement->bindParam(":password",$password);
+                $statement->bindParam(":avatar",$avatar);
 			    $result = $statement->execute();
 			    return true;
 
