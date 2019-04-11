@@ -98,6 +98,7 @@
         <br>
         <label for="avatar">Choose an avatar</label>
         <input type="file" name="avatar" accept="image/*"/>
+        <br>
         <input type="submit" value="Sign up">
     </form>
     <a href="login.php">Log in instead</a>
