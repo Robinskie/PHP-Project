@@ -1,8 +1,7 @@
 
 <?php
 
-session_start();
-require_once("classes/User.class.php");
+include_once("bootstrap.php");
 
 if( !empty($_POST))	{
     // gegevens uit velden halen
@@ -10,7 +9,7 @@ if( !empty($_POST))	{
     $password = $_POST['Password'];
 
     // databank connectie
-    $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null); 
+    $conn = Db::getInstance(); 
     $statement = $conn->prepare("select * from users where email = :email "); 
     $statement->bindParam(":email", $email); 
     $result = $statement->execute();
