@@ -87,12 +87,11 @@
         }
 
         public function setProfileText($profileText) {
-            $profileText = emoji_unified_to_html($profileText);
             $this->profileText = $profileText;
+            return $this;
         }
     
         public function getProfileText() {
-            $this->profileText = emoji_html_to_unified($this->profileText);
             return $this->profileText;
         }
 
