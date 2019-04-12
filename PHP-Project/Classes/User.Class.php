@@ -1,7 +1,4 @@
 <?php
-    //emoji library
-    include_once('./php-emoji-master/lib/emoji.php');
-
     class User {
  
         private $email;
