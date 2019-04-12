@@ -13,6 +13,7 @@
         $user->setAvatar($_FILES['avatar']['name']);
         $user->setAvatarType($_FILES['avatar']['type']);
         $user->setAvatarTmpName($_FILES['avatar']['tmp_name']);
+        $user->setProfileText($_POST['profileText']);
 
         $email = $user->getEmail();
         $firstName = $user->getFirstName();
@@ -22,6 +23,7 @@
         $avatar = $user->getAvatar();
         $avatarType = $user->getAvatarType();
         $avatarTmpName = $user->getAvatarTmpName();
+        $profileText = $user->getProfileText();
 
         if(!$user->filledIn($email)){
             //echo "you did not fill in your email";
@@ -100,6 +102,8 @@
         <label for="avatar">Choose an avatar</label>
         <input type="file" name="avatar" accept="image/*"/>
         <br>
+        <label for="profileText">Write your profile text here</label>
+        <input type="text" name="profileText" id="profileText">
         <input type="submit" value="Sign up">
     </form>
     <a href="login.php">Log in instead</a>
