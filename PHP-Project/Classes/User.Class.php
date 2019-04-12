@@ -1,4 +1,7 @@
 <?php
+    //emoji library
+    include_once('./php-emoji-master/lib/emoji.php');
+
     class User {
  
         private $email;
@@ -84,12 +87,13 @@
         }
 
         public function setProfileText($profileText) {
+            $profileText = emoji_unified_to_html($profileText);
             $this->profileText = $profileText;
         }
     
         public function getProfileText() {
+            $this->profileText = emoji_html_to_unified($this->profileText);
             return $this->profileText;
-            return $this;
         }
 
         //all the functions except GETTERS and SETTERS
