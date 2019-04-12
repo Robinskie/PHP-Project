@@ -1,4 +1,6 @@
 <?php
+    require_once("bootstrap.php");
+
     class User {
  
         private $email;
@@ -109,7 +111,7 @@
         }
 
         public function checkIfEmailAlreadyExists($email){
-            $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null);
+            $conn = Db::getInstance();
             $statement = $conn->prepare("select * from users where email = :email");
             $statement->bindParam(":email",$email);
             $statement->execute();
@@ -148,13 +150,13 @@
             $password = password_hash($this->pw,PASSWORD_DEFAULT,$options);
 
 		    try {
-			    $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null); // DB CONNECTIE AANPASSEN / ROOT
-			    $statement = $conn->prepare("INSERT into users (email,firstName,lastName,password, avatar) VALUES (:email,:firstName,:lastName,:password, :avatar)");
+			    $conn = Db::getInstance(); // DB CONNECTIE AANPASSEN / ROOT
+			    $statement = $conn->prepare("INSERT into users (email,firstName,lastName, password, avatar) VALUES (:email,:firstName,:lastName,:password, :avatar)");
                 $statement->bindParam(":email",$this->email);
                 $statement->bindParam(":firstName",$this->firstName);
                 $statement->bindParam(":lastName",$this->lastName);
                 $statement->bindParam(":password",$password);
-                $statement->bindParam(":avatar",$avatar);
+                $statement->bindParam(":avatar",$this->avatar);
 			    $result = $statement->execute();
 			    return true;
 
@@ -162,5 +164,4 @@
 			    return false;
             }
         }
-
     }
