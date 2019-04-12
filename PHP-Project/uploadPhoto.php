@@ -1,6 +1,8 @@
 <?php
     include_once("bootstrap.php");
 
+    redirectIfLoggedOut();
+
     $errorMessage = "";
 
     if(!empty($_POST)) {
@@ -9,7 +11,7 @@
         $photo = new Photo();
         $photo->setName($_POST['name']);
         $photo->setUploadDate(date("Y-m-d H:i:s"));
-        $photo->setUploader(0);
+        $photo->setUploader($_SESSION['userid']);
         $photo->setDescription($_POST['description']);
         
         //checks
@@ -66,6 +68,8 @@
 </head>
 
 <body>
+    <?php include_once("includes/nav.inc.php");?>
+
     <h2>Upload Photo</h2>
     <?php
         if($errorMessage != "") {

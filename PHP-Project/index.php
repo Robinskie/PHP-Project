@@ -1,3 +1,8 @@
+<?php
+    require_once("bootstrap.php");
+
+    redirectIfLoggedOut();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +13,11 @@
     <title>PROJECT</title>
 </head>
 <body>
+    <?php include_once("includes/nav.inc.php");?>
+    
     <h1>Homepage</h1>
+    <div class="content">
+        <h2><a href="uploadPhoto.php">Upload a picture</h2>
+    </div>
 </body>
 </html>
