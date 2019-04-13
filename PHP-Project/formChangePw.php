@@ -67,7 +67,7 @@ function changePw ($oldpw, $newpw, $confirmNewPw) {
             $result = $statement->execute();
             return true;
         }
-}   
+};   
 
 
 function changeEmail ($oldEmail, $newEmail, $confirmNewEmail) {
