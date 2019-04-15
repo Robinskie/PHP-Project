@@ -1,67 +1,62 @@
-
 <?php
+    require_once("bootstrap.php");
+    $errorMessage = "";
 
-include_once("bootstrap.php");
+    if(!empty($_POST)){
 
-if( !empty($_POST))	{
-    // gegevens uit velden halen
-    $email =  $_POST['Email'];
-    $password = $_POST['Password'];
+        $user = new User();
 
-    // databank connectie
-    $conn = Db::getInstance(); 
-    $statement = $conn->prepare("select * from users where email = :email "); 
-    $statement->bindParam(":email", $email); 
-    $result = $statement->execute();
-    $user = $statement->fetch(PDO::FETCH_ASSOC);
+		// gegevens uit velden halen
+        $email =  $_POST['email'];
+        $password = $_POST['password'];
 
-    // functie gebruiken die we aangemaakt hebben 
-    if ( password_verify($password, $user['password']) ){      
+        if(!$user->filledIn($email)){
+            global $errorMessage;
+            $errorMessage = "you did not fill in your email";
+        } 
+        
+        else if(!$user->filledIn($password)){
+            global $errorMessage;
+            $errorMessage = "you didn't fill in your password";
+
+        }
+        else {
+        // databank connectie
+        $conn = Db::getInstance(); 
+        $statement = $conn->prepare("select * from users where email = :email "); 
+        $statement->bindParam(":email", $email); 
+        $result = $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if ( password_verify($password, $user['password']) ){      
         $_SESSION['userid'] = $user['id'];
         header('Location:index.php');
-    }
-
-    else {
-        echo "Your email or password is invalid!";
-    }
+        }
+        };
 }
-
+    
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>NAAM PROJECT</title>
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PROJECT</title>
 </head>
 <body>
-<div class="netflixLogin">
-<div class="form form--login">
+    <form action="" method="post" enctype="multipart/form-data">
+        <h2 form__title>Sign in</h2>
 
-    <form action="" method="post">
-        <h2 form__title>Sign In</h2>
+        <p><?php echo $errorMessage; ?></p>
 
-        <div class="form__field">
-        <label for="Email">Email</label>
-        <!-- Name en id toevoegen -->
-        <input type="text" id="Email" name="Email">
-        </div>
-        <div class="form__field">
-        <label for="Password">Password</label>
-        <!-- Name en id toevoegen -->
-        <input type="password" id="Password" name="Password">
-        <!-- Zie dat je het niet in label zet maar in input -->
-        </div>
-
-        <div class="form__field">
-        <!-- type button gaan we veranderen door submit anders refresht het niet -->
-        <input type="submit" value="Sign in" class="btn btn--primary">	
-        <!-- <input type="checkbox" id="rememberMe"><label for="rememberMe" class="label__inline">Remember me</label> -->
-        </div>
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email">
+        <br>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+        <br>
+        <input type="submit" value="Sign up">
     </form>
-
-    <a href="register.php">I don't have an account yet!</a>
-</div>
-
-</div>
+    <a href="signup.php">I don't have an account yet!</a>
 </body>
 </html>
