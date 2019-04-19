@@ -15,6 +15,8 @@
         $photo->setUploader($result['uploader']);
         $photo->setUploadDate($result['uploadDate']);
         $photo->setDescription($result['description']);
+        $photo->setUploadDate($result['uploadDate']);
+        $photo->setTags($result['tags']);
 
         $uploaderUser = new User();
         $userRow = Db::simpleFetch("SELECT * FROM users WHERE id = " . $photo->getUploader());
@@ -35,6 +37,8 @@
     <h2><?php echo $photo->getName();?></h2>
     <a href="<?php echo $photo->getPhotoPath();?>"><img src="<?php echo $photo->getCroppedPhotoPath();?>"></a>
     <p><strong>Uploaded by: </strong><?php echo $uploaderUser->getFirstName() . " " . $uploaderUser->getLastName();?></p>
+    <p><strong> Upload date: </strong><?php echo $photo->getUploadDate();?></p>
     <p><?php echo $photo->getDescription();?></p>
+    <p><strong>Tags: </strong><?php echo $photo->getTags();?></p>
 </body>
 </html>

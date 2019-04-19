@@ -5,6 +5,8 @@
         private $uploader;
         private $uploadDate;
         private $description;
+        private $tags;
+        private $date;
 
         public function getId()
         {
@@ -58,6 +60,28 @@
         public function setUploader($uploader)
         {
                 $this->uploader = $uploader;
+                return $this;
+        }
+
+        public function getTags()
+        {
+                return $this->tags;
+        }
+
+        public function setTags($tags)
+        {
+                $this->tags = $tags;
+                return $this;
+        }
+
+        public function getDate()
+        {
+                return $this->date;
+        }
+
+        public function setDate($date)
+        {
+                $this->date = $date;
                 return $this;
         }
 
