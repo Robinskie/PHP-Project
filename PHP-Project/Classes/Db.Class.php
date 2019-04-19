@@ -14,8 +14,16 @@
         }
 
         public static function simpleFetch($query) {
+            self::$conn = Db::getInstance();
             $statement = self::$conn->prepare($query);
             $statement->execute();
             return $statement->fetch(PDO::FETCH_ASSOC);
+        }
+
+        public static function simpleFetchAll($query) {
+            self::$conn = Db::getInstance();
+            $statement = self::$conn->prepare($query);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
     }

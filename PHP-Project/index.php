@@ -79,7 +79,26 @@
   }
 ?>
 
-    <h2><a href="uploadPhoto.php">Upload a picture</h2>
+    <h2><a href="uploadPhoto.php">Upload a picture</a></h2>
     </div>
+
+    <?php
+        //FEED
+        $photoArray = Db::simpleFetchAll("SELECT * FROM photos ORDER BY uploadDate");
+        foreach($photoArray as $photoRow):
+            $photo = new Photo();
+            $photo->setId($photoRow['id']);
+            $photo->setName($photoRow['name']);
+    ?>
+        
+            <div class="photoBox">
+                <a href="photo.php?id=<?php echo $photo->getId(); ?>">
+                    <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
+                    <p><?php echo $photo->getName(); ?></p>
+                </a>
+            </div>
+        
+    <?php endforeach ?>
+
 </body>
 </html>
