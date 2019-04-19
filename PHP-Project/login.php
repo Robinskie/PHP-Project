@@ -57,6 +57,6 @@
         <br>
         <input type="submit" value="Sign up">
     </form>
-    <a href="signup.php">I don't have an account yet!</a>
+    <a href="register.php">I don't have an account yet!</a>
 </body>
 </html>
