@@ -1,3 +1,7 @@
+body {
+    font-family: sans-serif;
+}
+
 .errorBox {
     display: inline-block;
     border: 1px solid red;
