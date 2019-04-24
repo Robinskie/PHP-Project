@@ -148,7 +148,7 @@
         public function getLikes(){
                 $conn = Db::getInstance();
                 $statement = $conn->prepare("select count(*) as count from likes where photo_id = :photoid");
-                $statement->bindValue(":phototid", $this->id);
+                $statement->bindValue(":photoid", $this->id);
                 $statement->execute();
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
                 return $result['count'];

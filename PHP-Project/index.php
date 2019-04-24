@@ -96,7 +96,7 @@
                     <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
                     <p><?php echo $photo->getName(); ?></p>
                 </a>
-                <div><a href="#" data-id="<?php echo $photo->id ?>" class="like">Like</a> <span class='likes'><?php echo $photo->getLikes(); ?></span> people like this </div>
+                <div><a href="#" data-id="<?php echo $photo->getId() ?>" class="like">Like</a> <span class='likes'><?php echo $photo->getLikes(); ?></span> people like this </div>
             </div>
         
     <?php endforeach ?>
@@ -105,8 +105,7 @@
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-
-  <?php include_once("like.js"); ?>
+  <script src="like.js"></script>
 
 </body>
 </html>

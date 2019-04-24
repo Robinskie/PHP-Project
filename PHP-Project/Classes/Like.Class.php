@@ -4,11 +4,11 @@
         private $userId;
 
         //GETTERS en SETTERS
-        public function getPostId() {
-                return $this->postId;
+        public function getPhotoId() {
+                return $this->photoId;
         }
-        public function setPostId($postId) {
-                $this->postId = $postId;
+        public function setPostId($photoId) {
+                $this->postId = $photoId;
                 return $this;
         }
 
@@ -27,8 +27,8 @@
             // @todo: hook in a new function that checks if a user has already liked a post
 
             $conn = Db::getInstance();
-            $statement = $conn->prepare("insert into likes (post_id, user_id, date_created) values (:postid, :userid, NOW())");
-            $statement->bindValue(":postid", $this->getPostId());
+            $statement = $conn->prepare("insert into likes (photo_id, user_id, date_created) values (:photoid, :userid, NOW())");
+            $statement->bindValue(":photoid", $this->getPhotoId());
             $statement->bindValue(":userid", $this->getUserId());
             return $statement->execute();
         }

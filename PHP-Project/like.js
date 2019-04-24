@@ -1,8 +1,7 @@
 
 	// include ook jquery voor dat je dit include
-
 	var likeUnlike = 0;
-
+	console.log('???');
 		//als er op de like btn word geklikt
 		$("a.like").on("click", function(e){// e staat voor event
 			//op welke post is er geklikt?
