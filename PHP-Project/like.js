@@ -1,26 +1,29 @@
-
+console.log('eehm');
 	// include ook jquery voor dat je dit include
 	var likeUnlike = 0;
-	console.log('???');
+
 		//als er op de like btn word geklikt
 		$("a.like").on("click", function(e){// e staat voor event
+			console.log('click');
 			//op welke post is er geklikt?
-			var postId = $(this).data('id');
+			var photoId = $(this).data('id');
 			//console.log(postId);
 			var elLikes = $(this).parent().find(".likes");
 			var likes = elLikes.html();
-			
+			console.log('var');
 
 				$.ajax({
 					method: "POST", //post (=set), ge creeert data bij
 					url: "ajax/like.php", //pagina om da te verwerken
-					data: { postId: postId }, //postId meegeven, ma ge kunt eender welke data meegeven
+					data: { photoId: photoId }, //postId meegeven, ma ge kunt eender welke data meegeven
 					dataType: "Json" // de server ga json terugggeven
 				})
 				.done(function(res) {
+					console.log('ajax_begin');
 					//er is nog niet geliked
 					if (likeUnlike === 0) {
 						if( res.status == "succes" ) {
+						console.log('++');
 						likes++;
 						elLikes.html(likes);
 						likeUnlike = 1;

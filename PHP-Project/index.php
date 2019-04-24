@@ -82,6 +82,8 @@
     <h2><a href="uploadPhoto.php">Upload a picture</a></h2>
     </div>
 
+  
+
     <?php
         //FEED
         $photoArray = Db::simpleFetchAll("SELECT * FROM photos ORDER BY uploadDate");
@@ -106,6 +108,5 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
   <script src="like.js"></script>
-
 </body>
 </html>
