@@ -96,7 +96,7 @@
                     <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
                     <p><?php echo $photo->getName(); ?></p>
                 </a>
-                <div><a href="#" data-id="<?php echo $post->id ?>" class="like">Like</a> <span class='likes'><?php echo $post->getLikes(); ?></span> people like this </div>
+                <div><a href="#" data-id="<?php echo $photo->id ?>" class="like">Like</a> <span class='likes'><?php echo $photo->getLikes(); ?></span> people like this </div>
             </div>
         
     <?php endforeach ?>
