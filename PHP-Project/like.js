@@ -1,6 +1,8 @@
 
 	// include ook jquery voor dat je dit include
 
+	console.log("jeeej");
+
 	var likeUnlike = 0;
 
 		//als er op de like btn word geklikt

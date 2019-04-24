@@ -54,7 +54,7 @@
     $name=$_POST['name']; // verzamelen van zoek criteria
 
     // database connection met variabele db en ingebouwde functie myqsl_connect
-    $db=mysql_connect  ("mysql:host=localhost;dbname=project", "root",  "root") or die ('I cannot connect to the database  because: ' . mysql_error());
+    $db=mysql_connect("mysql:host=localhost;dbname=project", "root",  "root") or die ('I cannot connect to the database  because: ' . mysql_error());
   
     // moet kunnen zoeken op #tags en zoekwoorden 
     $sql="SELECT  ID, FirstName, LastName FROM Contacts WHERE FirstName LIKE '%" . $name .  "%' OR LastName LIKE '%" . $name ."%'";
@@ -65,7 +65,7 @@
           $FirstName  =$row['FirstName'];
           $LastName=$row['LastName'];
           $ID=$row['ID'];
-  
+
     // toon resultaten in een array
     echo "<ul>\n";
     echo "<li>" . "<a  href=\"search.php?id=$ID\">"   .$FirstName . " " . $LastName .  "</a></li>\n";
@@ -78,6 +78,7 @@
   }
   }
 ?>
+
 
     <h2><a href="uploadPhoto.php">Upload a picture</a></h2>
     </div>
@@ -105,8 +106,9 @@
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-
-  <?php include_once("like.js"); ?>
+  
+<script src="like.js"></script>
+    
 
 </body>
 </html>
