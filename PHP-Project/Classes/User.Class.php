@@ -166,4 +166,24 @@
 			    return false;
             }
         }
+
+        public function login(){
+            $conn = Db::getInstance(); 
+            $statement = $conn->prepare("select * from users where email = :email");
+            $statement->bindParam(":email",$this->email);
+            $result = $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+            
+            if(!empty($result)){
+                if(password_verify($this->pw, $result['password'])){
+                    return $result['id'];
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+      
+        }
     }

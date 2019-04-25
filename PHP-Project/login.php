@@ -5,7 +5,9 @@
     if(!empty($_POST)){
 
         $user = new User();
-
+        $user->setEmail($_POST['email']);
+        $user->setPw($_POST['password']);
+        
 		// gegevens uit velden halen
         $email =  $_POST['email'];
         $password = $_POST['password'];
@@ -20,20 +22,21 @@
             $errorMessage = "you didn't fill in your password";
 
         }
-        else {
-        // databank connectie
-        $conn = Db::getInstance(); 
-        $statement = $conn->prepare("select * from users where email = :email "); 
-        $statement->bindParam(":email", $email); 
-        $result = $statement->execute();
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
-
-        if ( password_verify($password, $user['password']) ){      
-        $_SESSION['userid'] = $user['id'];
-        header('Location:index.php');
+        else {      
+            
+            $result = $user->login();
+            if($result != false){
+                $_SESSION['userid'] = $result;
+                header("Location: index.php");
+            } else {
+                $errorMessage = "this is not correct";
+            }
+                
+            
         }
+
+        
         };
-}
     
 ?><!DOCTYPE html>
 <html lang="en">

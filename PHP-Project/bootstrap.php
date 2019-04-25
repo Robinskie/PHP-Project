@@ -6,7 +6,7 @@
         });
 
     function checkIfLoggedIn() {
-        if(isset($_SESSION['userid'])) {
+        if(!empty($_SESSION['userid'])) {
             return true;
         } else {
             return false;
