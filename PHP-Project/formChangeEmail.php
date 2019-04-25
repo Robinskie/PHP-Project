@@ -3,8 +3,6 @@ require_once("bootstrap.php");
 if (!empty($_POST)) {
     echo "something";
     changeEmail($_POST['oldEmail'], $_POST['newEmail'], $_POST['confirmNewEmail']);
-    
-    echo $newpw;
 }
 function changeEmail ($oldEmail, $newEmail, $confirmNewEmail) {
     $user = new User();
@@ -51,7 +49,7 @@ function changeEmail ($oldEmail, $newEmail, $confirmNewEmail) {
         $result = $statement->execute();
         return true;
         }
-
+    };
 
 ?><!DOCTYPE html>
 <html lang="en">
