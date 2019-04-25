@@ -3,7 +3,7 @@
     if( !empty($_POST)){
         //VAR_dump($_POST); ga in u console onder network kijken
         $photoId = $_POST['photoId'];
-        $userId = 1; //$_SESSION["userId"]; //hier kunt ge u user vanuit u databank meegeven
+        $userId = $_SESSION["userid"]; //hier kunt ge u user vanuit u databank meegeven
 
         include_once("../bootstrap.php");
         $like = new Like();

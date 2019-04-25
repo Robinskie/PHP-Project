@@ -91,6 +91,25 @@
             $photo = new Photo();
             $photo->setId($photoRow['id']);
             $photo->setName($photoRow['name']);
+            $photoId = $photo->getId();
+            $userId = $_SESSION['userid'];
+
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("SELECT count(*) AS count FROM likes WHERE photo_id = :photoid AND user_id = :userid ");
+            $statement->bindParam(":photoid",$photoId);
+            $statement->bindParam(":userid",$userId);
+            $result = $statement->execute();
+
+            $count = $statement->fetch(PDO::FETCH_ASSOC);
+            var_dump($count);
+            var_dump($photoId);
+            var_dump($userId);
+
+            if($count > 0) {// al geliked
+                echo "unlike";
+            } else { // nog ni geliked
+                echo "like";
+            }
     ?>
         
             <div class="photoBox">
@@ -98,7 +117,7 @@
                     <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
                     <p><?php echo $photo->getName(); ?></p>
                 </a>
-                <div><a href="#" data-id="<?php echo $photo->getId() ?>" class="like">Like</a> <span class='likes'><?php echo $photo->getLikes(); ?></span> people like this </div>
+                <div><a href="#" data-id="<?php echo $photo->getId() ?>" data-isLiked="<?php echo $photo->getId() ?>" class="like">Like</a> <span class='likes'><?php echo $photo->getLikes(); ?></span> people like this </div>
             </div>
         
     <?php endforeach ?>
