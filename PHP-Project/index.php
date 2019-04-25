@@ -12,13 +12,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/style.css">
     <title>PROJECT</title>
-
-    <!-- bullets wegdoen bij zoekresultaten -->
-    <style  type="text/css" media="screen">
-    ul  li{
-    list-style-type:none;
 }
-</style>
+
 </head>
 <body>
     <?php include_once("includes/nav.inc.php");?>
