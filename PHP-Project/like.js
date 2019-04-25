@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+console.log('eehm');
+	// include ook jquery voor dat je dit include
+>>>>>>> 2bbc02ea1af8234ba39c8a6143a5c82656d115c1
 	var likeUnlike = 0;
 
 		//als er op de like btn word geklikt
