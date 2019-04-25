@@ -102,14 +102,11 @@
             $result = $statement->execute();
 
             $count = $statement->fetch(PDO::FETCH_ASSOC);
-            var_dump($count);
-            var_dump($photoId);
-            var_dump($userId);
 
             if($count > 0) {// al geliked
-                echo "unlike";
+                echo "dees moet geunliked worde";
             } else { // nog ni geliked
-                echo "like";
+                echo "dees moet geliked worden";
             }
     ?>
         
