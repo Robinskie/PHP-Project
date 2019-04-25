@@ -29,14 +29,10 @@
                 $_SESSION['userid'] = $result;
                 header("Location: index.php");
             } else {
-                $errorMessage = "this is not correct";
+                $errorMessage = "this is not correct, please try again";
             }
-                
-            
         }
-
-        
-        };
+    };
     
 ?><!DOCTYPE html>
 <html lang="en">
