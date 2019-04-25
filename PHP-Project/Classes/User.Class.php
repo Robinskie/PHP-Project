@@ -157,8 +157,10 @@
                 $statement->bindParam(":lastName",$this->lastName);
                 $statement->bindParam(":password",$password);
                 $statement->bindParam(":avatar",$this->avatar);
-			    $result = $statement->execute();
-			    return true;
+                $result = $statement->execute();
+                var_dump($result);
+                die();
+			    return $result;
 
 		    } catch(Throwable $t){
 			    return false;
