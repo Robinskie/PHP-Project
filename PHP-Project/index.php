@@ -1,7 +1,22 @@
 <?php
     require_once("bootstrap.php");
-
     redirectIfLoggedOut();
+
+    // als zoekveld niet leeg is
+    if(!empty($_POST)){
+            
+    // databank connectie
+    $conn = Db::getInstance();
+                                                            
+    // input gelijk aan wat in tekstveld ingegeven is
+    $input = $_POST['searchbutton'];
+                                                           
+    // query voor posts te zoeken
+    $statement = $conn->prepare("SELECT * FROM photos WHERE 'description' LIKE '%$input%'");
+    $result = $statement->execute();
+    $statement->fetch(PDO::FETCH_ASSOC);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +36,9 @@
     <div class="content">
 
     <!-- zoekformulier maken -->
-    <form  method="post" action="search.php"  id="searchform"> 
-	    <input  type="text" name="name"> 
-        <input  type="submit" name="submit" value="Search"> 
+    <form  method="post" action="search.php" id="searchform"> 
+	    <input  type="text" name="searchbutton"> 
+        <input  type="submit" name="searchbutton" value="Search"> 
     </form>
     <!-- einde formulier -->
 

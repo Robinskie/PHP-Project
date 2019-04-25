@@ -16,15 +16,16 @@
 <body>
     <?php include_once("includes/nav.inc.php");?>
     
-    <h1>Zoekresultaten</h1>
+    <h1>Zoekresultaten </h1>
     <div class="content">
-    </div>
+    <!-- zoekresultaten op basis van tags/zoekwoorden -->
 
-  
+<?php
 
-    <?php
-        
-    ?>
-    
+?>
+
+</div>
+
+
 </body>
 </html>
