@@ -1,5 +1,6 @@
 <?php 
 require_once("bootstrap.php");
+
 redirectIfLoggedOut();
 
 if (!empty($_POST)) {
@@ -10,9 +11,6 @@ if (!empty($_POST)) {
 function changePw($oldpw, $newpw, $confirmNewPw) {
         $user = new User();
         //check if user is logged in 
-        if(!empty($_SESSION['userid'])){
-            echo "Sorry, Please login and use this page";
-        } else {
         $status = "OK";
         $msg="";
 
@@ -76,7 +74,6 @@ function changePw($oldpw, $newpw, $confirmNewPw) {
             $result = $statement->execute();
             return true;
         }
-    }
     };   
 ?><!DOCTYPE html>
 <html lang="en">
