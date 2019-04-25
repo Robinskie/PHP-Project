@@ -105,6 +105,7 @@
         <br>
         <label for="profileText">Write your profile text here</label>
         <input type="text" name="profileText" id="profileText">
+        <br>
         <input type="submit" value="Sign up">
     </form>
     <a href="login.php">Log in instead</a>
