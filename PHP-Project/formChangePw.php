@@ -2,7 +2,7 @@
 require_once("bootstrap.php");
 
 if (!empty($_POST)) {
-    echo "something";
+
     changePw($_POST['oldPw'], $_POST['newPw'], $_POST['confirmNewPw']);
 }
 
@@ -11,7 +11,7 @@ function changePw($oldpw, $newpw, $confirmNewPw) {
         //check if user is logged in 
         if(!empty($_SESSION['userid'])){
             echo "Sorry, Please login and use this page";
-        }
+        } else {
         $status = "OK";
         $msg="";
 
@@ -25,10 +25,13 @@ function changePw($oldpw, $newpw, $confirmNewPw) {
         //check if the old pw matches the current pw in the DB
             $userId = $_SESSION["userid"];
             //getting the current pw from the DB
-            $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null); // DB CONNECTIE AANPASSEN / ROOT
-            $statement = $conn->prepare("SELECT Password FROM users WHERE userId= :userid" );
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("SELECT password FROM users WHERE userId= :userid" );
             $statement->bindParam(":userid",$userId);
             $result = $statement->execute();
+            $DBresult = $statement->fetch(PDO::FETCH_ASSOC);
+
+            var_dump($DBresult);
 
             //hashing the old pw the user gave
             $options = [
@@ -38,7 +41,7 @@ function changePw($oldpw, $newpw, $confirmNewPw) {
             $oldpw = password_hash($oldpw,PASSWORD_DEFAULT,$options);
 
             //checking if the old pw that the user gave and the pw in the DB match
-            if ($result['password'] != $oldpw) {
+            if ($DBresult['password'] != $oldpw) {
                 $msg=$msg."Your old password  is not matching as per our record.<BR>";
 
                 $status= "NOTOK";
@@ -72,6 +75,7 @@ function changePw($oldpw, $newpw, $confirmNewPw) {
             $result = $statement->execute();
             return true;
         }
+    }
     };   
 ?><!DOCTYPE html>
 <html lang="en">
