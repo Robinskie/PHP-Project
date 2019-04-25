@@ -124,13 +124,9 @@
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-<<<<<<< HEAD
+
   
 <script src="like.js"></script>
     
-
-=======
-  <script src="like.js"></script>
->>>>>>> 497de8bf5f18bed6d56e71a360c30120024d686c
 </body>
 </html>
