@@ -1,6 +1,5 @@
 <?php 
 require_once("bootstrap.php");
-$oldpw = "";
 
 if (!empty($_POST)) {
     echo "something";
@@ -10,7 +9,7 @@ if (!empty($_POST)) {
 }
 
 function changePw($oldpw, $newpw, $confirmNewPw) {
-        $user = new User;
+        $user = new User();
         //check if user is logged in 
         if(!empty($_SESSION['userid'])){
             echo "Sorry, Please login and use this page";
@@ -22,7 +21,7 @@ function changePw($oldpw, $newpw, $confirmNewPw) {
         if ($newpw != $confirmNewPw) {
             $msg=$msg."Both passwords are not matching<BR>";
 
-            $status= "NOTOK";}	
+            $status= "NOTOK";	
         }
 
         //check if the old pw matches the current pw in the DB
@@ -72,7 +71,7 @@ function changePw($oldpw, $newpw, $confirmNewPw) {
             $result = $statement->execute();
             return true;
         }
-;   
+    };   
 
 
 function changeEmail ($oldEmail, $newEmail, $confirmNewEmail) {
@@ -87,13 +86,13 @@ function changeEmail ($oldEmail, $newEmail, $confirmNewEmail) {
     if ($newEmail != $confirmNewEmail) {
         $msg=$msg."Both email adresses are not matching<BR>";
 
-        $status= "NOTOK";}	
+        $status= "NOTOK";
     }
 
     //check if the old email matches the current email in the DB
         //getting the current email from the DB
         $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null); // DB CONNECTIE AANPASSEN / ROOT
-        $statement = $conn->prepare("SELECT Password FROM users WHERE userId='" . $_SESSION["userId"] . "'");
+        $statement = $conn->prepare("SELECT Password FROM users WHERE userId='" . $_SESSION["userid"] . "'");
         $result = $statement->execute();
 
         //check if both emails are the same
@@ -115,12 +114,12 @@ function changeEmail ($oldEmail, $newEmail, $confirmNewEmail) {
 
         //put the new pw in the DB
         $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null); // DB CONNECTIE AANPASSEN / ROOT
-        $statement = $conn->prepare("UPDATE users SET password=':email' WHERE userId='" . $_SESSION["userId"] . "'");
+        $statement = $conn->prepare("UPDATE users SET password=':email' WHERE userId='" . $_SESSION["userid"] . "'");
         $statement->bindParam(":email",$newEmail);
         $result = $statement->execute();
         return true;
         }
- 
+    }
 
 
 ?><!DOCTYPE html>
