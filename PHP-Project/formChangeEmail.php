@@ -8,7 +8,7 @@ function changeEmail ($oldEmail, $newEmail, $confirmNewEmail) {
     $user = new User();
     if(!isset($_SESSION['userid'])){
         echo "Sorry, Please login and use this page";
-    }
+    } else {
     $status = "OK";
     $msg="";
 
@@ -49,6 +49,7 @@ function changeEmail ($oldEmail, $newEmail, $confirmNewEmail) {
         $result = $statement->execute();
         return true;
         }
+    }
     };
 
 ?><!DOCTYPE html>
