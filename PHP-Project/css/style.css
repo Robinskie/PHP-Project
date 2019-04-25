@@ -16,3 +16,17 @@ body {
     color: red;
     padding: 10px;
 }
+
+.commentBox {
+    padding: 10px;
+    margin: 10px; 
+    border: 1px solid gray;
+}
+
+.commentBox .commentDate {
+    color: gray;
+}
+
+.commentBox .commentUserBox img {
+    border-radius: 100%;
+}

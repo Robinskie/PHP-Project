@@ -1,5 +1,11 @@
 console.log('eehm');
 	// include ook jquery voor dat je dit include
+<<<<<<< HEAD
+
+	console.log("jeeej");
+
+=======
+>>>>>>> 497de8bf5f18bed6d56e71a360c30120024d686c
 	var likeUnlike = 0;
 
 		//als er op de like btn word geklikt

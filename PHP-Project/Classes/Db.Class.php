@@ -3,7 +3,11 @@
         private static $conn;
 
         public static function getInstance() {
+<<<<<<< HEAD
+            $config = parse_ini_file(__DIR__ . '/../config/config.ini');
+=======
             $config = parse_ini_file(__DIR__ . "/../config/config.ini");
+>>>>>>> 497de8bf5f18bed6d56e71a360c30120024d686c
 
             if(self::$conn != null) {
                 return self::$conn;
