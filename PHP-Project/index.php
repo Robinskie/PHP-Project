@@ -21,7 +21,7 @@
     <div class="content">
 
     <!-- zoekformulier maken -->
-    <form  method="post" action="search.php?go"  id="searchform"> 
+    <form  method="post" action="search.php"  id="searchform"> 
 	    <input  type="text" name="name"> 
         <input  type="submit" name="submit" value="Search"> 
     </form>
