@@ -8,7 +8,12 @@
             if(self::$conn != null) {
                 return self::$conn;
             } else {
-                self::$conn = new PDO("mysql:host=" . $config['db_host'] . ";dbname=" . $config['db_name'], $config['db_user'], $config['db_password']);
+                try {
+                    self::$conn = new PDO("mysql:host=" . $config['db_host'] . ";dbname=" . $config['db_name'], $config['db_user'], $config['db_password']);
+                }
+                catch (PDOException $e) {
+                    var_dump($e);
+                }
                 return self::$conn;
             }
         }
