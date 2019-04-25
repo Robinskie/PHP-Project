@@ -1,6 +1,8 @@
 <?php
 require_once("bootstrap.php");
+
 redirectIfLoggedOut();
+
 if (!empty($_POST)) {
     echo "something";
     changeEmail($_POST['oldEmail'], $_POST['newEmail'], $_POST['confirmNewEmail']);
