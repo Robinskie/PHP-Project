@@ -1,14 +1,18 @@
 <?php 
+require_once("bootstrap.php");
+$oldpw = "";
+
 if (!empty($_POST)) {
+    echo "something";
     changePw($_POST['oldpw'], $_POST['newpw'], $_POST['confirmNewPw']);
     changeEmail($_POST['oldEmail'], $_POST['newEmail'], $_POST['confirmNewEmail']);
     echo $newpw;
 }
 
-function changePw ($oldpw, $newpw, $confirmNewPw) {
-
+function changePw($oldpw, $newpw, $confirmNewPw) {
+        $user = new User;
         //check if user is logged in 
-        if(!isset($_SESSION['userid'])){
+        if(!empty($_SESSION['userid'])){
             echo "Sorry, Please login and use this page";
         }
         $status = "OK";
@@ -22,9 +26,11 @@ function changePw ($oldpw, $newpw, $confirmNewPw) {
         }
 
         //check if the old pw matches the current pw in the DB
+            $userId = $_SESSION["userid"];
             //getting the current pw from the DB
             $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null); // DB CONNECTIE AANPASSEN / ROOT
-            $statement = $conn->prepare("SELECT Password FROM users WHERE userId='" . $_SESSION["userId"] . "'");
+            $statement = $conn->prepare("SELECT Password FROM users WHERE userId= :userid" );
+            $statement->bindParam(":userid",$userId);
             $result = $statement->execute();
 
             //hashing the old pw the user gave
@@ -36,7 +42,6 @@ function changePw ($oldpw, $newpw, $confirmNewPw) {
 
             //checking if the old pw that the user gave and the pw in the DB match
             if ($result['password'] != $oldpw) {
-            
                 $msg=$msg."Your old password  is not matching as per our record.<BR>";
 
                 $status= "NOTOK";
@@ -67,7 +72,7 @@ function changePw ($oldpw, $newpw, $confirmNewPw) {
             $result = $statement->execute();
             return true;
         }
-};   
+;   
 
 
 function changeEmail ($oldEmail, $newEmail, $confirmNewEmail) {
@@ -115,8 +120,7 @@ function changeEmail ($oldEmail, $newEmail, $confirmNewEmail) {
         $result = $statement->execute();
         return true;
         }
-
-}   
+ 
 
 
 ?><!DOCTYPE html>
