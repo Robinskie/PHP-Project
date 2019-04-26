@@ -38,7 +38,7 @@
                 // @todo: hook in a new function that checks if a user has already liked a post
     
                 $conn = Db::getInstance();
-                $statement = $conn->prepare("insert into likes (photo_id, user_id, date_created) values (:photoid, :userid, NOW())");
+                $statement = $conn->prepare("DELETE FROM likes WHERE photoId=:photoId AND userid=:userId");
                 $statement->bindValue(":photoid", $this->getPhotoId());
                 $statement->bindValue(":userid", $this->getUserId());
                 return $statement->execute();
