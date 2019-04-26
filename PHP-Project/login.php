@@ -19,7 +19,7 @@
         
         else if(!$user->filledIn($password)){
             global $errorMessage;
-            $errorMessage = "you didn't fill in your password";
+            $errorMessage = "you did not fill in your password";
 
         }
         else {      
@@ -29,7 +29,7 @@
                 $_SESSION['userid'] = $result;
                 header("Location: index.php");
             } else {
-                $errorMessage = "this is not correct, please try again";
+                $errorMessage = "This is not correct, please try again";
             }
         }
     };
@@ -55,7 +55,7 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password">
         <br>
-        <input type="submit" value="Sign up">
+        <input type="submit" value="Sign in">
     </form>
     <a href="register.php">I don't have an account yet!</a>
 </body>

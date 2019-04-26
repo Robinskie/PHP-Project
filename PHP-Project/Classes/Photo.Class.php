@@ -8,6 +8,8 @@
         private $tags;
         private $date;
         private $likes;
+        private $input;
+        private $zoekresultaat;
 
         public function getId()
         {
@@ -152,5 +154,5 @@
                 $statement->execute();
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
                 return $result['count'];
-            }
-    }
+        }
+}
