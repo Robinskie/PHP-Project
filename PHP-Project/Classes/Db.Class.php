@@ -9,7 +9,7 @@
                 return self::$conn;
             } else {
                 try {
-                    self::$conn = new PDO("mysql:host=" . $config['db_host'] . ";dbname=" . $config['db_name'], $config['db_user'], $config['db_password']);
+                    self::$conn = new PDO("mysql:host=" . $config['db_host'] . ";port=" . $config['db_port'] . ";dbname=" . $config['db_name'], $config['db_user'], $config['db_password']);
                 }
                 catch (PDOException $e) {
                     var_dump($e);
