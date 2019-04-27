@@ -158,8 +158,6 @@
                 $statement->bindParam(":password",$password);
                 $statement->bindParam(":avatar",$this->avatar);
                 $result = $statement->execute();
-                var_dump($result);
-                die();
 			    return $result;
 
 		    } catch(Throwable $t){
