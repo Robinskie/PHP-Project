@@ -1,5 +1,6 @@
 <?php
-    include_once("bootstrap.php");
+    require_once("bootstrap.php");
+    redirectIfLoggedOut();
 
     //check URL voor welke foto het is
     if(!empty($_GET)) {
@@ -19,7 +20,6 @@
         $photo->setUploadDate($result['uploadDate']);
         $photo->setDescription($result['description']);
         $photo->setUploadDate($result['uploadDate']);
-        $photo->setTags($result['tags']);
 
         //zelfde voor uploader
         $uploaderUser = new User();
@@ -45,6 +45,7 @@
     <title>PROJECT - PHOTO</title>
 </head>
 <body>
+    <?php include_once("includes/nav.inc.php");?>
     <!--photo weergeven met nodige info-->
     <h2><?php echo $photo->getName();?></h2>
 
@@ -54,7 +55,6 @@
     <p><strong>Uploaded by: </strong><?php echo $uploaderUser->getFirstName() . " " . $uploaderUser->getLastName();?></p>
     <p><strong> Upload date: </strong><?php echo $photo->getUploadDate();?></p>
     <p><?php echo $photo->getDescription();?></p>
-    <p><strong>Tags: </strong><?php echo $photo->getTags();?></p>
 
     <!--comment form-->
     <form name="commentForm">

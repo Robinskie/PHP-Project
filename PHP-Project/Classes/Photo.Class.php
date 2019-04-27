@@ -5,7 +5,6 @@
         private $uploader;
         private $uploadDate;
         private $description;
-        private $tags;
         private $date;
         private $likes;
         private $input;
@@ -63,17 +62,6 @@
         public function setUploader($uploader)
         {
                 $this->uploader = $uploader;
-                return $this;
-        }
-
-        public function getTags()
-        {
-                return $this->tags;
-        }
-
-        public function setTags($tags)
-        {
-                $this->tags = $tags;
                 return $this;
         }
 

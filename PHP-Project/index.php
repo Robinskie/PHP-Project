@@ -46,8 +46,7 @@
     <h2><a href="uploadPhoto.php">Upload a picture</a></h2>
     </div>
 
-  
-
+    <div class="homeFeed">
     <?php
         //FEED
         $photoArray = Db::simpleFetchAll("SELECT * FROM photos ORDER BY uploadDate");
@@ -67,9 +66,9 @@
             $count = $statement->fetch(PDO::FETCH_ASSOC);
 
             if($count > 0) {// al geliked
-                echo "dees moet geunliked worde";
+                //echo "dees moet geunliked worde";
             } else { // nog ni geliked
-                echo "dees moet geliked worden";
+                //echo "dees moet geliked worden";
             }
     ?>
         
@@ -82,6 +81,9 @@
             </div>
         
     <?php endforeach ?>
+    </div class="homeFeed">
+
+    <a class="loadMoreButton" id="loadMoreButton" href="#">Load more...</a>
 
     <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
