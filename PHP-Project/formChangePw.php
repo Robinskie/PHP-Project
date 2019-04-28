@@ -25,22 +25,20 @@ function changePw($oldpw, $newpw, $confirmNewPw) {
             $userId = $_SESSION["userid"];
             //getting the current pw from the DB
             $conn = Db::getInstance();
-            $statement = $conn->prepare("SELECT password FROM users WHERE userId= :userid" );
+            $statement = $conn->prepare("SELECT password FROM users WHERE id= :userid" );
             $statement->bindParam(":userid",$userId);
             $result = $statement->execute();
             $DBresult = $statement->fetch(PDO::FETCH_ASSOC);
-
+            var_dump($conn);
             var_dump($DBresult);
 
+
             //hashing the old pw the user gave
-            $options = [
-                'cost' => 12,
-            ];
-            
-            $oldpw = password_hash($oldpw,PASSWORD_DEFAULT,$options);
+ 
+
 
             //checking if the old pw that the user gave and the pw in the DB match
-            if ($DBresult['password'] != $oldpw) {
+            if (!password_verify($oldpw, $DBresult['password'])) {
                 $msg=$msg."Your old password  is not matching as per our record.<BR>";
 
                 $status= "NOTOK";
@@ -65,11 +63,15 @@ function changePw($oldpw, $newpw, $confirmNewPw) {
             //echo
             echo $newpw;
 
-            //put the new pw in the DB
-            $newpw = password_hash($this->pw,PASSWORD_DEFAULT,$options);
+            $options = [
+		        'cost' => 12,
+		    ];
 
-            $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null); // DB CONNECTIE AANPASSEN / ROOT
-            $statement = $conn->prepare("UPDATE users SET password=':password' WHERE userId='" . $_SESSION["userId"] . "'");
+            //put the new pw in the DB
+            $newpw = password_hash($newpw,PASSWORD_DEFAULT,$options);
+
+            $conn = Db::getInstance(); // DB CONNECTIE AANPASSEN / ROOT
+            $statement = $conn->prepare("UPDATE users SET password=:password WHERE id='" . $_SESSION["userid"] . "'");
             $statement->bindParam(":password",$newpw);
             $result = $statement->execute();
             return true;
