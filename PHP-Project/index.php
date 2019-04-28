@@ -70,6 +70,7 @@
             $photo = new Photo();
             $photo->setId($photoRow['pId']);
             $photo->setName($photoRow['name']);
+            $photo->setUploadDate($photoRow['uploadDate']);
             $photoId = $photo->getId();
             $userId = $_SESSION['userid'];
 
@@ -77,31 +78,23 @@
             $uploadUser->setFirstName($photoRow['firstName']);
             $uploadUser->setLastName($photoRow['lastName']);
 
-            $conn = Db::getInstance();
-            $statement = $conn->prepare("SELECT count(*) AS total FROM likes WHERE photo_id = :photoid AND user_id = :userid ");
-            $statement->bindParam(":photoid",$photoId);
-            $statement->bindParam(":userid",$userId);
-            $statement->execute();
-
-            $row = $statement->fetch(PDO::FETCH_ASSOC);
-            $count = $row['total'];
-            var_dump($count);
-            if($count > 0) {// al geliked
-                echo "dees moet geunliked worde";
-                $isLiked = true;
-            } else { // nog ni geliked
-                echo "dees moet geliked worden";
-                $isLiked = false;
-            }
+            $likeCount = Db::simpleFetch("SELECT count(*) AS count FROM likes WHERE photo_id=" . $photo->getId())['count'];
+            $isLiked = Db::simpleFetch("SELECT count(*) AS count FROM likes WHERE photo_id=" . $photo->getId() . " AND user_id=" . $_SESSION['userid'])['count'];
     ?>
         
             <div class="photoBox">
                 <a href="photo.php?id=<?php echo $photo->getId(); ?>">
+                    <h3><?php echo $photo->getName(); ?></h3>
                     <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
-                    <p><?php echo $photo->getName(); ?></p>
                     <p><i><?php echo $uploadUser->getFirstName() . " " . $uploadUser->getLastName(); ?></i></p>
+                    <p class="photoDate"><?php echo howLongAgo($photo->getUploadDate()); ?></p>
+                    <p><span class="likeCount"><?php echo $likeCount;?></span> people like this</p>
+                    <?php if($isLiked) { ?>
+                        <a href="#" id="likeButton" class="likeButton" data-id="<?php echo $photo->getId();?>" data-liked=true>Unlike </a>
+                    <?php } else { ?>
+                        <a href="#" id="likeButton" class="likeButton" data-id="<?php echo $photo->getId();?>" data-liked=false>Like </a>
+                    <?php } ?>
                 </a>
-                <div><a href="#" data-id="<?php echo $photo->getId() ?>" data-isLiked="<?php echo $isLiked ?>" class="like">Like</a> <span class='likes'><?php echo $photo->getLikes(); ?></span> people like this </div>
             </div>
         
     <?php endforeach ?>
@@ -115,7 +108,7 @@
   crossorigin="anonymous"></script>
 
   
-<script src="like.js"></script>
+<script src="js/like.js"></script>
     
 </body>
 </html>

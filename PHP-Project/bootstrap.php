@@ -18,3 +18,7 @@
             header('Location:login.php');
         }
     }
+
+    function howLongAgo($dateTime) {
+        return $dateTime;
+    }

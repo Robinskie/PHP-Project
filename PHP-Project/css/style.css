@@ -2,11 +2,34 @@ body {
     font-family: sans-serif;
 }
 
+.hidden {
+    display: none;
+}
+
 .photoBox {
     display: inline-block;
     padding: 10px;
     margin: 10px; 
     border: 1px solid gray;
+}
+
+.photoBox a {
+    color: black;
+    text-decoration: none;
+}
+
+.photoBox .photoDate {
+    color: gray;
+}
+
+.photoBox .likeButton {
+    display: inline-block;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 4px;
+    background-color: #2898A3;
+    font-weight: bold;
+    color: white;
 }
 
 .errorBox {
