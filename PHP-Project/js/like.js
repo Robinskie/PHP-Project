@@ -23,23 +23,21 @@
 				},
 					dataType: "JSON" 
 				}).done(function(res) {
-					//er is nog niet geliked
-					if (isLiked == "false") {
-						if( res.status == "success" ) {
+					if( res.status == "success" ) {
+						//er is nog niet geliked
+						console.log(isLiked);
+						console.log(res.status);
+						if(isLiked == 0) {
 							likes++;
 							elLikes.html(likes);
 							likeButton.html("Unlike");
-							likeButton.data('liked', "true");
-						}
-					} 
-					//er is al geliked
-					else {
-						if( res.status == "success" ) {
+							likeButton.data('liked', 1);
+						} else if(isLiked == 1) {
 							likes--;
 							elLikes.html(likes);
 							likeButton.html("Like");
-							likeButton.data('liked', "false");
+							likeButton.data('liked', 0);
 						}
-					}
+				}
 			});
 		})

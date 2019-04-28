@@ -7,12 +7,12 @@
         $userId = $_SESSION['userid']; //hier kunt ge u user vanuit u databank meegeven
         $isLiked = $_POST['isLiked'];
 
-        if($isLiked == "false") {
+        if($isLiked == 0) {
             $like = new Like();
             $like->setPhotoId($photoId);
             $like->setUserId($userId);
             $like->save();//staat in classes/like.php
-        } else {
+        } else if($isLiked == 1) {
             $like = new Like();
             $like->setPhotoId($photoId);
             $like->setUserId($userId);

@@ -90,9 +90,9 @@
                     <p class="photoDate"><?php echo howLongAgo($photo->getUploadDate()); ?></p>
                     <p><span class="likeCount"><?php echo $likeCount;?></span> people like this</p>
                     <?php if($isLiked) { ?>
-                        <a href="#" id="likeButton" class="likeButton" data-id="<?php echo $photo->getId();?>" data-liked=true>Unlike </a>
+                        <a href="#" id="likeButton" class="likeButton" data-id="<?php echo $photo->getId();?>" data-liked=1>Unlike</a>
                     <?php } else { ?>
-                        <a href="#" id="likeButton" class="likeButton" data-id="<?php echo $photo->getId();?>" data-liked=false>Like </a>
+                        <a href="#" id="likeButton" class="likeButton" data-id="<?php echo $photo->getId();?>" data-liked=0>Like</a>
                     <?php } ?>
                 </a>
             </div>
