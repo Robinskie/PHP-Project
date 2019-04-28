@@ -1,8 +1,5 @@
-
-console.log('eehm');
 	// include ook jquery voor dat je dit include
 
-	var likeUnlike = 0;
 
 		//als er op de like btn word geklikt
 		$("a.like").on("click", function(e){// e staat voor event
@@ -17,18 +14,18 @@ console.log('eehm');
 				$.ajax({
 					method: "POST", //post (=set), ge creeert data bij
 					url: "ajax/like.php", //pagina om da te verwerken
-					data: { photoId: photoId }, //postId meegeven, ma ge kunt eender welke data meegeven
+					data: { photoId: photoId,
+							isLiked: $isLiked}, //postId meegeven, ma ge kunt eender welke data meegeven
 					dataType: "Json" // de server ga json terugggeven
 				})
 				.done(function(res) {
 					console.log('ajax_begin');
 					//er is nog niet geliked
-					if (likeUnlike === 0) {
+					if ($isLiked === false) {
 						if( res.status == "succes" ) {
 						console.log('++');
 						likes++;
 						elLikes.html(likes);
-						likeUnlike = 1;
 						e.preventDefault();//ge ga ni meer naar boven in de pagina springen 
 						}
 					} 
@@ -37,7 +34,6 @@ console.log('eehm');
 						if( res.status == "succes" ) {
 						likes--;
 						elLikes.html(likes);
-						likeUnlike = 0;
 						e.preventDefault();//ge ga ni meer naar boven in de pagina springen 
 						}
 					}

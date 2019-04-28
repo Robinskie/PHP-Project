@@ -78,17 +78,20 @@
             $uploadUser->setLastName($photoRow['lastName']);
 
             $conn = Db::getInstance();
-            $statement = $conn->prepare("SELECT count(*) AS count FROM likes WHERE photo_id = :photoid AND user_id = :userid ");
+            $statement = $conn->prepare("SELECT count(*) AS total FROM likes WHERE photo_id = :photoid AND user_id = :userid ");
             $statement->bindParam(":photoid",$photoId);
             $statement->bindParam(":userid",$userId);
-            $result = $statement->execute();
+            $statement->execute();
 
-            $count = $statement->fetch(PDO::FETCH_ASSOC);
-
+            $row = $statement->fetch(PDO::FETCH_ASSOC);
+            $count = $row['total'];
+            var_dump($count);
             if($count > 0) {// al geliked
-                //echo "dees moet geunliked worde";
+                echo "dees moet geunliked worde";
+                $isLiked = true;
             } else { // nog ni geliked
-                //echo "dees moet geliked worden";
+                echo "dees moet geliked worden";
+                $isLiked = false;
             }
     ?>
         
@@ -98,7 +101,7 @@
                     <p><?php echo $photo->getName(); ?></p>
                     <p><i><?php echo $uploadUser->getFirstName() . " " . $uploadUser->getLastName(); ?></i></p>
                 </a>
-                <div><a href="#" data-id="<?php echo $photo->getId() ?>" data-isLiked="<?php echo $photo->getId() ?>" class="like">Like</a> <span class='likes'><?php echo $photo->getLikes(); ?></span> people like this </div>
+                <div><a href="#" data-id="<?php echo $photo->getId() ?>" data-isLiked="<?php echo $isLiked ?>" class="like">Like</a> <span class='likes'><?php echo $photo->getLikes(); ?></span> people like this </div>
             </div>
         
     <?php endforeach ?>
