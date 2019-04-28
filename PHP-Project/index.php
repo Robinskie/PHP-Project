@@ -46,8 +46,7 @@
     <h2><a href="uploadPhoto.php">Upload a picture</a></h2>
     </div>
 
-  
-
+    <div class="homeFeed">
     <?php
         //FEED
         $photoArray = Db::simpleFetchAll("SELECT * FROM photos ORDER BY uploadDate");
@@ -86,6 +85,9 @@
             </div>
         
     <?php endforeach ?>
+    </div class="homeFeed">
+
+    <a class="loadMoreButton" id="loadMoreButton" href="#">Load more...</a>
 
     <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"

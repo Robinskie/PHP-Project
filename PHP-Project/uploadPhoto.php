@@ -13,7 +13,6 @@
         $photo->setUploadDate(date("Y-m-d H:i:s"));
         $photo->setUploader($_SESSION['userid']);
         $photo->setDescription($_POST['description']);
-        $photo->setTags($_POST['tags']);
         
         //checks
         if(!$photo->checkIfFilledIn($photo->getName())) {
@@ -29,12 +28,11 @@
         //in orde -> let's upload
         if($errorMessage == "") {
             $conn = Db::getInstance();
-            $statement = $conn->prepare("INSERT INTO photos (name, uploader, uploadDate, description, tags) values (:name, :uploader, :uploadDate, :description, :tags)");
+            $statement = $conn->prepare("INSERT INTO photos (name, uploader, uploadDate, description) values (:name, :uploader, :uploadDate, :description)");
             $statement->bindValue(":name", $photo->getName());
             $statement->bindValue(":uploader", $photo->getUploader());
             $statement->bindValue(":uploadDate", $photo->getUploadDate());
             $statement->bindValue(":description", $photo->getDescription());
-            $statement->bindValue(":tags", $photo->getTags());
             $statement->execute();
 
             //image maken
@@ -92,10 +90,6 @@
             <label for="description">Description: </label>
         </div>
         <textarea name="description" form="uploadForm" cols="83" rows="5" style="resize: none"></textarea>
-        <div>
-            <label for="tags">Tags (divide with spaces): </label>
-            <input type="tags" id="tags" name="tags">
-        </div>
         <div>        
             <input type="submit" value="Upload">
         </div>
