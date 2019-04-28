@@ -49,13 +49,33 @@
     <div class="homeFeed">
     <?php
         //FEED
-        $photoArray = Db::simpleFetchAll("SELECT * FROM photos ORDER BY uploadDate");
+        if(empty($_GET['postLimit'])) {
+            $postLimit = 5;
+        } else {
+            $postLimit = $_GET['postLimit'];
+        }
+
+        $conn = Db::getInstance();
+        $statement = $conn->prepare(
+            "SELECT *, photos.id AS pId, users.id AS uId FROM photos 
+            LEFT JOIN users ON photos.uploader = users.id 
+            RIGHT JOIN followers ON followers.followedUser = photos.uploader
+            WHERE followers.followingUser = :currentUser
+            ORDER BY uploadDate DESC
+            LIMIT " . $postLimit);
+        $statement->bindParam(":currentUser", $_SESSION['userid']);
+        $result = $statement->execute();
+        $photoArray = $statement->fetchAll(PDO::FETCH_ASSOC);
         foreach($photoArray as $photoRow):
             $photo = new Photo();
-            $photo->setId($photoRow['id']);
+            $photo->setId($photoRow['pId']);
             $photo->setName($photoRow['name']);
             $photoId = $photo->getId();
             $userId = $_SESSION['userid'];
+
+            $uploadUser = new User();
+            $uploadUser->setFirstName($photoRow['firstName']);
+            $uploadUser->setLastName($photoRow['lastName']);
 
             $conn = Db::getInstance();
             $statement = $conn->prepare("SELECT count(*) AS count FROM likes WHERE photo_id = :photoid AND user_id = :userid ");
@@ -76,6 +96,7 @@
                 <a href="photo.php?id=<?php echo $photo->getId(); ?>">
                     <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
                     <p><?php echo $photo->getName(); ?></p>
+                    <p><i><?php echo $uploadUser->getFirstName() . " " . $uploadUser->getLastName(); ?></i></p>
                 </a>
                 <div><a href="#" data-id="<?php echo $photo->getId() ?>" data-isLiked="<?php echo $photo->getId() ?>" class="like">Like</a> <span class='likes'><?php echo $photo->getLikes(); ?></span> people like this </div>
             </div>
@@ -83,7 +104,7 @@
     <?php endforeach ?>
     </div class="homeFeed">
 
-    <a class="loadMoreButton" id="loadMoreButton" href="#">Load more...</a>
+    <a class="loadMoreButton" id="loadMoreButton" href="index.php?postLimit=<?php echo $postLimit + 5;?>">Load more...</a>
 
     <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
