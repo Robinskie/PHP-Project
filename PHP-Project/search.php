@@ -19,7 +19,7 @@
 <body>
     <?php include_once("includes/nav.inc.php");?>
     
-    <h1>Zoekresultaten</h1>
+    <h1>Search results</h1>
     <div class="content">
     <!-- zoekresultaten op basis van tags/zoekwoorden -->
 
