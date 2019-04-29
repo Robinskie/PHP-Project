@@ -12,6 +12,7 @@
         private $avatarType; //filetype of uploaded avatar
         private $avatarTmpName;
         private $profileText; 
+        private $value; //zoekfunctie
  
         //GETTER & SETTERS in de volgorde dat de variabelen hierboven staan
  
@@ -97,15 +98,15 @@
         //all the functions except GETTERS and SETTERS
         public function filledIn($field){
             if(empty($field)){
-                return false;
+            return false;
             } else {
-                return true;
+            return true;
             }
         }
 
         public function itemsAreEqual($item1, $item2){
             if($item1 != $item2){
-                return false;
+            return false;
             } 
             return true;
         }
@@ -182,6 +183,10 @@
             } else {
                 return false;
             }
-      
         }
-    }
+
+        public function search(){
+        // code zoekfunctie
+        }
+
+}
