@@ -196,9 +196,4 @@
                 return false;
             }
         }
-
-        public function search(){
-        // code zoekfunctie
-        }
-
 }

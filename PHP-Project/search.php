@@ -1,6 +1,8 @@
 <?php
     require_once("bootstrap.php");
     redirectIfLoggedOut();
+
+    $foundPhotos = Db::searchPhotos($_GET['search']);
     
 ?><!DOCTYPE html>
 <html lang="en">
@@ -20,7 +22,10 @@
     <!-- zoekresultaten op basis van tags/zoekwoorden -->
 
 <?php
-
+    foreach ($foundPhotos as $foundPhotos) {
+    echo "$foundPhotos <br>";
+    // var_dump(Db::searchPhotos("#birds"));
+    }
 ?>
 
 </div>
