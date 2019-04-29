@@ -35,7 +35,7 @@
         // zoekfunctie maken 
         public static function searchPhotos($foundPhotos) {
             self::$conn = Db::getInstance();
-            $statement = self::$conn->prepare("SELECT * FROM photos WHERE 'description' like '%$foundPhotos%'");
+            $statement = self::$conn->prepare("SELECT * FROM photos WHERE description LIKE '%$foundPhotos%'");
             $statement->execute();
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
