@@ -2,7 +2,7 @@
     require_once("bootstrap.php");
 
     class User {
- 
+        private $id;
         private $email;
         private $firstName;
         private $lastName;
@@ -16,6 +16,14 @@
  
         //GETTER & SETTERS in de volgorde dat de variabelen hierboven staan
  
+        public function getId() {
+            return $this->id;
+        }
+        public function setId($id) {
+            $this->id = $id;
+            return $this;
+        }
+
         public function getEmail() {
             return $this->email;
         }
@@ -40,6 +48,10 @@
         public function setLastName($lastName){
             $this->lastName = $lastName;
             return $this;
+        }
+
+        public function getFullName() {
+            return $this->firstName . " " . $this->lastName;
         }
 
         public function getPw(){

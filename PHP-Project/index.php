@@ -25,7 +25,6 @@
     </form> 
     <!-- einde formulier -->
 
-
     <h2><a href="uploadPhoto.php">Upload a picture</a></h2>
     </div>
 
@@ -49,27 +48,25 @@
         $statement->bindParam(":currentUser", $_SESSION['userid']);
         $result = $statement->execute();
         $photoArray = $statement->fetchAll(PDO::FETCH_ASSOC);
+        
         foreach($photoArray as $photoRow):
             $photo = new Photo();
             $photo->setId($photoRow['pId']);
-            $photo->setName($photoRow['name']);
-            $photo->setUploadDate($photoRow['uploadDate']);
+            $photo->setData();
             $photoId = $photo->getId();
             $userId = $_SESSION['userid'];
 
-            $uploadUser = new User();
-            $uploadUser->setFirstName($photoRow['firstName']);
-            $uploadUser->setLastName($photoRow['lastName']);
+            $uploadUser = $photo->getUploaderObject();
 
-            $likeCount = Db::simpleFetch("SELECT count(*) AS count FROM likes WHERE photo_id=" . $photo->getId())['count'];
-            $isLiked = Db::simpleFetch("SELECT count(*) AS count FROM likes WHERE photo_id=" . $photo->getId() . " AND user_id=" . $_SESSION['userid'])['count'];
-    ?>
+            $likeCount = $photo->getLikeCount();
+            $isLiked = $photo->getLikeState($userId);
+            ?>
         
             <div class="photoBox">
                 <a href="photo.php?id=<?php echo $photo->getId(); ?>">
                     <h3><?php echo $photo->getName(); ?></h3>
                     <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
-                    <p><i><?php echo $uploadUser->getFirstName() . " " . $uploadUser->getLastName(); ?></i></p>
+                    <p><i><?php echo $uploadUser->getFullName(); ?></i></p>
                     <p class="photoDate"><?php echo howLongAgo($photo->getUploadDate()); ?></p>
                     <p><span class="likeCount"><?php echo $likeCount;?></span> people like this</p>
                     <?php if($isLiked) { ?>

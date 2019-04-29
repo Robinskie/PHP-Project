@@ -5,7 +5,6 @@
         private $uploader;
         private $uploadDate;
         private $description;
-        private $date;
         private $likes;
         private $input;
         private $zoekresultaat;
@@ -62,17 +61,6 @@
         public function setUploader($uploader)
         {
                 $this->uploader = $uploader;
-                return $this;
-        }
-
-        public function getDate()
-        {
-                return $this->date;
-        }
-
-        public function setDate($date)
-        {
-                $this->date = $date;
                 return $this;
         }
 
@@ -135,12 +123,31 @@
             return "images/photos/" . $this->id . "_cropped.png";
         }
 
-        public function getLikes(){
-                $conn = Db::getInstance();
-                $statement = $conn->prepare("select count(*) as count from likes where photo_id = :photoid");
-                $statement->bindValue(":photoid", $this->id);
-                $statement->execute();
-                $result = $statement->fetch(PDO::FETCH_ASSOC);
-                return $result['count'];
+        public function getLikeCount(){
+                return Db::simpleFetch("SELECT count(*) AS count FROM likes WHERE photo_id=" . $this->id)['count'];
+        }
+
+        public function getLikeState($userId) {
+                return Db::simpleFetch("SELECT count(*) AS count FROM likes WHERE photo_id=" . $this->id . " AND user_id=" . $userId)['count'];
+        }
+
+        public function setData() {
+                $photoRow = Db::simpleFetch("SELECT * FROM photos WHERE id = " . $this->id);
+                $this->name = $photoRow['name'];
+                $this->uploader = $photoRow['uploader'];
+                $this->description = $photoRow['uploader'];
+                $this->uploadDate = $photoRow['uploadDate'];
+                return $this;
+        }
+
+        public function getUploaderObject() {
+                $userRow = Db::simpleFetch("SELECT * FROM users WHERE id = " . $this->uploader);
+                $user = new User();
+                $user->setId($userRow['id']);
+                $user->setEmail($userRow['email']);
+                $user->setFirstName($userRow['firstName']);
+                $user->setLastName($userRow['lastName']);
+                $user->setProfileText($userRow['profileText']);
+                return $user;
         }
 }
