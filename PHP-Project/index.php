@@ -60,6 +60,10 @@
 
             $likeCount = $photo->getLikeCount();
             $isLiked = $photo->getLikeState($userId);
+
+            // een foto rapporteren 
+            $reportCount = $photo->getReportCount();
+            $isReported = $photo->getReportState($userId);
             ?>
         
             <div class="photoBox">
@@ -68,12 +72,26 @@
                     <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
                     <p><i><?php echo $uploadUser->getFullName(); ?></i></p>
                     <p class="photoDate"><?php echo howLongAgo($photo->getUploadDate()); ?></p>
+
                     <p><span class="likeCount"><?php echo $likeCount;?></span> people like this</p>
+                    
+                    <!-- hoeveel mensen hebben dit gerapporteerd? -->
+                    <p><span class="reportCount"><?php echo $reportCount;?></span> people reported this</p>
+
                     <?php if($isLiked) { ?>
                         <a href="#" id="likeButton" class="likeButton" data-id="<?php echo $photo->getId();?>" data-liked=1>Unlike</a>
                     <?php } else { ?>
                         <a href="#" id="likeButton" class="likeButton" data-id="<?php echo $photo->getId();?>" data-liked=0>Like</a>
                     <?php } ?>
+
+                    <!-- een post rapporteren -->              
+                    <?php if($isReported) { ?>
+                        <a href="#" id="reportButton" class="reportButton" data-id="<?php echo $photo->getId();?>" data-reported=1>Take back</a>
+                    <?php } else { ?>
+                        <a href="#" id="reportButton" class="reportButton" data-id="<?php echo $photo->getId();?>" data-reported=0>Report</a>
+                    <?php } ?>
+
+                
                 </a>
             </div>
         
@@ -89,6 +107,7 @@
 
   
 <script src="js/like.js"></script>
+<script src="js/report.js"></script>
     
 </body>
 </html>

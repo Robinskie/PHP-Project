@@ -32,6 +32,7 @@
 							elLikes.html(likes);
 							likeButton.html("Unlike");
 							likeButton.data('liked', 1);
+							
 						} else if(isLiked == 1) {
 							likes--;
 							elLikes.html(likes);

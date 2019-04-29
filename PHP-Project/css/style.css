@@ -32,6 +32,16 @@ body {
     color: white;
 }
 
+#reportButton {
+    display: inline-block;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 4px;
+    background-color:red;
+    font-weight: bold;
+    color: #ffffff;
+}
+
 .errorBox {
     display: inline-block;
     border: 1px solid red;

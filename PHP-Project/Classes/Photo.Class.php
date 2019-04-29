@@ -6,8 +6,8 @@
         private $uploadDate;
         private $description;
         private $likes;
+        private $reports;
         private $input;
-        private $zoekresultaat;
 
         public function getId()
         {
@@ -130,6 +130,17 @@
         public function getLikeState($userId) {
                 return Db::simpleFetch("SELECT count(*) AS count FROM likes WHERE photo_id=" . $this->id . " AND user_id=" . $userId)['count'];
         }
+
+        // een foto rapporteren
+
+        public function getReportCount(){
+                return Db::simpleFetch("SELECT count(*) AS count FROM reports WHERE photo_id=" . $this->id)['count'];
+        }
+
+        public function getReportState($userId) {
+                return Db::simpleFetch("SELECT count(*) AS count FROM reports WHERE photo_id=" . $this->id . " AND user_id=" . $userId)['count'];
+        }
+
 
         public function setData() {
                 $photoRow = Db::simpleFetch("SELECT * FROM photos WHERE id = " . $this->id);
