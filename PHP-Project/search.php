@@ -19,19 +19,35 @@
 <body>
     <?php include_once("includes/nav.inc.php");?>
     
-    <h1>Zoekresultaten </h1>
+    <h1>Zoekresultaten</h1>
     <div class="content">
     <!-- zoekresultaten op basis van tags/zoekwoorden -->
 
-<?php
-    foreach ($foundPhotos as $foundPhoto) {
-        $photo = new Photo();
-        $photo->setId($foundPhoto['id']);
-        $photo->setData();
-        echo $photo->getName() . "<br>";
-    }
-?>
+<!-- de resultaten toon je in een feed --> 
+<!-- klik je op een resultaat, dan krijg je de detailpagina te zien met commentaren -->
+<?php foreach ($foundPhotos as $foundPhoto):
 
+            $photo = new Photo();
+            $photo->setId($foundPhoto['id']);
+            $photo->setData();
+
+            $uploadUser = $photo->getUploaderObject();
+            $likeCount = $photo->getLikeCount();
+            ?>
+        
+            <div class="photoBox">
+            <a href="photo.php?id=<?php echo $photo->getId(); ?>">
+            <h3><?php echo $photo->getName();?></h3>
+            <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
+            <p><i><?php echo $uploadUser->getFullName(); ?></i></p>
+            <p class="photoDate"><?php echo howLongAgo($photo->getUploadDate()); ?></p>
+            <p><span class="likeCount"><?php echo $likeCount;?></span> people like this</p>
+                    
+            </a>
+            </div>
+        
+    <?php endforeach ?>
+ 
 </div>
 
 

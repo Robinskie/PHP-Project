@@ -49,7 +49,7 @@
         $result = $statement->execute();
         $photoArray = $statement->fetchAll(PDO::FETCH_ASSOC);
         
-        foreach($photoArray as $photoRow):
+    foreach($photoArray as $photoRow):
             $photo = new Photo();
             $photo->setId($photoRow['pId']);
             $photo->setData();
