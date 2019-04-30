@@ -123,14 +123,6 @@
             return "images/photos/" . $this->id . "_cropped.png";
         }
 
-        public function getLikeCount(){
-                return Db::simpleFetch("SELECT count(*) AS count FROM likes WHERE photo_id=" . $this->id)['count'];
-        }
-
-        public function getLikeState($userId) {
-                return Db::simpleFetch("SELECT count(*) AS count FROM likes WHERE photo_id=" . $this->id . " AND user_id=" . $userId)['count'];
-        }
-
         // een foto rapporteren
 
         public function getReportCount(){
@@ -141,6 +133,13 @@
                 return Db::simpleFetch("SELECT count(*) AS count FROM reports WHERE photo_id=" . $this->id . " AND user_id=" . $userId)['count'];
         }
 
+        public function getLikeCount(){
+                return Db::simpleFetch("SELECT count(*) AS count FROM likes WHERE photo_id=" . $this->id)['count'];
+        }
+
+        public function getLikeState($userId) {
+                return Db::simpleFetch("SELECT count(*) AS count FROM likes WHERE photo_id=" . $this->id . " AND user_id=" . $userId)['count'];
+        }
 
         public function setData() {
                 $photoRow = Db::simpleFetch("SELECT * FROM photos WHERE id = " . $this->id);

@@ -105,9 +105,8 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 
-  
+<script src="js/report.js"></script>  
 <script src="js/like.js"></script>
-<script src="js/report.js"></script>
     
 </body>
 </html>
