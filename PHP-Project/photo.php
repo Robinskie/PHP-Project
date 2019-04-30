@@ -26,6 +26,7 @@
         $uploaderUserRow = Db::simpleFetch("SELECT * FROM users WHERE id = " . $photo->getUploader());
         $uploaderUser->setFirstName($uploaderUserRow['firstName']);
         $uploaderUser->setLastName($uploaderUserRow['lastName']);
+        $uploaderUser->setId($uploaderUserRow['id']);
 
         $currentUser = new User();
         $currentUserRow = Db::simpleFetch("SELECT * FROM users WHERE id = " . $_SESSION['userid']);
@@ -52,7 +53,7 @@
     <!--foto is een link naar de vergrootte weergave-->
     <a href="<?php echo $photo->getPhotoPath();?>"><img src="<?php echo $photo->getCroppedPhotoPath();?>"></a>
     
-    <p><strong>Uploaded by: </strong><?php echo $uploaderUser->getFirstName() . " " . $uploaderUser->getLastName();?></p>
+    <p><strong>Uploaded by: </strong><a href="profile.php?id=<?php echo $uploaderUser->getId();?>"><?php echo $uploaderUser->getFirstName() . " " . $uploaderUser->getLastName();?></a></p>
     <p><strong> Upload date: </strong><?php echo $photo->getUploadDate();?></p>
     <p><?php echo $photo->getDescription();?></p>
 
