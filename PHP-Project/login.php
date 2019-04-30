@@ -40,14 +40,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,900" rel="stylesheet">
     <title>PROJECT</title>
 </head>
 <body>
-    <form action="" method="post" enctype="multipart/form-data">
+<div class="leftColumn">
+    <form action="" method="post" enctype="multipart/form-data" id="form">
         <h2 form__title>Sign in</h2>
 
-        <p><?php echo $errorMessage; ?></p>
+        <?php if(!empty($errorMessage)): ?>
+            <p id="errorMessage"><?php echo $errorMessage; ?></p>
+        <?php endif; ?>
 
         <label for="email">Email</label>
         <input type="text" id="email" name="email">
@@ -55,8 +59,9 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password">
         <br>
-        <input type="submit" value="Sign in">
+        <input type="submit" value="Sign in" id="submitBtn">
     </form>
     <a href="register.php">I don't have an account yet!</a>
+</div>
 </body>
 </html>
