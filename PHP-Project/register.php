@@ -28,38 +28,38 @@
         if(!$user->filledIn($email)){
             //echo "you did not fill in your email";
             global $errorMessage;
-            $errorMessage = "you did not fill in your email";
+            $errorMessage = "You did not fill in your email.";
         } else if(!$user->filledIn($firstName)){
             //echo "you did not fill in your first name";
             global $errorMessage;
-            $errorMessage = "you did not fill in your first name";
+            $errorMessage = "You did not fill in your first name.";
         } else if(!$user->filledIn($lastName)){
             //echo "you did not fill in your last name";
             global $errorMessage;
-            $errorMessage = "you did not fill in your last name";
+            $errorMessage = "You did not fill in your last name.";
         } else if(!$user->filledIn($password)){
             //echo "you didn't enter a password";
             global $errorMessage;
-            $errorMessage = "you didn't enter a password";
+            $errorMessage = "You didn't enter a password.";
         } else if(!$user->filledIn($passwordConfirmation)){
             //echo "you need to confirm your password";
             global $errorMessage;
-            $errorMessage = "you need to confirm your password";
+            $errorMessage = "You need to confirm your password.";
         } else if(!$user->itemsAreEqual($password,$passwordConfirmation)){
             //echo "these passwords don't match";
             global $errorMessage;
-            $errorMessage = "these passwords don't match";
+            $errorMessage = "These passwords don't match.";
         } else if($user->checkIfEmailAlreadyExists($email)){
             //echo "there's already an account with this email, try logging in instead or use a different email";
             global $errorMessage;
-            $errorMessage = "there's already an account with this email, try logging in instead or use a different email";
+            $errorMessage = "There's already an account with this email, try logging in instead or use a different email.";
         } else if(!$user->isPwStrongEnough($password)){
             //echo "this password is not strong enough";
             global $errorMessage;
-            $errorMessage = "this password is not strong enough";
+            $errorMessage = "This password is not strong enough.";
         } else if (!$user->checkIfFileTypeIsImage($avatarType)) {
             global $errorMessage;
-            $errorMessage = "the uploaded file for your avatar is not an image";
+            $errorMessage = "The uploaded file for your avatar is not an image.";
         } else {
             $user->copyAvatartoImageFolder($avatar);
             $result = $user->register();
@@ -76,14 +76,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,900" rel="stylesheet">
     <title>PROJECT</title>
 </head>
 <body>
-    <form action="" method="post" enctype="multipart/form-data">
-        <h2 form__title>Sign up for an account</h2>
+    <div class="leftColumn">
+    <form action="" method="post" enctype="multipart/form-data" id="form">
+        <h2 form__title>Register your account</h2>
 
-        <p><?php echo $errorMessage; ?></p>
+        <?php if(!empty($errorMessage)): ?>
+            <p id="errorMessage"><?php echo $errorMessage; ?></p>
+        <?php endif; ?>
 
         <label for="email">Email</label>
         <input type="text" id="email" name="email">
@@ -106,8 +110,9 @@
         <label for="profileText">Write your profile text here</label>
         <input type="text" name="profileText" id="profileText">
         <br>
-        <input type="submit" value="Sign up">
+        <input type="submit" value="Register" id="submitBtn">
     </form>
-    <a href="login.php">Log in instead</a>
+    <a href="login.php">Or log in instead</a>
+    </div>
 </body>
 </html>
