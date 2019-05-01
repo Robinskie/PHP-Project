@@ -52,10 +52,17 @@
 
     <!--foto is een link naar de vergrootte weergave-->
     <a href="<?php echo $photo->getPhotoPath();?>"><img src="<?php echo $photo->getCroppedPhotoPath();?>"></a>
+
+    <!-- photo bewerken -->
+    <?php if($photo->getUploader() == $_SESSION['userid']) :?>
+        <a href="#">Bewerken</a>
+    <?php endif; ?>
     
+
     <p><strong>Uploaded by: </strong><a href="profile.php?id=<?php echo $uploaderUser->getId();?>"><?php echo $uploaderUser->getFirstName() . " " . $uploaderUser->getLastName();?></a></p>
     <p><strong> Upload date: </strong><?php echo $photo->getUploadDate();?></p>
     <p><?php echo $photo->getDescription();?></p>
+    
 
     <!--comment form-->
     <form name="commentForm">
