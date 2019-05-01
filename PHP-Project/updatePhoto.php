@@ -17,8 +17,11 @@
 
         $newPhoto = new Photo();
         $newPhoto->setName($_POST['name']);
-        $newPhoto->setDescription($_POST['description']);
-        
+        if(!empty($_POST['description'])) {
+            $newPhoto->setDescription($_POST['description']);
+        } else {
+            echo "description is empty";
+        }
         //checks
         if(!$newPhoto->checkIfFilledIn($newPhoto->getName())) {
             $errorMessage = "Please enter a name for your picture.";
@@ -26,15 +29,22 @@
         if(!$newPhoto->checkIfFilledIn($newPhoto->getDescription())) {
             $errorMessage = "Please enter a description for your picture.";
         }
-
+    
+    
+        
         //in orde -> let's update
         if($errorMessage == "") {
             $conn = Db::getInstance();
-            $statement = $conn->prepare("UPDATE `photos` SET `name`=:name,`description`=:description WHERE photoId");
+            $statement = $conn->prepare("UPDATE `photos` SET `name`=:name,`description`=:description WHERE id = :photoId");
             $statement->bindValue(":name", $newPhoto->getName());
             $statement->bindValue(":description", $newPhoto->getDescription());
+            $statement->bindValue(":description", $oldPhoto->getId())
             $statement->execute();
 
+        }
+
+        header('Location:photo.php?id=' . $oldPhoto->getId());
+    } ?> <!--
             //image maken
             $originalImage = imagecreatefromstring(file_get_contents($file['tmp_name']));
             //cropped image maken
@@ -55,7 +65,7 @@
     }
 
 
-?>
+?> -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +96,7 @@
         <div>
             <label for="description">Description: </label>
         </div>
-        <textarea name="description" form="uploadForm" cols="83" rows="5" style="resize: none"><?php echo $oldPhoto->getDescription()?></textarea>
+        <textarea name="description" form="updateForm" cols="83" rows="5" style="resize: none"><?php echo $oldPhoto->getDescription()?></textarea>
         <div>        
             <input type="submit" value="Update">
         </div>
