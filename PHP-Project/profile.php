@@ -30,6 +30,9 @@
     $statement4->execute();
     $postsCount = $statement4->rowCount();
 
+    $userId = $_SESSION['userid'];
+    $isFollowed = $user->getFollowState($userId);
+
 ?>
 
 <!DOCTYPE html>
@@ -47,13 +50,24 @@
     <h2>Bio</h2>
     <p><?php echo $user->getProfileText();?></p>
     <h2>followers</h2>
-    <p><?php echo $followersCount;?></p>
+    <p><span class="followersCount"><?php echo $followersCount;?></span></p>
     <h2>following</h2>
     <p><?php echo $followingCount;?></p>
     <h2>posts</h2>
     <p><?php echo $postsCount;?></p>
 
-    
+    <?php if($isFollowed) { ?>
+        <a href="#" id="followButton" class="followButton" data-id="<?php echo $user->getId();?>" data-followed=1>Unfollow</a>
+    <?php } else { ?>
+        <a href="#" id="followButton" class="followButton" data-id="<?php echo $user->getId();?>" data-followed=0>Follow</a>
+    <?php } ?>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+
+  
+    <script src="js/follow.js"></script>
 
 </body>
 </html>
