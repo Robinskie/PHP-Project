@@ -145,7 +145,7 @@
                 $photoRow = Db::simpleFetch("SELECT * FROM photos WHERE id = " . $this->id);
                 $this->name = $photoRow['name'];
                 $this->uploader = $photoRow['uploader'];
-                $this->description = $photoRow['uploader'];
+                $this->description = $photoRow['description'];
                 $this->uploadDate = $photoRow['uploadDate'];
                 return $this;
         }
