@@ -164,12 +164,13 @@
 
 		    try {
 			    $conn = Db::getInstance(); // DB CONNECTIE AANPASSEN / ROOT
-			    $statement = $conn->prepare("INSERT into users (email,firstName,lastName, password, avatar) VALUES (:email,:firstName,:lastName,:password, :avatar)");
+			    $statement = $conn->prepare("INSERT into users (email,firstName,lastName, password, avatar, profileText) VALUES (:email,:firstName,:lastName,:password, :avatar, :profileText)");
                 $statement->bindParam(":email",$this->email);
                 $statement->bindParam(":firstName",$this->firstName);
                 $statement->bindParam(":lastName",$this->lastName);
                 $statement->bindParam(":password",$password);
                 $statement->bindParam(":avatar",$this->avatar);
+                $statement->bindParam(":profileText",$this->profileText);
                 $result = $statement->execute();
 			    return $result;
 
@@ -196,4 +197,8 @@
                 return false;
             }
         }
+
+        public function getFollowState($userId) {
+            return Db::simpleFetch("SELECT count(*) AS count FROM followers WHERE followedUser = " . $this->id . " AND followingUser = " . $userId)['count'];
+    }
 }
