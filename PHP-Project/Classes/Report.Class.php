@@ -20,7 +20,7 @@
                 return $this;
         }
         
-        public function report(){
+        public function reportPicture(){
 
         // checks if a user has already reported a post
 

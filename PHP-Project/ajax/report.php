@@ -11,7 +11,7 @@
             $report = new Report();
             $report->setPhotoId($photoId);
             $report->setUserId($userId);
-            $report->report(); 
+            $report->reportPicture(); 
         } else if($isReported == 1) {
             $report = new Report();
             $report->setPhotoId($photoId);
