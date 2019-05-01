@@ -7,6 +7,7 @@
         //photo-object maken om u gegevens in te proppen
         $photo = new Photo();
         $photo->setId($_GET['id']);
+        $photo->setData();
         
         //gegevens ophalen
         $conn = Db::getInstance();
@@ -14,12 +15,6 @@
         $statement->bindValue(":id", $photo->getId());
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
-
-        $photo->setName($result['name']);
-        $photo->setUploader($result['uploader']);
-        $photo->setUploadDate($result['uploadDate']);
-        $photo->setDescription($result['description']);
-        $photo->setUploadDate($result['uploadDate']);
 
         //zelfde voor uploader
         $uploaderUser = new User();
