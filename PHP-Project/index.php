@@ -73,7 +73,7 @@
                     <h3><?php echo $photo->getName(); ?></h3>
                     <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
                     <p><i><?php echo $uploadUser->getFullName(); ?></i></p>
-                    <p class="photoDate"><?php echo howLongAgo($photo->getUploadDate()); ?></p>
+                    <p class="photoDate"><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
 
                     <p><span class="likeCount"><?php echo $likeCount;?></span> people like this</p>
                     
