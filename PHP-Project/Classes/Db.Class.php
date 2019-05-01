@@ -41,12 +41,10 @@
         }
 
         public static function searchPhotosOnColor($color) {
-            var_dump($color);
             self::$conn = Db::getInstance();
             $statement = self::$conn->prepare("SELECT photoId FROM photoColors WHERE color = '$color'");
             $statement->execute();
             $fetch = $statement->fetchAll(PDO::FETCH_ASSOC);
-            var_dump($fetch);
             return $fetch;
         }
     }

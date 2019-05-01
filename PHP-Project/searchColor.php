@@ -28,7 +28,7 @@
 <?php foreach ($foundPhotos as $foundPhoto):
 
             $photo = new Photo();
-            $photo->setId($foundPhoto['id']);
+            $photo->setId($foundPhoto['photoId']);
             $photo->setData();
 
             $uploadUser = $photo->getUploaderObject();
