@@ -12,9 +12,23 @@
 
     $user->setFirstName($result['firstName']);
     $user->setLastName($result['lastName']);
+    $user->setProfileText($result['profileText']);
+    $user->setAvatarTmpName($result['avatar']);
 
-    //$userPosts = Db::simpleFetch("SELECT * FROM photos WHERE uploader = " . $user->getId());
-    //$userPost->setPosts($userPosts['']);
+    $statement2 = $conn->prepare("SELECT * FROM followers WHERE followedUser = :id");
+    $statement2->bindValue(":id", $user->getId());
+    $statement2->execute();
+    $followersCount = $statement2->rowCount();
+
+    $statement3 = $conn->prepare("SELECT * FROM followers WHERE followingUser = :id");
+    $statement3->bindValue(":id", $user->getId());
+    $statement3->execute();
+    $followingCount = $statement3->rowCount();
+
+    $statement4 = $conn->prepare("SELECT * FROM photos WHERE uploader = :id");
+    $statement4->bindValue(":id", $user->getId());
+    $statement4->execute();
+    $postsCount = $statement4->rowCount();
 
 ?>
 
@@ -28,7 +42,18 @@
 </head>
 <body>
     <?php include_once("includes/nav.inc.php");?>
+    <img src="<?php echo $user->getAvatarTmpName();?>" alt="Profile picture">
     <h1><?php echo $user->getFirstName() . " " . $user->getLastName();?></h1>
+    <h2>Bio</h2>
+    <p><?php echo $user->getProfileText();?></p>
+    <h2>followers</h2>
+    <p><?php echo $followersCount;?></p>
+    <h2>following</h2>
+    <p><?php echo $followingCount;?></p>
+    <h2>posts</h2>
+    <p><?php echo $postsCount;?></p>
+
+    
 
 </body>
 </html>

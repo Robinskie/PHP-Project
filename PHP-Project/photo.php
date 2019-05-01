@@ -50,7 +50,7 @@
 
     <!-- photo bewerken -->
     <?php if($photo->getUploader() == $_SESSION['userid']) :?>
-        <a href="#">Bewerken</a>
+        <a href="updatePhoto.php?id="<?php echo $photo->getId();?>">Bewerken</a>
     <?php endif; ?>
     
     <!--foto info-->
