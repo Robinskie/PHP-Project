@@ -33,6 +33,11 @@
     $userId = $_SESSION['userid'];
     $isFollowed = $user->getFollowState($userId);
 
+    $statement5 = $conn->prepare("SELECT id FROM photos WHERE uploader = :id");
+    $statement5->bindValue(":id", $user->getId());
+    $statement5->execute();
+    $userPosts = $statement5->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -61,6 +66,12 @@
     <?php } else { ?>
         <a href="#" id="followButton" class="followButton" data-id="<?php echo $user->getId();?>" data-followed=0>Follow</a>
     <?php } ?>
+
+    <?php foreach($userPosts as $post): ?>
+        <div class="photoBox">
+            <a href="photo.php?id=<?php echo $post['id'];?>"><img src="images/photos/<?php echo $post['id'];?>_cropped.png" alt="">
+    <?php endforeach; ?>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
