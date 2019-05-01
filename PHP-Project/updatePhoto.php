@@ -6,33 +6,33 @@
     $errorMessage = "";
 
     $oldPhoto = new Photo();
-    $oldPhoto->setId(40);
+    $oldPhoto->setId($_GET['id']);
     $oldPhoto->setData();
 
+    if($_SESSION['userid'] != $oldPhoto->getUploader()) {
+        header("Location: index.php");
+    }
+
     if(!empty($_POST)) {
-        $file = $_FILES['file'];
 
         $newPhoto = new Photo();
         $newPhoto->setName($_POST['name']);
         $newPhoto->setDescription($_POST['description']);
         
         //checks
-        if(!$photo->checkIfFilledIn($photo->getName())) {
+        if(!$newPhoto->checkIfFilledIn($newPhoto->getName())) {
             $errorMessage = "Please enter a name for your picture.";
         }
-        if(!$photo->checkIfFilledIn($photo->getDescription())) {
+        if(!$newPhoto->checkIfFilledIn($newPhoto->getDescription())) {
             $errorMessage = "Please enter a description for your picture.";
-        }
-        if(!$photo->checkIfFileTypeIsImage($file)) {
-            $errorMessage = "This is not an image file.";
         }
 
         //in orde -> let's update
         if($errorMessage == "") {
             $conn = Db::getInstance();
             $statement = $conn->prepare("UPDATE `photos` SET `name`=:name,`description`=:description WHERE photoId");
-            $statement->bindValue(":name", $photo->getName());
-            $statement->bindValue(":description", $photo->getDescription());
+            $statement->bindValue(":name", $newPhoto->getName());
+            $statement->bindValue(":description", $newPhoto->getDescription());
             $statement->execute();
 
             //image maken
@@ -77,23 +77,18 @@
         }
         
     ?>
-    <form id="uploadForm" method="post" action="" enctype="multipart/form-data">
+    <form id="updateForm" method="post" action="" enctype="multipart/form-data">
         <div>
             <label for="name">Name: </label>
-            <?php echo $photo->getName();?>
-            <input type="name" id="name" name="name" value="<?php $photo->getName(); ?>" >
+            <input type="name" id="name" name="name" value="<?php echo $oldPhoto->getName() ?>" >
         </div>
-        <img id="photoPreview" src="<?php $photo->getPhotoPath()?>">
-        <div>
-            <label for="File">File: </label>
-            <input id="photoInput" type="file" id="file" name="file">
-        </div>
+        <img id="photoPreview" src="<?php echo $oldPhoto->getPhotoPath()?>">
         <div>
             <label for="description">Description: </label>
         </div>
-        <textarea name="description" form="uploadForm" cols="83" rows="5" style="resize: none"></textarea>
+        <textarea name="description" form="uploadForm" cols="83" rows="5" style="resize: none"><?php echo $oldPhoto->getDescription()?></textarea>
         <div>        
-            <input type="submit" value="Upload">
+            <input type="submit" value="Update">
         </div>
     </form>
         
