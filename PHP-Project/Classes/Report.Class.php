@@ -19,8 +19,7 @@
                 $this->userId = $userId;
                 return $this;
         }
-
-
+        
         public function report(){
 
         // checks if a user has already reported a post

@@ -1,14 +1,10 @@
-
-
-			$("a.reportButton").on("click", function(e){
-		
-			// niet meer naar bovenaan pagina springen
+	
+		$("a.reportButton").on("click", function(e){ 
 			e.preventDefault();
-			// welke foto rapporteren
+
 			var photoId = $(this).data('id');
-			// rapporteren of take back
 			var isReported = $(this).data('reported');
-			// aantal reports
+
 			var elReports = $(this).parent().find(".reportCount");
 			var reports = $(elReports).html();
 			var reportButton = $(this).parent().find(".reportButton");
@@ -23,7 +19,7 @@
 					dataType: "JSON" 
 				}).done(function(res) {
 					if( res.status == "success" ) {
-						// nog niet gerapporteerd
+			
 						console.log(isReported);
 						console.log(res.status);
 						if(isReported == 0) {
@@ -41,4 +37,3 @@
 				}
 			});
 		})
-				
