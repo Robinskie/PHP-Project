@@ -22,3 +22,19 @@
     function howLongAgo($dateTime) {
         return $dateTime;
     }
+
+    function hexToRGB($hexColor)
+    {
+        if( preg_match( '/^#?([a-h0-9]{2})([a-h0-9]{2})([a-h0-9]{2})$/i', $hexColor, $matches ) )
+        {
+            return array(
+                'red' => hexdec( $matches[ 1 ] ),
+                'green' => hexdec( $matches[ 2 ] ),
+                'blue' => hexdec( $matches[ 3 ] )
+            );
+        }
+        else
+        {
+            return array( 0, 0, 0 );
+        }
+}

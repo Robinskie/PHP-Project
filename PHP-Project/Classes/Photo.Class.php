@@ -145,7 +145,7 @@
                 $photoRow = Db::simpleFetch("SELECT * FROM photos WHERE id = " . $this->id);
                 $this->name = $photoRow['name'];
                 $this->uploader = $photoRow['uploader'];
-                $this->description = $photoRow['uploader'];
+                $this->description = $photoRow['description'];
                 $this->uploadDate = $photoRow['uploadDate'];
                 return $this;
         }
@@ -161,8 +161,10 @@
                 return $user;
         }
 
-        public function getColors($image, $num, $level = 5) {
-                $level = (int)$level;
+        public function saveColors() {
+                $image = $this->getCroppedPhotoPath();
+                $num = 5;
+                $level = 1;
                 $palette = array();
                 $size = getimagesize($image);
                 if(!$size) {
@@ -181,18 +183,38 @@
                         default:
                         return FALSE;
                 }
+                imagetruecolortopalette($img, false, 10);
+                imagepng($img, "reducedColor.png");
                 if(!$img) {
                         return FALSE;
                 }
                 for($i = 0; $i < $size[0]; $i += $level) {
                         for($j = 0; $j < $size[1]; $j += $level) {
-                        $thisColor = imagecolorat($img, $i, $j);
-                        $rgb = imagecolorsforindex($img, $thisColor);
-                        $color = sprintf('%02X%02X%02X', (round(round(($rgb['red'] / 0x33)) * 0x33)), round(round(($rgb['green'] / 0x33)) * 0x33), round(round(($rgb['blue'] / 0x33)) * 0x33));
-                        $palette[$color] = isset($palette[$color]) ? ++$palette[$color] : 1;
+                                $thisColor = imagecolorat($img, $i, $j);
+                                $rgb = imagecolorsforindex($img, $thisColor);
+                                $color = sprintf('%02X%02X%02X', (round(round(($rgb['red'] / 0x33)) * 0x33)), round(round(($rgb['green'] / 0x33)) * 0x33), round(round(($rgb['blue'] / 0x33)) * 0x33));
+                                $palette[$color] = isset($palette[$color]) ? ++$palette[$color] : 1;
                         }
                 }
                 arsort($palette);
-                        return array_slice(array_keys($palette), 0, $num);
+                $foundColors =  array_slice(array_keys($palette), 0, $num);
+                $roundNum = 50;
+                $roundedColors = array();
+                foreach($foundColors as $color) {
+                        $colorRGB = hexToRGB("#" . $color);
+                        $r = round($colorRGB['red'] / $roundNum) * $roundNum;
+                        $g = round($colorRGB['green'] / $roundNum) * $roundNum;
+                        $b = round($colorRGB['blue'] / $roundNum) * $roundNum;
+                        $color = '#' . dechex($r) . dechex($g) . dechex($b);
+                        $conn = Db::getInstance();
+                        $statement = $conn->prepare("INSERT INTO photoColors (photoId, color) VALUES (:photoId, :color)");
+                        $statement->bindParam(":photoId", $this->id);
+                        $statement->bindParam(":color", $color);
+                        $statement->execute();
                 }
+        }
+
+        public function getColors() {
+                return Db::simpleFetchAll("SELECT color FROM photoColors WHERE photoId = " . $this->id);
+        }
 }
