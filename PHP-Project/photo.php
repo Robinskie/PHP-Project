@@ -55,7 +55,7 @@
     
     <!--foto info-->
     <p><strong>Uploaded by: </strong><a href="profile.php?id=<?php echo $uploaderUser->getId();?>"><?php echo $uploaderUser->getFirstName() . " " . $uploaderUser->getLastName();?></a></p>
-    <p><strong> Upload date: </strong><?php echo $photo->getUploadDate();?></p>
+    <p><strong> Upload date: </strong><?php echo howLongAgo(strtotime($photo->getUploadDate()));?></p>
     <p><?php echo $photo->getDescription();?></p>
     
     <!--colors-->
