@@ -53,10 +53,17 @@
         <a href="updatePhoto.php?id="<?php echo $photo->getId();?>">Bewerken</a>
     <?php endif; ?>
     
-
+    <!--foto info-->
     <p><strong>Uploaded by: </strong><a href="profile.php?id=<?php echo $uploaderUser->getId();?>"><?php echo $uploaderUser->getFirstName() . " " . $uploaderUser->getLastName();?></a></p>
     <p><strong> Upload date: </strong><?php echo $photo->getUploadDate();?></p>
     <p><?php echo $photo->getDescription();?></p>
+    
+    <!--colors-->
+    <p><strong>Colors: </strong></p>
+        <?php $colorArray = $photo->getColors();
+            foreach($colorArray as $color):?>
+                <a href="searchColor.php?color=<?php echo substr($color['color'], strpos($color['color'], '#') + 1);; ?>"><div class="colorBall" style="background-color: <?php echo $color['color']; ?>"></div></a>
+    <?php endforeach; ?>
     
 
     <!--comment form-->
@@ -77,8 +84,6 @@
         $statement->bindParam(":photoId", $photoId); 
         $result = $statement->execute();
         $commentArray = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        
 
         foreach($commentArray as $commentRow):
             //comment object maken

@@ -46,14 +46,14 @@
             //nu de image kopiëren
             imagepng($originalImage, $photo->getPhotoPath());
             imagepng($croppedImage, $photo->getCroppedPhotoPath());
+
+            //kleuren uit de foto halen en opslaan
+            $photo->saveColors();
         
             //verplaatsen naar photo.php?id=(id)
             header('Location:photo.php?id=' . $photo->getId());
         }
-
-        
     }
-
 
 ?>
 
