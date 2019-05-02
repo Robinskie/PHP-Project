@@ -236,4 +236,14 @@
         {
             return Db::simpleFetchAll('SELECT color FROM photoColors WHERE photoId = '.$this->id);
         }
+
+        public function deletePicture()
+        {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('DELETE FROM photos WHERE id = :photoid');
+            $statement = $conn->prepare('DELETE FROM photoColors WHERE id = :photoid');
+            $statement->bindValue(':photoid', $this->getPhotoId());
+
+            return $statement->execute();
+        }
     }
