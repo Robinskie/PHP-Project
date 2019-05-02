@@ -46,16 +46,6 @@
             }
         }
 
-        public function deletePicture()
-        {
-            $conn = Db::getInstance();
-            $statement = $conn->prepare('DELETE FROM photos WHERE id = :photoid');
-            $statement = $conn->prepare('DELETE FROM photoColors WHERE id = :photoid');
-            $statement->bindValue(':photoid', $this->getPhotoId());
-
-            return $statement->execute();
-        }
-
         public function takeBack()
         {
             // checks if a user has already reported a post
