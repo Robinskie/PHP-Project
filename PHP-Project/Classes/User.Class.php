@@ -247,8 +247,4 @@
         {
             return Db::simpleFetch('SELECT count(*) AS count FROM followers WHERE followedUser = '.$this->id.' AND followingUser = '.$userId)['count'];
         }
-
-        public function getRandomUser()
-        {
-        }
     }
