@@ -1,18 +1,33 @@
 /* dit is de index */
+/* option command E en dan R */
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
 
 body {
-    font-family: 'Roboto', sans-serif;
+    background-color: #f2f2f2;
+}
+
+body p {
+    font-size: 14px;
 }
 
 .hidden {
     display: none;
 }
 
+h3 {
+    color: #222222;
+}
+
 .photoBox {
     display: inline-block;
     padding: 10px;
-    margin: 10px; 
-    border: 1px solid gray;
+    margin-left: 10%; 
+    margin-bottom: 10%; 
+    border: none;
+    background-color: none;
 }
 .photoBox a {
     color: black;
@@ -27,8 +42,7 @@ body {
     display: inline-block;
     padding: 5px;
     margin-right: 5px;
-    border-radius: 4px;
-    background-color: #2898A3;
+    background-color: gray;
     font-weight: bold;
     color: white;
 }
@@ -37,17 +51,14 @@ body {
     display: inline-block;
     padding: 5px;
     margin-right: 5px;
-    border-radius: 4px;
-    background-color:red;
+    background-color: #00A86B;
     font-weight: bold;
     color: #ffffff;
 }
 
 .errorBox {
     display: inline-block;
-    border: 1px solid red;
-    border-radius: 5px;
-    color: red;
+    background-color: #00A86B;
     padding: 10px;
 }
 
@@ -72,4 +83,3 @@ body {
     width: 50px;
     height: 50px;
 }
-
