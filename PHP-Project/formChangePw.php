@@ -1,10 +1,9 @@
-<?php 
-require_once("bootstrap.php");
+<?php
+require_once 'bootstrap.php';
 
 redirectIfLoggedOut();
 
 if (!empty($_POST)) {
-
     changePw($_POST['oldPw'], $_POST['newPw'], $_POST['confirmNewPw']);
 }
 

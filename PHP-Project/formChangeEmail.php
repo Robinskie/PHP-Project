@@ -1,24 +1,24 @@
 <?php
-require_once("bootstrap.php");
+require_once 'bootstrap.php';
 
 redirectIfLoggedOut();
 
 if (!empty($_POST)) {
-
     changeEmail($_POST['oldEmail'], $_POST['newEmail'], $_POST['confirmNewEmail']);
 }
-function changeEmail ($oldEmail, $newEmail, $confirmNewEmail) {
+function changeEmail($oldEmail, $newEmail, $confirmNewEmail)
+{
     $user = new User();
     
     $status = "OK";
     $msg="";
 
-    //check if the new email and the confirm email match
-    if ($newEmail != $confirmNewEmail) {
-        $msg=$msg."Both email adresses are not matching<BR>";
+        //check if the new email and the confirm email match
+        if ($newEmail != $confirmNewEmail) {
+            $msg = $msg.'Both email adresses are not matching<BR>';
 
-        $status= "NOTOK";
-    }
+            $status = 'NOTOK';
+        }
 
     //check if the old email matches the current email in the DB
         $userId = $_SESSION["userid"];
@@ -37,14 +37,13 @@ function changeEmail ($oldEmail, $newEmail, $confirmNewEmail) {
             $status= "NOTOK";
         }
 
-    //display if something went wrong
-    if($status!="OK"){ 
-        echo $msg;
-            
-    }else{ // if all validations are passed.
+        //display if something went wrong
+        if ($status != 'OK') {
+            echo $msg;
+        } else { // if all validations are passed.
+            //set the new email
+            $user->setEmail($newEmail);
 
-        //set the new email
-        $user->setEmail($newEmail);
 
         //put the new pw in the DB
         $conn = Db::getInstance();

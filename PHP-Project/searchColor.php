@@ -1,11 +1,11 @@
 <?php
-    require_once("bootstrap.php");
+    require_once 'bootstrap.php';
     redirectIfLoggedOut();
 
-    if(!empty($_GET)) {
-        $foundPhotos = Db::searchPhotosOnColor('#' . $_GET['color']);
+    if (!empty($_GET)) {
+        $foundPhotos = Db::searchPhotosOnColor('#'.$_GET['color']);
     }
-    
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +17,7 @@
 
 </head>
 <body>
-    <?php include_once("includes/nav.inc.php");?>
+    <?php include_once 'includes/nav.inc.php'; ?>
     
     <h1>Search color results</h1>
     <div class="content">
@@ -37,16 +37,17 @@
         
             <div class="photoBox">
             <a href="photo.php?id=<?php echo $photo->getId(); ?>">
-            <h3><?php echo $photo->getName();?></h3>
+            <h3><?php echo $photo->getName(); ?></h3>
             <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
             <p><i><?php echo $uploadUser->getFullName(); ?></i></p>
-            <p class="photoDate"><?php echo howLongAgo($photo->getUploadDate()); ?></p>
-            <p><span class="likeCount"><?php echo $likeCount;?></span> people like this</p>
+            <p class="photoDate"><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
+
+            <p><span class="likeCount"><?php echo $likeCount; ?></span> people like this</p>
                     
             </a>
             </div>
         
-    <?php endforeach ?>
+    <?php endforeach; ?>
  
 </div>
 

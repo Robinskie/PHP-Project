@@ -1,50 +1,60 @@
 <?php
-    abstract class Db {
+    abstract class Db
+    {
         private static $conn;
 
-        public static function getInstance() {
-            $config = parse_ini_file(__DIR__ . '/../config/config.ini');
+        public static function getInstance()
+        {
+            $config = parse_ini_file(__DIR__.'/../config/config.ini');
 
-            if(self::$conn != null) {
+            if (self::$conn != null) {
                 return self::$conn;
             } else {
                 try {
-                    self::$conn = new PDO("mysql:host=" . $config['db_host'] . ";port=" . $config['db_port'] . ";dbname=" . $config['db_name'], $config['db_user'], $config['db_password']);
-                }
-                catch (PDOException $e) {
+                    self::$conn = new PDO('mysql:host='.$config['db_host'].';port='.$config['db_port'].';dbname='.$config['db_name'], $config['db_user'], $config['db_password']);
+                } catch (PDOException $e) {
                     var_dump($e);
                 }
+
                 return self::$conn;
             }
         }
 
-        public static function simpleFetch($query) {
+        public static function simpleFetch($query)
+        {
             self::$conn = Db::getInstance();
             $statement = self::$conn->prepare($query);
             $statement->execute();
+
             return $statement->fetch(PDO::FETCH_ASSOC);
         }
 
-        public static function simpleFetchAll($query) {
+        public static function simpleFetchAll($query)
+        {
             self::$conn = Db::getInstance();
             $statement = self::$conn->prepare($query);
             $statement->execute();
+
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        // zoekfunctie maken 
-        public static function searchPhotos($foundPhotos) {
+        // zoekfunctie maken
+        public static function searchPhotos($foundPhotos)
+        {
             self::$conn = Db::getInstance();
             $statement = self::$conn->prepare("SELECT * FROM photos WHERE description LIKE '%$foundPhotos%'");
             $statement->execute();
+
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public static function searchPhotosOnColor($color) {
+        public static function searchPhotosOnColor($color)
+        {
             self::$conn = Db::getInstance();
             $statement = self::$conn->prepare("SELECT photoId FROM photoColors WHERE color = '$color'");
             $statement->execute();
             $fetch = $statement->fetchAll(PDO::FETCH_ASSOC);
+
             return $fetch;
         }
     }
