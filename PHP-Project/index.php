@@ -116,7 +116,6 @@
         $randomUserStatement = $conn->prepare("SELECT * FROM users WHERE NOT id = $userId ORDER BY RAND() LIMIT 1");
         $randomUserStatement->execute();
         $randomUser = $randomUserStatement->fetch(PDO::FETCH_ASSOC); ?>
-        
         <a href="profile.php?id=<?php echo $randomUser['id']; ?>"><?php echo $randomUser['firstName'].' '.$randomUser['lastName']; ?></a><br></p>
 
         <?php
