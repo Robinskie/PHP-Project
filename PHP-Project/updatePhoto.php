@@ -38,7 +38,7 @@
             $statement = $conn->prepare("UPDATE `photos` SET `name`=:name,`description`=:description WHERE id = :photoId");
             $statement->bindValue(":name", $newPhoto->getName());
             $statement->bindValue(":description", $newPhoto->getDescription());
-            $statement->bindValue(":description", $oldPhoto->getId())
+            $statement->bindValue(":description", $oldPhoto->getId());
             $statement->execute();
 
         }
