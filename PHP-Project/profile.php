@@ -1,12 +1,12 @@
 <?php
-    require_once("bootstrap.php");
+    require_once 'bootstrap.php';
 
     $user = new User();
     $user->setId($_GET['id']);
 
     $conn = Db::getInstance();
-    $statement = $conn->prepare("SELECT * FROM users WHERE id = :id");
-    $statement->bindValue(":id", $user->getId());
+    $statement = $conn->prepare('SELECT * FROM users WHERE id = :id');
+    $statement->bindValue(':id', $user->getId());
     $statement->execute();
     $result = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -15,28 +15,28 @@
     $user->setProfileText($result['profileText']);
     $user->setAvatarTmpName($result['avatar']);
 
-    $statement2 = $conn->prepare("SELECT * FROM followers WHERE followedUser = :id");
-    $statement2->bindValue(":id", $user->getId());
-    $statement2->execute();
-    $followersCount = $statement2->rowCount();
+    $followersCountStatement = $conn->prepare('SELECT * FROM followers WHERE followedUser = :id');
+    $followersCountStatement->bindValue(':id', $user->getId());
+    $followersCountStatement->execute();
+    $followersCount = $followersCountStatement->rowCount();
 
-    $statement3 = $conn->prepare("SELECT * FROM followers WHERE followingUser = :id");
-    $statement3->bindValue(":id", $user->getId());
-    $statement3->execute();
-    $followingCount = $statement3->rowCount();
+    $followingCountStatement = $conn->prepare('SELECT * FROM followers WHERE followingUser = :id');
+    $followingCountStatement->bindValue(':id', $user->getId());
+    $followingCountStatement->execute();
+    $followingCount = $followingCountStatement->rowCount();
 
-    $statement4 = $conn->prepare("SELECT * FROM photos WHERE uploader = :id");
-    $statement4->bindValue(":id", $user->getId());
-    $statement4->execute();
-    $postsCount = $statement4->rowCount();
+    $postsCountStatement = $conn->prepare('SELECT * FROM photos WHERE uploader = :id');
+    $postsCountStatement->bindValue(':id', $user->getId());
+    $postsCountStatement->execute();
+    $postsCount = $postsCountStatement->rowCount();
 
     $userId = $_SESSION['userid'];
     $isFollowed = $user->getFollowState($userId);
 
-    $statement5 = $conn->prepare("SELECT id FROM photos WHERE uploader = :id");
-    $statement5->bindValue(":id", $user->getId());
-    $statement5->execute();
-    $userPosts = $statement5->fetchAll(PDO::FETCH_ASSOC);
+    $userPostsStatement = $conn->prepare('SELECT id FROM photos WHERE uploader = :id');
+    $userPostsStatement->bindValue(':id', $user->getId());
+    $userPostsStatement->execute();
+    $userPosts = $userPostsStatement->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -54,33 +54,37 @@
 
     <section id="sidebar">
         <div class="profileSection">
-        <img class="profilePicture" src="<?php echo $user->getAvatarTmpName();?>" alt="Profile picture">
-        <h1><?php echo $user->getFirstName() . " " . $user->getLastName();?></h1>
-        <p class="bio"><?php echo $user->getProfileText();?></p>
+        <img class="profilePicture" src="<?php echo $user->getAvatarTmpName(); ?>" alt="Profile picture">
+        <h1><?php echo $user->getFirstName().' '.$user->getLastName(); ?></h1>
+        <p class="bio"><?php echo $user->getProfileText(); ?></p>
         <hr>
         </div>
         <div class="info">
         <h2>followers</h2>
-        <p><span class="followersCount"><?php echo $followersCount;?></span></p>
+        <p><span class="followersCount"><?php echo $followersCount; ?></span></p>
         <h2>following</h2>
-        <p><?php echo $followingCount;?></p>
+        <p><?php echo $followingCount; ?></p>
         <h2>posts</h2>
-        <p><?php echo $postsCount;?></p>
+        <p><?php echo $postsCount; ?></p>
         <hr>
         </div>
 
-        <?php if($isFollowed) { ?>
-            <a href="#" id="followButton" class="followButton" data-id="<?php echo $user->getId();?>" data-followed=1>Unfollow</a>
-        <?php } else { ?>
-            <a href="#" id="followButton" class="followButton" data-id="<?php echo $user->getId();?>" data-followed=0>Follow</a>
-        <?php } ?>
+        <?php if ($isFollowed) {
+    ?>
+            <a href="#" id="followButton" class="followButton" data-id="<?php echo $user->getId(); ?>" data-followed=1>Unfollow</a>
+        <?php
+} else {
+        ?>
+            <a href="#" id="followButton" class="followButton" data-id="<?php echo $user->getId(); ?>" data-followed=0>Follow</a>
+        <?php
+    } ?>
     </section>
 
     <section id="content">
-    <?php include_once("includes/nav.inc.php");?>
-        <?php foreach($userPosts as $post): ?>
+    <?php include_once 'includes/nav.inc.php'; ?>
+        <?php foreach ($userPosts as $post): ?>
             <div class="photoBox">
-                <a href="photo.php?id=<?php echo $post['id'];?>"><img class="userPost" src="images/photos/<?php echo $post['id'];?>_cropped.png" alt="">
+                <a href="photo.php?id=<?php echo $post['id']; ?>"><img class="userPost" src="images/photos/<?php echo $post['id']; ?>_cropped.png" alt="">
             </div>
         <?php endforeach; ?>
     </section>
