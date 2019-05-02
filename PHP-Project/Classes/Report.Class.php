@@ -45,7 +45,8 @@
                 $conn = Db::getInstance();
                 $statement = $conn->prepare('DELETE FROM photos WHERE id = :photoid');
                 $statement->bindValue(':photoid', $this->getPhotoId());
-                $statement->bindValue(':userid', $this->getUserId());
+
+                return $statement->execute();
             }
         }
 
