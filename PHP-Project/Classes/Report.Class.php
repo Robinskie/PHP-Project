@@ -1,44 +1,54 @@
 <?php
-    class Report {
+    class Report
+    {
         private $photoId;
         private $userId;
 
-
-        public function getPhotoId() {
-                return $this->photoId;
-        }
-        public function setPhotoId($photoId) {
-                $this->photoId = $photoId;
-                return $this;
+        public function getPhotoId()
+        {
+            return $this->photoId;
         }
 
-        public function getUserId() {
-                return $this->userId;
-        }
-        public function setUserId($userId) {
-                $this->userId = $userId;
-                return $this;
-        }
-        
-        public function reportPicture(){
+        public function setPhotoId($photoId)
+        {
+            $this->photoId = $photoId;
 
-        // checks if a user has already reported a post
-
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("INSERT INTO reports (photo_id, user_id, date_created) VALUES (:photoid, :userid, NOW())");
-        $statement->bindValue(":photoid", $this->getPhotoId());
-        $statement->bindValue(":userid", $this->getUserId());
-        return $statement->execute();
+            return $this;
         }
 
-        public function takeBack(){
+        public function getUserId()
+        {
+            return $this->userId;
+        }
 
-        // checks if a user has already reported a post
-    
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("DELETE FROM reports WHERE photo_id=:photoid AND user_id=:userid");
-        $statement->bindValue(":photoid", $this->getPhotoId());
-        $statement->bindValue(":userid", $this->getUserId());
-        return $statement->execute();
+        public function setUserId($userId)
+        {
+            $this->userId = $userId;
+
+            return $this;
+        }
+
+        public function reportPicture()
+        {
+            // checks if a user has already reported a post
+
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('INSERT INTO reports (photo_id, user_id, date_created) VALUES (:photoid, :userid, NOW())');
+            $statement->bindValue(':photoid', $this->getPhotoId());
+            $statement->bindValue(':userid', $this->getUserId());
+
+            $statement->execute();
+        }
+
+        public function takeBack()
+        {
+            // checks if a user has already reported a post
+
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('DELETE FROM reports WHERE photo_id=:photoid AND user_id=:userid');
+            $statement->bindValue(':photoid', $this->getPhotoId());
+            $statement->bindValue(':userid', $this->getUserId());
+
+            return $statement->execute();
         }
     }
