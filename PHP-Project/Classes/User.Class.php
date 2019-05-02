@@ -96,12 +96,12 @@
 
         public function getAvatar()
         {
-            return $this->avatar;
+            return 'images/avatars/' . $this->avatar;
         }
 
         public function setAvatar($avatar)
         {
-            $this->avatar = 'images/'.$avatar;
+            $this->avatar = $avatar;
 
             return $this;
         }
