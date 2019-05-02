@@ -202,7 +202,7 @@
                         return false;
                 }
             imagetruecolortopalette($img, false, 10);
-            imagepng($img, 'reducedColor.png');
+            imagepng($img, '/images/temp/reducedColor.png');
             if (!$img) {
                 return false;
             }
