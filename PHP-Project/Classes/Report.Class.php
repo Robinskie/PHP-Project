@@ -43,7 +43,7 @@
             $photo->setId($this->getPhotoId());
             if ($photo->getReportCount() >= 3) {
                 $conn = Db::getInstance();
-                $statement = $conn->prepare('DELETE reports (photo_id, user_id, date_created) VALUES (:photoid, :userid, NOW())');
+                $statement = $conn->prepare('DELETE FROM photos WHERE id = :photoid');
                 $statement->bindValue(':photoid', $this->getPhotoId());
                 $statement->bindValue(':userid', $this->getUserId());
             }
