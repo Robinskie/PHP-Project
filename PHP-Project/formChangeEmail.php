@@ -1,59 +1,58 @@
 <?php
-require_once("bootstrap.php");
+require_once 'bootstrap.php';
 
 redirectIfLoggedOut();
 
 if (!empty($_POST)) {
-    echo "something";
+    echo 'something';
     changeEmail($_POST['oldEmail'], $_POST['newEmail'], $_POST['confirmNewEmail']);
 }
-function changeEmail ($oldEmail, $newEmail, $confirmNewEmail) {
+function changeEmail($oldEmail, $newEmail, $confirmNewEmail)
+{
     $user = new User();
-    if(!isset($_SESSION['userid'])){
-        echo "Sorry, Please login and use this page";
+    if (!isset($_SESSION['userid'])) {
+        echo 'Sorry, Please login and use this page';
     } else {
-    $status = "OK";
-    $msg="";
+        $status = 'OK';
+        $msg = '';
 
-    //check if the new email and the confirm email match
-    if ($newEmail != $confirmNewEmail) {
-        $msg=$msg."Both email adresses are not matching<BR>";
+        //check if the new email and the confirm email match
+        if ($newEmail != $confirmNewEmail) {
+            $msg = $msg.'Both email adresses are not matching<BR>';
 
-        $status= "NOTOK";
-    }
+            $status = 'NOTOK';
+        }
 
-    //check if the old email matches the current email in the DB
+        //check if the old email matches the current email in the DB
         //getting the current email from the DB
-        $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null); // DB CONNECTIE AANPASSEN / ROOT
-        $statement = $conn->prepare("SELECT Password FROM users WHERE userId='" . $_SESSION["userid"] . "'");
+        $conn = new PDO('mysql:host=localhost;dbname=project', 'root', 'root', null); // DB CONNECTIE AANPASSEN / ROOT
+        $statement = $conn->prepare("SELECT Password FROM users WHERE userId='".$_SESSION['userid']."'");
         $result = $statement->execute();
 
         //check if both emails are the same
         if ($result['email'] != $oldEmail) {
-            
-            $msg=$msg."Your old email  is not matching as per our record.<BR>";
+            $msg = $msg.'Your old email  is not matching as per our record.<BR>';
 
-            $status= "NOTOK";
+            $status = 'NOTOK';
         }
 
-    //display if something went wrong
-    if($status!="OK"){ 
-        echo $msg;
-            
-    }else{ // if all validations are passed.
+        //display if something went wrong
+        if ($status != 'OK') {
+            echo $msg;
+        } else { // if all validations are passed.
+            //set the new email
+            $user->setEmail($newEmail);
 
-        //set the new email
-        $user->setEmail($newEmail);
+            //put the new pw in the DB
+        $conn = new PDO('mysql:host=localhost;dbname=project', 'root', 'root', null); // DB CONNECTIE AANPASSEN / ROOT
+        $statement = $conn->prepare("UPDATE users SET password=':email' WHERE userId='".$_SESSION['userid']."'");
+            $statement->bindParam(':email', $newEmail);
+            $result = $statement->execute();
 
-        //put the new pw in the DB
-        $conn = new PDO("mysql:host=localhost;dbname=project","root","root", null); // DB CONNECTIE AANPASSEN / ROOT
-        $statement = $conn->prepare("UPDATE users SET password=':email' WHERE userId='" . $_SESSION["userid"] . "'");
-        $statement->bindParam(":email",$newEmail);
-        $result = $statement->execute();
-        return true;
+            return true;
         }
     }
-    };
+}
 
 ?><!DOCTYPE html>
 <html lang="en">

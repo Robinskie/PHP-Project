@@ -1,39 +1,33 @@
 <?php
-    require_once("bootstrap.php");
-    $errorMessage = "";
+    require_once 'bootstrap.php';
+    $errorMessage = '';
 
-    if(!empty($_POST)){
-
+    if (!empty($_POST)) {
         $user = new User();
         $user->setEmail($_POST['email']);
         $user->setPw($_POST['password']);
-        
-		// gegevens uit velden halen
-        $email =  $_POST['email'];
+
+        // gegevens uit velden halen
+        $email = $_POST['email'];
         $password = $_POST['password'];
 
-        if(!$user->filledIn($email)){
+        if (!$user->filledIn($email)) {
             global $errorMessage;
-            $errorMessage = "you did not fill in your email";
-        } 
-        
-        else if(!$user->filledIn($password)){
+            $errorMessage = 'you did not fill in your email';
+        } elseif (!$user->filledIn($password)) {
             global $errorMessage;
-            $errorMessage = "you did not fill in your password";
-
-        }
-        else {      
-            
+            $errorMessage = 'you did not fill in your password';
+        } else {
             $result = $user->login();
-            if($result != false){
+            if ($result != false) {
                 $_SESSION['userid'] = $result;
-                header("Location: index.php");
+                header('Location: index.php');
             } else {
-                $errorMessage = "This is not correct, please try again";
+                $errorMessage = 'This is not correct, please try again';
             }
         }
-    };
-    
+    }
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +43,7 @@
     <form action="" method="post" enctype="multipart/form-data" id="form">
         <h2 form__title>Sign in</h2>
 
-        <?php if(!empty($errorMessage)): ?>
+        <?php if (!empty($errorMessage)): ?>
             <p id="errorMessage"><?php echo $errorMessage; ?></p>
         <?php endif; ?>
 

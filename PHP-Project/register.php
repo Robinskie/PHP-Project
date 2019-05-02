@@ -1,14 +1,14 @@
 <?php
-    require_once("bootstrap.php");
+    require_once 'bootstrap.php';
 
-    $errorMessage = "";
+    $errorMessage = '';
 
-    if(!empty($_POST)){
-		$user = new User();
+    if (!empty($_POST)) {
+        $user = new User();
         $user->setEmail($_POST['email']);
         $user->setFirstName($_POST['firstName']);
         $user->setLastName($_POST['lastName']);
-		$user->setPw($_POST['password']);
+        $user->setPw($_POST['password']);
         $user->setPwConfirm($_POST['passwordConfirmation']);
         $user->setAvatar($_FILES['avatar']['name']);
         $user->setAvatarType($_FILES['avatar']['type']);
@@ -25,48 +25,48 @@
         $avatarTmpName = $user->getAvatarTmpName();
         $profileText = $user->getProfileText();
 
-        if(!$user->filledIn($email)){
+        if (!$user->filledIn($email)) {
             //echo "you did not fill in your email";
             global $errorMessage;
-            $errorMessage = "You did not fill in your email.";
-        } else if(!$user->filledIn($firstName)){
+            $errorMessage = 'You did not fill in your email.';
+        } elseif (!$user->filledIn($firstName)) {
             //echo "you did not fill in your first name";
             global $errorMessage;
-            $errorMessage = "You did not fill in your first name.";
-        } else if(!$user->filledIn($lastName)){
+            $errorMessage = 'You did not fill in your first name.';
+        } elseif (!$user->filledIn($lastName)) {
             //echo "you did not fill in your last name";
             global $errorMessage;
-            $errorMessage = "You did not fill in your last name.";
-        } else if(!$user->filledIn($password)){
+            $errorMessage = 'You did not fill in your last name.';
+        } elseif (!$user->filledIn($password)) {
             //echo "you didn't enter a password";
             global $errorMessage;
             $errorMessage = "You didn't enter a password.";
-        } else if(!$user->filledIn($passwordConfirmation)){
+        } elseif (!$user->filledIn($passwordConfirmation)) {
             //echo "you need to confirm your password";
             global $errorMessage;
-            $errorMessage = "You need to confirm your password.";
-        } else if(!$user->itemsAreEqual($password,$passwordConfirmation)){
+            $errorMessage = 'You need to confirm your password.';
+        } elseif (!$user->itemsAreEqual($password, $passwordConfirmation)) {
             //echo "these passwords don't match";
             global $errorMessage;
             $errorMessage = "These passwords don't match.";
-        } else if($user->checkIfEmailAlreadyExists($email)){
+        } elseif ($user->checkIfEmailAlreadyExists($email)) {
             //echo "there's already an account with this email, try logging in instead or use a different email";
             global $errorMessage;
             $errorMessage = "There's already an account with this email, try logging in instead or use a different email.";
-        } else if(!$user->isPwStrongEnough($password)){
+        } elseif (!$user->isPwStrongEnough($password)) {
             //echo "this password is not strong enough";
             global $errorMessage;
-            $errorMessage = "This password is not strong enough.";
-        } else if (!$user->checkIfFileTypeIsImage($avatarType)) {
+            $errorMessage = 'This password is not strong enough.';
+        } elseif (!$user->checkIfFileTypeIsImage($avatarType)) {
             global $errorMessage;
-            $errorMessage = "The uploaded file for your avatar is not an image.";
+            $errorMessage = 'The uploaded file for your avatar is not an image.';
         } else {
             $user->copyAvatartoImageFolder($avatar);
             $result = $user->register();
-            if($result){
-                header("Location: login.php");
+            if ($result) {
+                header('Location: login.php');
             }
-        };
+        }
     }
 ?>
 
@@ -85,7 +85,7 @@
     <form action="" method="post" enctype="multipart/form-data" id="form">
         <h2 form__title>Register your account</h2>
 
-        <?php if(!empty($errorMessage)): ?>
+        <?php if (!empty($errorMessage)): ?>
             <p id="errorMessage"><?php echo $errorMessage; ?></p>
         <?php endif; ?>
 
