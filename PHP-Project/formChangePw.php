@@ -29,18 +29,11 @@ function changePw($oldpw, $newpw, $confirmNewPw) {
             $statement->bindParam(":userid",$userId);
             $result = $statement->execute();
             $DBresult = $statement->fetch(PDO::FETCH_ASSOC);
-            var_dump($conn);
-            var_dump($DBresult);
-
-
-            //hashing the old pw the user gave
- 
 
 
             //checking if the old pw that the user gave and the pw in the DB match
             if (!password_verify($oldpw, $DBresult['password'])) {
                 $msg=$msg."Your old password  is not matching as per our record.<BR>";
-
                 $status= "NOTOK";
             }
 
@@ -60,8 +53,6 @@ function changePw($oldpw, $newpw, $confirmNewPw) {
             //set the new pw
             $user->setPw($newpw);
 
-            //echo
-            echo $newpw;
 
             $options = [
 		        'cost' => 12,
