@@ -1,38 +1,38 @@
 <?php
-    include_once("bootstrap.php");
+    include_once 'bootstrap.php';
 
     redirectIfLoggedOut();
 
-    $errorMessage = "";
+    $errorMessage = '';
 
-    if(!empty($_POST)) {
+    if (!empty($_POST)) {
         $file = $_FILES['file'];
 
         $photo = new Photo();
         $photo->setName($_POST['name']);
-        $photo->setUploadDate(date("Y-m-d H:i:s"));
+        $photo->setUploadDate(date('Y-m-d H:i:s'));
         $photo->setUploader($_SESSION['userid']);
         $photo->setDescription($_POST['description']);
-        
+
         //checks
-        if(!$photo->checkIfFilledIn($photo->getName())) {
-            $errorMessage = "Please enter a name for your picture.";
+        if (!$photo->checkIfFilledIn($photo->getName())) {
+            $errorMessage = 'Please enter a name for your picture.';
         }
-        if(!$photo->checkIfFilledIn($photo->getDescription())) {
-            $errorMessage = "Please enter a description for your picture.";
+        if (!$photo->checkIfFilledIn($photo->getDescription())) {
+            $errorMessage = 'Please enter a description for your picture.';
         }
-        if(!$photo->checkIfFileTypeIsImage($file)) {
-            $errorMessage = "This is not an image file.";
+        if (!$photo->checkIfFileTypeIsImage($file)) {
+            $errorMessage = 'This is not an image file.';
         }
 
         //in orde -> let's upload
-        if($errorMessage == "") {
+        if ($errorMessage == '') {
             $conn = Db::getInstance();
-            $statement = $conn->prepare("INSERT INTO photos (name, uploader, uploadDate, description) values (:name, :uploader, :uploadDate, :description)");
-            $statement->bindValue(":name", $photo->getName());
-            $statement->bindValue(":uploader", $photo->getUploader());
-            $statement->bindValue(":uploadDate", $photo->getUploadDate());
-            $statement->bindValue(":description", $photo->getDescription());
+            $statement = $conn->prepare('INSERT INTO photos (name, uploader, uploadDate, description) values (:name, :uploader, :uploadDate, :description)');
+            $statement->bindValue(':name', $photo->getName());
+            $statement->bindValue(':uploader', $photo->getUploader());
+            $statement->bindValue(':uploadDate', $photo->getUploadDate());
+            $statement->bindValue(':description', $photo->getDescription());
             $statement->execute();
 
             //image maken
@@ -41,7 +41,7 @@
             $croppedImage = $photo->cropImage($file, 600, 600);
 
             //get/set ID of image
-            $photo->setId(Db::simpleFetch("SELECT MAX(id) FROM photos")['MAX(id)']);
+            $photo->setId(Db::simpleFetch('SELECT MAX(id) FROM photos')['MAX(id)']);
 
             //nu de image kopiëren
             imagepng($originalImage, $photo->getPhotoPath());
@@ -49,9 +49,9 @@
 
             //kleuren uit de foto halen en opslaan
             $photo->saveColors();
-        
+
             //verplaatsen naar photo.php?id=(id)
-            header('Location:photo.php?id=' . $photo->getId());
+            header('Location:photo.php?id='.$photo->getId());
         }
     }
 
@@ -68,11 +68,11 @@
 </head>
 
 <body>
-    <?php include_once("includes/nav.inc.php");?>
+    <?php include_once 'includes/nav.inc.php'; ?>
 
     <h2>Upload Photo</h2>
     <?php
-        if($errorMessage != "") {
+        if ($errorMessage != '') {
             echo "<span class='errorBox'>$errorMessage</span>";
         }
     ?>
