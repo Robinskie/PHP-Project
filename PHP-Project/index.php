@@ -106,16 +106,15 @@
 
     // IF USER IS NOT FOLLOWING ANY ACCOUNTS YET
     } else {
-        ?>
-        <p>You're not following anyone yet.<br>
-        Perhaps you'll like
-        
-        <?php
-            $userId = $_SESSION['userid'];
+        $userId = $_SESSION['userid'];
         $conn = Db::getInstance();
         $randomUserStatement = $conn->prepare("SELECT * FROM users WHERE NOT id = $userId ORDER BY RAND() LIMIT 1");
         $randomUserStatement->execute();
         $randomUser = $randomUserStatement->fetch(PDO::FETCH_ASSOC); ?>
+
+        <p>You're not following anyone yet.<br>
+        Perhaps you'll like
+
         <a href="profile.php?id=<?php echo $randomUser['id']; ?>"><?php echo $randomUser['firstName'].' '.$randomUser['lastName']; ?></a><br></p>
 
         <?php
