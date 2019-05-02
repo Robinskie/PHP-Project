@@ -241,8 +241,10 @@
         {
             $conn = Db::getInstance();
             $statement = $conn->prepare('DELETE FROM photos WHERE id = :photoid');
+            $statement->bindValue(':photoid', $this->id);
+            $statement->execute();
             $statement = $conn->prepare('DELETE FROM photoColors WHERE id = :photoid');
-            $statement->bindValue(':photoid', $this->getPhotoId());
+            $statement->bindValue(':photoid', $this->id);
 
             return $statement->execute();
         }
