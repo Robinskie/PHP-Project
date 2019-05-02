@@ -52,7 +52,7 @@
     // IF USER IS ALREADY FOLLOWING OTHER ACCOUNTS
     if (!empty($photoArray)) {
         foreach ($photoArray as $photoRow):
-            $photo = new Photo();
+        $photo = new Photo();
         $photo->setId($photoRow['pId']);
         $photo->setData();
         $photoId = $photo->getId();
