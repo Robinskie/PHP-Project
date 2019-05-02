@@ -29,7 +29,6 @@ function changeEmail($oldEmail, $newEmail, $confirmNewEmail)
         $result = $statement->execute();
         $DBresult = $statement->fetch(PDO::FETCH_ASSOC);
 
-        var_dump($DBresult['email']);
 
         //check if both emails are the same
         if ($DBresult['email'] != $oldEmail) {

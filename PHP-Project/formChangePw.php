@@ -44,14 +44,12 @@ function changePw($oldpw, $newpw, $confirmNewPw) {
         }
 
         if($status!="OK"){ 
-
             echo $msg;
             
         }else{ // if all validations are passed.
 
             //set the new pw
             $user->setPw($newpw);
-
 
             $options = [
 		        'cost' => 12,
