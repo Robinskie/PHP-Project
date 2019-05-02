@@ -1,5 +1,6 @@
 <?php
-    class Photo {
+    class Photo
+    {
         private $id;
         private $name;
         private $uploader;
@@ -11,75 +12,84 @@
 
         public function getId()
         {
-                return $this->id;
+            return $this->id;
         }
 
         public function setId($id)
         {
-                $this->id = $id;
-                return $this;
+            $this->id = $id;
+
+            return $this;
         }
 
         public function getName()
         {
-                return $this->name;
+            return $this->name;
         }
 
         public function setName($name)
         {
-                $this->name = $name;
-                return $this;
+            $this->name = $name;
+
+            return $this;
         }
 
         public function getUploadDate()
         {
-                return $this->uploadDate;
+            return $this->uploadDate;
         }
 
         public function setUploadDate($uploadDate)
         {
-                $this->uploadDate = $uploadDate;
-                return $this;
+            $this->uploadDate = $uploadDate;
+
+            return $this;
         }
 
         public function getDescription()
         {
-                return $this->description;
+            return $this->description;
         }
 
         public function setDescription($description)
         {
-                $this->description = $description;
-                return $this;
+            $this->description = $description;
+
+            return $this;
         }
 
         public function getUploader()
         {
-                return $this->uploader;
+            return $this->uploader;
         }
 
         public function setUploader($uploader)
         {
-                $this->uploader = $uploader;
-                return $this;
+            $this->uploader = $uploader;
+
+            return $this;
         }
 
-        public function checkIfFilledIn($field){
-            if(empty($field)){
+        public function checkIfFilledIn($field)
+        {
+            if (empty($field)) {
                 return false;
             } else {
                 return true;
             }
         }
 
-        public function checkIfFileTypeIsImage($file) {
-            if(preg_match('!image!', $file['type'])) {
+        public function checkIfFileTypeIsImage($file)
+        {
+            if (preg_match('!image!', $file['type'])) {
                 return true;
             }
+
             return false;
         }
 
-        public function cropImage($file, $croppedWidth, $croppedHeight) {
+        public function cropImage($file, $croppedWidth, $croppedHeight)
+        {
             $originalImage = imagecreatefromstring(file_get_contents($file['tmp_name']));
 
             $width = imagesx($originalImage);
@@ -88,20 +98,17 @@
             $originalAspect = $width / $height;
             $croppedAspect = $croppedWidth / $croppedHeight;
 
-            if ( $originalAspect >= $croppedAspect )
-            {
+            if ($originalAspect >= $croppedAspect) {
                 // If image is wider than thumbnail (in aspect ratio sense)
                 $newHeight = $croppedHeight;
                 $newWidth = $width / ($height / $croppedHeight);
-            }
-            else
-            {
+            } else {
                 // If the thumbnail is wider than the image
                 $newWidth = $croppedWidth;
                 $newHeight = $height / ($width / $croppedWidth);
             }
 
-            $croppedImage = imagecreatetruecolor( $croppedWidth, $croppedHeight );
+            $croppedImage = imagecreatetruecolor($croppedWidth, $croppedHeight);
 
             // Resize and crop
             imagecopyresampled($croppedImage,
@@ -115,62 +122,73 @@
             return $croppedImage;
         }
 
-        public function getPhotoPath() {
-            return "images/photos/" . $this->id . ".png";
+        public function getPhotoPath()
+        {
+            return 'images/photos/'.$this->id.'.png';
         }
 
-        public function getCroppedPhotoPath() {
-            return "images/photos/" . $this->id . "_cropped.png";
+        public function getCroppedPhotoPath()
+        {
+            return 'images/photos/'.$this->id.'_cropped.png';
         }
 
         // een foto rapporteren
 
-        public function getReportCount(){
-                return Db::simpleFetch("SELECT count(*) AS count FROM reports WHERE photo_id=" . $this->id)['count'];
+        public function getReportCount()
+        {
+            return Db::simpleFetch('SELECT count(*) AS count FROM reports WHERE photo_id='.$this->id)['count'];
         }
 
-        public function getReportState($userId) {
-                return Db::simpleFetch("SELECT count(*) AS count FROM reports WHERE photo_id=" . $this->id . " AND user_id=" . $userId)['count'];
+        public function getReportState($userId)
+        {
+            return Db::simpleFetch('SELECT count(*) AS count FROM reports WHERE photo_id='.$this->id.' AND user_id='.$userId)['count'];
         }
 
-        public function getLikeCount(){
-                return Db::simpleFetch("SELECT count(*) AS count FROM likes WHERE photo_id=" . $this->id)['count'];
+        public function getLikeCount()
+        {
+            return Db::simpleFetch('SELECT count(*) AS count FROM likes WHERE photo_id='.$this->id)['count'];
         }
 
-        public function getLikeState($userId) {
-                return Db::simpleFetch("SELECT count(*) AS count FROM likes WHERE photo_id=" . $this->id . " AND user_id=" . $userId)['count'];
+        public function getLikeState($userId)
+        {
+            return Db::simpleFetch('SELECT count(*) AS count FROM likes WHERE photo_id='.$this->id.' AND user_id='.$userId)['count'];
         }
 
-        public function setData() {
-                $photoRow = Db::simpleFetch("SELECT * FROM photos WHERE id = " . $this->id);
-                $this->name = $photoRow['name'];
-                $this->uploader = $photoRow['uploader'];
-                $this->description = $photoRow['description'];
-                $this->uploadDate = $photoRow['uploadDate'];
-                return $this;
+        public function setData()
+        {
+            $photoRow = Db::simpleFetch('SELECT * FROM photos WHERE id = '.$this->id);
+            $this->name = $photoRow['name'];
+            $this->uploader = $photoRow['uploader'];
+            $this->description = $photoRow['description'];
+            $this->uploadDate = $photoRow['uploadDate'];
+
+            return $this;
         }
 
-        public function getUploaderObject() {
-                $userRow = Db::simpleFetch("SELECT * FROM users WHERE id = " . $this->uploader);
-                $user = new User();
-                $user->setId($userRow['id']);
-                $user->setEmail($userRow['email']);
-                $user->setFirstName($userRow['firstName']);
-                $user->setLastName($userRow['lastName']);
-                $user->setProfileText($userRow['profileText']);
-                return $user;
+        public function getUploaderObject()
+        {
+            $userRow = Db::simpleFetch('SELECT * FROM users WHERE id = '.$this->uploader);
+            $user = new User();
+            $user->setId($userRow['id']);
+            $user->setEmail($userRow['email']);
+            $user->setFirstName($userRow['firstName']);
+            $user->setLastName($userRow['lastName']);
+            $user->setProfileText($userRow['profileText']);
+
+            return $user;
         }
 
-        public function saveColors() {
-                $image = $this->getCroppedPhotoPath();
-                $num = 5;
-                $level = 1;
-                $palette = array();
-                $size = getimagesize($image);
-                if(!$size) {
-                        return FALSE;
-                }
-                switch($size['mime']) {
+        public function saveColors()
+        {
+            $image = $this->getCroppedPhotoPath();
+            $num = 5;
+            $level = 1;
+            $palette = array();
+            $size = getimagesize($image);
+            if (!$size) {
+                return false;
+            }
+            switch ($size['mime']) {
                         case 'image/jpeg':
                         $img = imagecreatefromjpeg($image);
                         break;
@@ -181,40 +199,41 @@
                         $img = imagecreatefromgif($image);
                         break;
                         default:
-                        return FALSE;
+                        return false;
                 }
-                imagetruecolortopalette($img, false, 10);
-                imagepng($img, "reducedColor.png");
-                if(!$img) {
-                        return FALSE;
+            imagetruecolortopalette($img, false, 10);
+            imagepng($img, 'reducedColor.png');
+            if (!$img) {
+                return false;
+            }
+            for ($i = 0; $i < $size[0]; $i += $level) {
+                for ($j = 0; $j < $size[1]; $j += $level) {
+                    $thisColor = imagecolorat($img, $i, $j);
+                    $rgb = imagecolorsforindex($img, $thisColor);
+                    $color = sprintf('%02X%02X%02X', (round(round(($rgb['red'] / 0x33)) * 0x33)), round(round(($rgb['green'] / 0x33)) * 0x33), round(round(($rgb['blue'] / 0x33)) * 0x33));
+                    $palette[$color] = isset($palette[$color]) ? ++$palette[$color] : 1;
                 }
-                for($i = 0; $i < $size[0]; $i += $level) {
-                        for($j = 0; $j < $size[1]; $j += $level) {
-                                $thisColor = imagecolorat($img, $i, $j);
-                                $rgb = imagecolorsforindex($img, $thisColor);
-                                $color = sprintf('%02X%02X%02X', (round(round(($rgb['red'] / 0x33)) * 0x33)), round(round(($rgb['green'] / 0x33)) * 0x33), round(round(($rgb['blue'] / 0x33)) * 0x33));
-                                $palette[$color] = isset($palette[$color]) ? ++$palette[$color] : 1;
-                        }
-                }
-                arsort($palette);
-                $foundColors =  array_slice(array_keys($palette), 0, $num);
-                $roundNum = 50;
-                $roundedColors = array();
-                foreach($foundColors as $color) {
-                        $colorRGB = hexToRGB("#" . $color);
-                        $r = round($colorRGB['red'] / $roundNum) * $roundNum;
-                        $g = round($colorRGB['green'] / $roundNum) * $roundNum;
-                        $b = round($colorRGB['blue'] / $roundNum) * $roundNum;
-                        $color = '#' . dechex($r) . dechex($g) . dechex($b);
-                        $conn = Db::getInstance();
-                        $statement = $conn->prepare("INSERT INTO photoColors (photoId, color) VALUES (:photoId, :color)");
-                        $statement->bindParam(":photoId", $this->id);
-                        $statement->bindParam(":color", $color);
-                        $statement->execute();
-                }
+            }
+            arsort($palette);
+            $foundColors = array_slice(array_keys($palette), 0, $num);
+            $roundNum = 50;
+            $roundedColors = array();
+            foreach ($foundColors as $color) {
+                $colorRGB = hexToRGB('#'.$color);
+                $r = round($colorRGB['red'] / $roundNum) * $roundNum;
+                $g = round($colorRGB['green'] / $roundNum) * $roundNum;
+                $b = round($colorRGB['blue'] / $roundNum) * $roundNum;
+                $color = '#'.dechex($r).dechex($g).dechex($b);
+                $conn = Db::getInstance();
+                $statement = $conn->prepare('INSERT INTO photoColors (photoId, color) VALUES (:photoId, :color)');
+                $statement->bindParam(':photoId', $this->id);
+                $statement->bindParam(':color', $color);
+                $statement->execute();
+            }
         }
 
-        public function getColors() {
-                return Db::simpleFetchAll("SELECT color FROM photoColors WHERE photoId = " . $this->id);
+        public function getColors()
+        {
+            return Db::simpleFetchAll('SELECT color FROM photoColors WHERE photoId = '.$this->id);
         }
-}
+    }
