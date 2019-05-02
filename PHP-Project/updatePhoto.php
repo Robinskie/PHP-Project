@@ -79,7 +79,7 @@
     <script>
         var deleteBtn = document.getElementById("deleteBtn");
 
-        deleteBtn.addEventListener("click", function(e){
+        deleteBtn.addEventListener("click", function(e) {
             <?php $photo = new Photo();
                 $photo->setId($_GET['id']);
                 $photo->setData();
