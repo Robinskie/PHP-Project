@@ -17,9 +17,58 @@ body p {
     display: none;
 }
 
-h3 {
-    color: #222222;
+h1 {
+    font-weight: 900;
+    color: #00A86B;
+    font-size: 32px;
+    margin-bottom: 25px;
+    margin-left: 20px;
 }
+
+h3 {
+    margin-left: 20px;
+    color: #00A86B;
+    display: block;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+
+#submit {
+    display: inline-block;
+    text-align: center;
+    border: none;
+    border-radius: 100px;
+    background-color: #F2F2F2;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px 5px 8px 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 170px;
+    height: 40px
+}
+
+
+#search {
+    height: 40px;
+    border: none;
+    border-radius: 100px;
+    background-color: rgba(0,168,107,0.1);
+    margin-bottom: 20px;
+    width: 170px;
+    padding-left: 20px;
+}
+
+
+::placeholder {
+    border: none;
+    border-radius: 100px;
+    padding-left: -20px;
+    z-index: 2;
+}
+
 
 .photoBox {
     display: inline-block;
@@ -29,7 +78,13 @@ h3 {
     border: none;
     background-color: none;
 }
+
 .photoBox a {
+    color: white;
+    text-decoration: none;
+} 
+
+.photoBox p {
     color: black;
     text-decoration: none;
 }
@@ -40,25 +95,35 @@ h3 {
 
 .photoBox .likeButton {
     display: inline-block;
-    padding: 5px;
     margin-right: 5px;
     background-color: gray;
+    text-align: center;
+    border: none;
+    border-radius: 100px;
+    background-color: #00A86B;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 14px;
+    width: 40%;
+    padding: 10px 5px 8px 5px;
+    text-transform: uppercase;
     font-weight: bold;
-    color: white;
 }
 
-#reportButton {
+.reportButton {
     display: inline-block;
-    padding: 5px;
-    margin-right: 5px;
-    background-color: #00A86B;
+    background-color: none;
+    text-align: center;
+    background-color: none;
+    font-weight: 500;
+    font-size: 14px;
+    width: 40%;
+    text-transform: uppercase;
     font-weight: bold;
-    color: #ffffff;
 }
 
 .errorBox {
     display: inline-block;
-    background-color: #00A86B;
     padding: 10px;
 }
 

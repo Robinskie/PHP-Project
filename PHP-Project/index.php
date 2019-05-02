@@ -20,12 +20,12 @@
 
     <!-- zoekformulier maken -->
     <form action="search.php" method="GET">
-    <input id="search" name="search" type="text" placeholder="What are you looking for?">
+    <input id="search" name="search" type="text" placeholder="Are you looking for something?">
     <input id="submit" type="submit" value="Search">
     </form> 
     <!-- einde formulier -->
 
-    <h2><a href="uploadPhoto.php">Upload a picture</a></h2>
+    <h2 class="upload"><a href="uploadPhoto.php">Upload a picture</a></h2>
     </div>
 
     <div class="homeFeed">
