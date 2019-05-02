@@ -20,7 +20,32 @@
     }
 
     function howLongAgo($dateTime) {
-        return $dateTime;
+        $timeDifference = time() - $dateTime;
+    
+        if( $timeDifference < 1 )
+        {
+            return 'less than 1 second ago';
+        }
+    
+        $timeFormat = array( 
+                    12 * 30 * 24 * 60 * 60  =>  'year',
+                    30 * 24 * 60 * 60       =>  'month',
+                    24 * 60 * 60            =>  'day',
+                    60 * 60                 =>  'hour',
+                    60                      =>  'minute',
+                    1                       =>  'second'
+        );
+    
+        foreach( $timeFormat as $secs => $str )
+        {
+            $timeAmount = $timeDifference / $secs;
+    
+            if( $timeAmount >= 1 )
+            {
+                $totalTimeAmount = round( $timeAmount );
+                return 'about ' . $totalTimeAmount . ' ' . $str . ( $totalTimeAmount > 1 ? 's' : '' ) . ' ago';
+            }
+        }
     }
 
     function hexToRGB($hexColor)

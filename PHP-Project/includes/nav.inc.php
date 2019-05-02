@@ -1,4 +1,4 @@
-<nav>
+<nav id="nav">
     <?php 
         if($_SERVER['PHP_SELF'] != "/PHP-Project/PHP-Project/index.php") {
             ?><a href="index.php">Home</a><?php

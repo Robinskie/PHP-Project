@@ -48,8 +48,10 @@
         $statement->bindParam(":currentUser", $_SESSION['userid']);
         $result = $statement->execute();
         $photoArray = $statement->fetchAll(PDO::FETCH_ASSOC);
-        
-    foreach($photoArray as $photoRow):
+
+    // IF USER IS ALREADY FOLLOWING OTHER ACCOUNTS
+    if(!empty($photoArray)){
+        foreach($photoArray as $photoRow):
             $photo = new Photo();
             $photo->setId($photoRow['pId']);
             $photo->setData();
@@ -71,7 +73,7 @@
                     <h3><?php echo $photo->getName(); ?></h3>
                     <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
                     <p><i><?php echo $uploadUser->getFullName(); ?></i></p>
-                    <p class="photoDate"><?php echo howLongAgo($photo->getUploadDate()); ?></p>
+                    <p class="photoDate"><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
 
                     <p><span class="likeCount"><?php echo $likeCount;?></span> people like this</p>
                     
@@ -90,12 +92,43 @@
                     <?php } else { ?>
                         <a href="#" id="reportButton" class="reportButton" data-id="<?php echo $photo->getId();?>" data-reported=0>Report</a>
                     <?php } ?>
-
                 
                 </a>
             </div>
+        <?php endforeach;
+
+    // IF USER IS NOT FOLLOWING ANY ACCOUNTS YET
+    } else { ?>
+        <p>You're not following anyone yet.<br>
+        Perhaps you'll like
         
-    <?php endforeach ?>
+        <?php 
+            $userId = $_SESSION['userid'];
+            $conn = Db::getInstance();
+            $randomUserStatement = $conn->prepare("SELECT * FROM users WHERE NOT id = $userId ORDER BY RAND() LIMIT 1");
+            $randomUserStatement->execute();
+            $randomUser = $randomUserStatement->fetch(PDO::FETCH_ASSOC);
+        ?>
+        
+        <a href="profile.php?id=<?php echo $randomUser['id']?>"><?php echo $randomUser['firstName'] . " " . $randomUser['lastName'];?></a><br></p>
+
+        <?php
+            $randomUserPostsStatement = $conn->prepare("SELECT * FROM photos WHERE uploader = :randomUserId LIMIT 3");
+            $randomUserPostsStatement->bindParam(":randomUserId", $randomUser['id']);
+            $randomUserPostsStatement->execute();
+
+            $randomUserPosts = $randomUserPostsStatement->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach($randomUserPosts as $randomUserPost):
+        ?>
+
+        <a href="photo.php?id=<?php echo $randomUserPost['id'];?>"><img src="images/photos/<?php echo $randomUserPost['id'];?>_cropped.png" alt="">
+
+        <?php
+            endforeach;
+            }
+        ?>
+        
     </div class="homeFeed">
 
     <a class="loadMoreButton" id="loadMoreButton" href="index.php?postLimit=<?php echo $postLimit + 5;?>">Load more...</a>
@@ -104,7 +137,6 @@
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-
   
 <script src="js/like.js"></script>
 <script src="js/report.js"></script>
