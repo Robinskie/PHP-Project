@@ -33,7 +33,7 @@
     $userId = $_SESSION['userid'];
     $isFollowed = $user->getFollowState($userId);
 
-    $userPostsStatement = $conn->prepare('SELECT id FROM photos WHERE uploader = :id');
+    $userPostsStatement = $conn->prepare('SELECT id FROM photos WHERE uploader = :id ORDER BY uploaddate DESC');
     $userPostsStatement->bindValue(':id', $user->getId());
     $userPostsStatement->execute();
     $userPosts = $userPostsStatement->fetchAll(PDO::FETCH_ASSOC);
