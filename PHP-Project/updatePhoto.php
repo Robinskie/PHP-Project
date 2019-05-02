@@ -38,34 +38,13 @@
             $statement = $conn->prepare("UPDATE `photos` SET `name`=:name,`description`=:description WHERE id = :photoId");
             $statement->bindValue(":name", $newPhoto->getName());
             $statement->bindValue(":description", $newPhoto->getDescription());
-            $statement->bindValue(":description", $oldPhoto->getId());
+            $statement->bindValue(":photoId", $oldPhoto->getId());
             $statement->execute();
 
         }
 
         header('Location:photo.php?id=' . $oldPhoto->getId());
-    } ?> <!--
-            //image maken
-            $originalImage = imagecreatefromstring(file_get_contents($file['tmp_name']));
-            //cropped image maken
-            $croppedImage = $photo->cropImage($file, 600, 600);
-
-            //get/set ID of image
-            $photo->setId(Db::simpleFetch("SELECT MAX(id) FROM photos")['MAX(id)']);
-
-            //nu de image kopiëren
-            imagepng($originalImage, $photo->getPhotoPath());
-            imagepng($croppedImage, $photo->getCroppedPhotoPath());
-        
-            //verplaatsen naar photo.php?id=(id)
-            header('Location:photo.php?id=' . $photo->getId());
-        }
-
-        
-    }
-
-
-?> -->
+    } ?> 
 
 <!DOCTYPE html>
 <html lang="en">
