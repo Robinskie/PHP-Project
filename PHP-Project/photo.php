@@ -114,6 +114,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script>
+
         $("#commentSubmit").on("click", function(e) {
         var photoId = $(this).data("photoid");
         var userId = $(this).data("userid");

@@ -76,11 +76,14 @@
             <input type="submit" value="Update">
         </div>
     </form>
+
+    <a href="#" id="deleteBtn" >Verwijderen</a>
         
     <script>
         //PREVIEW FOTO
         var photoPreview = document.getElementById("photoPreview");
         var photoInput = document.getElementById("photoInput");
+        var deleteBtn = document.getElementById("deleteBtn");
 
         photoInput.addEventListener("change", function(e) {           
             var reader = new FileReader();
@@ -88,6 +91,10 @@
                 photoPreview.src = reader.result;
             }
             reader.readAsDataURL(e.target.files[0])
+        });
+
+        deleteBtn.addEventListener("click", function(){
+            
         });
     </script>
 </body>
