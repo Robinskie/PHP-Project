@@ -4,17 +4,14 @@ require_once 'bootstrap.php';
 redirectIfLoggedOut();
 
 if (!empty($_POST)) {
-    echo 'something';
     changeEmail($_POST['oldEmail'], $_POST['newEmail'], $_POST['confirmNewEmail']);
 }
 function changeEmail($oldEmail, $newEmail, $confirmNewEmail)
 {
     $user = new User();
-    if (!isset($_SESSION['userid'])) {
-        echo 'Sorry, Please login and use this page';
-    } else {
-        $status = 'OK';
-        $msg = '';
+    
+    $status = "OK";
+    $msg="";
 
         //check if the new email and the confirm email match
         if ($newEmail != $confirmNewEmail) {
@@ -23,17 +20,21 @@ function changeEmail($oldEmail, $newEmail, $confirmNewEmail)
             $status = 'NOTOK';
         }
 
-        //check if the old email matches the current email in the DB
+    //check if the old email matches the current email in the DB
+        $userId = $_SESSION["userid"];
         //getting the current email from the DB
-        $conn = new PDO('mysql:host=localhost;dbname=project', 'root', 'root', null); // DB CONNECTIE AANPASSEN / ROOT
-        $statement = $conn->prepare("SELECT Password FROM users WHERE userId='".$_SESSION['userid']."'");
+        $conn = Db::getInstance(); 
+        $statement = $conn->prepare("SELECT email FROM users WHERE id=:userid");
+        $statement->bindParam(":userid",$userId);      
         $result = $statement->execute();
+        $DBresult = $statement->fetch(PDO::FETCH_ASSOC);
+
+        var_dump($DBresult['email']);
 
         //check if both emails are the same
-        if ($result['email'] != $oldEmail) {
-            $msg = $msg.'Your old email  is not matching as per our record.<BR>';
-
-            $status = 'NOTOK';
+        if ($DBresult['email'] != $oldEmail) {
+            $msg=$msg."Your old email  is not matching as per our record.<BR>";
+            $status= "NOTOK";
         }
 
         //display if something went wrong
@@ -43,16 +44,17 @@ function changeEmail($oldEmail, $newEmail, $confirmNewEmail)
             //set the new email
             $user->setEmail($newEmail);
 
-            //put the new pw in the DB
-        $conn = new PDO('mysql:host=localhost;dbname=project', 'root', 'root', null); // DB CONNECTIE AANPASSEN / ROOT
-        $statement = $conn->prepare("UPDATE users SET password=':email' WHERE userId='".$_SESSION['userid']."'");
-            $statement->bindParam(':email', $newEmail);
-            $result = $statement->execute();
 
-            return true;
+        //put the new pw in the DB
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("UPDATE users SET email=:email WHERE id=:userid");
+        $statement->bindParam(":email",$newEmail);
+        $statement->bindParam(":userid",$userId);  
+        $result = $statement->execute();
+        return true;
         }
-    }
-}
+
+    };
 
 ?><!DOCTYPE html>
 <html lang="en">
