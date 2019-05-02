@@ -20,12 +20,12 @@
 
     <!-- zoekformulier maken -->
     <form action="search.php" method="GET">
-    <input id="search" name="search" type="text" placeholder="What are you looking for?">
+    <input id="search" name="search" type="text" placeholder="Are you looking for something?">
     <input id="submit" type="submit" value="Search">
     </form> 
     <!-- einde formulier -->
 
-    <h2><a href="uploadPhoto.php">Upload a picture</a></h2>
+    <h2 class="upload"><a href="uploadPhoto.php">Upload a picture</a></h2>
     </div>
 
     <div class="homeFeed">
@@ -70,14 +70,14 @@
             <div class="photoBox">
                 <a href="photo.php?id=<?php echo $photo->getId(); ?>">
                     <h3><?php echo $photo->getName(); ?></h3>
-                    <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
+                    <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="250px" height="250px"> 
                     <p><i><?php echo $uploadUser->getFullName(); ?></i></p>
                     <p class="photoDate"><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
 
-                    <p><span class="likeCount"><?php echo $likeCount; ?></span> people like this</p>
+                    <p><span class="likeCount"><?php echo $likeCount; ?></span> user(s) like this</p>
                     
                     <!-- hoeveel mensen hebben dit gerapporteerd? -->
-                    <p><span class="reportCount"><?php echo $reportCount; ?></span> people reported this</p>
+                    <p><span class="reportCount"><?php echo $reportCount; ?></span> user(s) reported this</p>
 
                     <?php if ($isLiked) {
             ?>

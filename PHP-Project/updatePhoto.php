@@ -3,24 +3,26 @@
 
     redirectIfLoggedOut();
 
+    //VAR errormessage om errors op te vangen
     $errorMessage = '';
 
+    //info van huidige foto dat gaat bewerkt worden ophalen
     $oldPhoto = new Photo();
     $oldPhoto->setId($_GET['id']);
     $oldPhoto->setData();
 
+    //user van pagina smijten als zij niet de foto hebben geüpload (je kan geen eigen foto's bewerken/deleten)
     if ($_SESSION['userid'] != $oldPhoto->getUploader()) {
         header('Location: index.php');
     }
 
     if (!empty($_POST)) {
+
+        //geupdate versie foto aanmaken
         $newPhoto = new Photo();
         $newPhoto->setName($_POST['name']);
-        if (!empty($_POST['description'])) {
-            $newPhoto->setDescription($_POST['description']);
-        } else {
-            echo 'description is empty';
-        }
+        $newPhoto->setDescription($_POST['description']);
+      
         //checks
         if (!$newPhoto->checkIfFilledIn($newPhoto->getName())) {
             $errorMessage = 'Please enter a name for your picture.';
@@ -31,12 +33,7 @@
 
         //in orde -> let's update
         if ($errorMessage == '') {
-            $conn = Db::getInstance();
-            $statement = $conn->prepare('UPDATE `photos` SET `name`=:name,`description`=:description WHERE id = :photoId');
-            $statement->bindValue(':name', $newPhoto->getName());
-            $statement->bindValue(':description', $newPhoto->getDescription());
-            $statement->bindValue(':photoId', $oldPhoto->getId());
-            $statement->execute();
+            $oldPhoto->updatePhoto($newPhoto->getName(), $newPhoto->getDescription());
         }
 
         header('Location:photo.php?id='.$oldPhoto->getId());
@@ -80,21 +77,15 @@
     <a href="#" id="deleteBtn" >Verwijderen</a>
         
     <script>
-        //PREVIEW FOTO
-        var photoPreview = document.getElementById("photoPreview");
-        var photoInput = document.getElementById("photoInput");
         var deleteBtn = document.getElementById("deleteBtn");
 
-        photoInput.addEventListener("change", function(e) {           
-            var reader = new FileReader();
-            reader.onload = function() {
-                photoPreview.src = reader.result;
-            }
-            reader.readAsDataURL(e.target.files[0])
-        });
-
-        deleteBtn.addEventListener("click", function(){
-            
+        deleteBtn.addEventListener("click", function(e) {
+            <?php $photo = new Photo();
+                $photo->setId($_GET['id']);
+                $photo->setData();
+                $photo->deletePicture();
+            ?>
+            e.preventDefault();
         });
     </script>
 </body>
