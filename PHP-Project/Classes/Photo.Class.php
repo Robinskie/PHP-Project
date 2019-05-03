@@ -249,8 +249,8 @@
             return $statement->execute();
         }
 
-        public function updatePhoto($newPhotoName, $newPhotoDescription) {
-        
+        public function updatePhoto($newPhotoName, $newPhotoDescription)
+        {
             $conn = Db::getInstance();
             $statement = $conn->prepare('UPDATE `photos` SET `name`=:name,`description`=:description WHERE id = :photoId');
             $statement->bindValue(':name', $newPhotoName);

@@ -1,5 +1,5 @@
 <?php
-    abstract class Search
+    class Search
     {
         private static $conn;
 

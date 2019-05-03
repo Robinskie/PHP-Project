@@ -14,19 +14,21 @@
 </head>
 <body>
     <?php include_once 'includes/nav.inc.php'; ?>
-    
-    <h1>Homepage</h1>
     <div class="content">
 
+    <h1>Your feed </h1>
+    
     <!-- zoekformulier maken -->
     <form action="search.php" method="GET">
-    <input id="search" name="search" type="text" placeholder="Are you looking for something?">
+    <input id="search" name="search" type="text" placeholder="Search">
     <input id="submit" type="submit" value="Search">
     </form> 
     <!-- einde formulier -->
-
-    <h2 class="upload"><a href="uploadPhoto.php">Upload a picture</a></h2>
     </div>
+
+
+    <!-- een foto uploaden -->
+    <a href="uploadPhoto.php" id="upload">Upload a picture</a>
 
     <div class="homeFeed">
     <?php
@@ -69,15 +71,15 @@
         
             <div class="photoBox">
                 <a href="photo.php?id=<?php echo $photo->getId(); ?>">
-                    <h3><?php echo $photo->getName(); ?></h3>
+                    <p class="gebruiker"><?php echo $uploadUser->getFullName(); ?></p>
+                    <p class="photoDate"><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p><br>
                     <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="250px" height="250px"> 
-                    <p><i><?php echo $uploadUser->getFullName(); ?></i></p>
-                    <p class="photoDate"><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
-
-                    <p><span class="likeCount"><?php echo $likeCount; ?></span> user(s) like this</p>
+                    <p> <?php // echo $photo->getName();?></p>
                     
-                    <!-- hoeveel mensen hebben dit gerapporteerd? -->
-                    <p><span class="reportCount"><?php echo $reportCount; ?></span> user(s) reported this</p>
+                    <div class="telaantal">
+                    <p><span class="likeCount"><?php echo $likeCount; ?></span> likes
+                    <span class="reportCount"><?php echo $reportCount; ?></span> reports</p>
+                    </div>
 
                     <?php if ($isLiked) {
             ?>

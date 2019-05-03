@@ -17,12 +17,42 @@ body p {
     display: none;
 }
 
+#nav {
+    margin-left: 10.5%;
+    padding: 20px 0px 20px 0px;
+    display: block;
+    float: left;
+}
+
+#nav a {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 15px;
+    float: left;
+    display: block;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    padding-top: 8px;
+}
+
+#header {
+    background-color: #00A86B; 
+    height: 70px;
+    padding: 0px;
+    margin: 0px;
+    margin-top: -10px;
+    margin-left: -10px;
+}
+
 h1 {
+    padding-top: 10%;
     font-weight: 900;
     color: #00A86B;
     font-size: 32px;
     margin-bottom: 25px;
-    margin-left: 20px;
+    margin-left: 10.5%;
+    margin-top: 0%;
 }
 
 h3 {
@@ -33,34 +63,48 @@ h3 {
     font-size: 15px;
 }
 
-
 #submit {
     display: inline-block;
     text-align: center;
     border: none;
-    border-radius: 100px;
-    background-color: #F2F2F2;
+    background-color: #222222;
     color: #ffffff;
     font-weight: 500;
-    font-size: 14px;
-    padding: 10px 5px 8px 5px;
+    font-size: 13px;
+    padding: 8px 5px 10px 5px;
     text-transform: uppercase;
     font-weight: bold;
-    width: 170px;
-    height: 40px
+    width: 100px;
+    height: 32px
 }
 
+#upload {
+    display: inline-block;
+    text-align: center;
+    border: none;
+    background-color: #00A86B;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 12px 0px 12px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 180px;
+    text-decoration: none;
+    margin-left: 10.5%;
+    margin-top: 5%;
+}
 
 #search {
-    height: 40px;
+    height: 30px;
     border: none;
-    border-radius: 100px;
-    background-color: rgba(0,168,107,0.1);
-    margin-bottom: 20px;
+    background-color: rgba(0,0,0,0.05);
     width: 170px;
     padding-left: 20px;
+    margin-left: 20px;
+    font-size: 13px;
+    margin-left: 10.5%;
 }
-
 
 ::placeholder {
     border: none;
@@ -68,7 +112,6 @@ h3 {
     padding-left: -20px;
     z-index: 2;
 }
-
 
 .photoBox {
     display: inline-block;
@@ -96,31 +139,33 @@ h3 {
 .photoBox .likeButton {
     display: inline-block;
     margin-right: 5px;
-    background-color: gray;
     text-align: center;
     border: none;
-    border-radius: 100px;
     background-color: #00A86B;
     color: #ffffff;
     font-weight: 500;
-    font-size: 14px;
-    width: 40%;
-    padding: 10px 5px 8px 5px;
+    font-size: 12px;
+    width: 20%;
+    padding: 10px 10px 10px 10px;
     text-transform: uppercase;
     font-weight: bold;
 }
 
-.reportButton {
+.photoBox .reportButton {
     display: inline-block;
-    background-color: none;
+    margin-right: 5px;
     text-align: center;
-    background-color: none;
+    border: none;
+    background-color: lightgray;
+    color: #ffffff;
     font-weight: 500;
-    font-size: 14px;
-    width: 40%;
+    font-size: 12px;
+    width: 20%;
+    padding: 10px 10px 10px 10px;
     text-transform: uppercase;
     font-weight: bold;
 }
+
 
 .errorBox {
     display: inline-block;
@@ -147,4 +192,34 @@ h3 {
     border-radius: 50%;
     width: 50px;
     height: 50px;
+}
+
+.gebruiker {
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.photoDate {
+    font-size: 10px;
+    margin: 0px;
+    padding-top: 10px;
+    text-transform: uppercase;
+}
+
+.telaantal {
+    font-size: 13px;
+    color: #000000;
+}
+
+.gebruiker {
+    margin-bottom: 2px;
+    font-size: 16px;
+    border-bottom: #00A86B solid 7px;
+    padding-bottom: 5px;
+    display: block;
+    width: 250px;
+}
+
+.photoDate {
+    font-size: 8px;
 }
