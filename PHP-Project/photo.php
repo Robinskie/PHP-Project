@@ -43,10 +43,10 @@
 <body>
     <?php include_once 'includes/nav.inc.php'; ?>
     <!--photo weergeven met nodige info-->
-    <h2><?php echo $photo->getName(); ?></h2>
+    <h1><?php echo $photo->getName(); ?></h1>
 
     <!--foto is een link naar de vergrootte weergave-->
-    <a href="<?php echo $photo->getPhotoPath(); ?>"><img src="<?php echo $photo->getCroppedPhotoPath(); ?>"></a>
+    <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" class="searchresult" width="250px" height="250px"> 
 
     <!-- photo bewerken -->
     <?php if ($photo->getUploader() == $_SESSION['userid']) :?>
