@@ -96,7 +96,7 @@
 
         public function getAvatar()
         {
-            return 'images/avatars/' . $this->avatar;
+            return 'images/avatars/'.$this->avatar;
         }
 
         public function setAvatar($avatar)
@@ -246,5 +246,49 @@
         public function getFollowState($userId)
         {
             return Db::simpleFetch('SELECT count(*) AS count FROM followers WHERE followedUser = '.$this->id.' AND followingUser = '.$userId)['count'];
+        }
+
+        public function getFollowersCount($userId)
+        {
+            $conn = Db::getInstance();
+            $followersCountStatement = $conn->prepare('SELECT * FROM followers WHERE followedUser = :id');
+            $followersCountStatement->bindValue(':id', $userId);
+            $followersCountStatement->execute();
+            $followersCount = $followersCountStatement->rowCount();
+
+            return $followersCount;
+        }
+
+        public function getFollowingCount($userId)
+        {
+            $conn = Db::getInstance();
+            $followingCountStatement = $conn->prepare('SELECT * FROM followers WHERE followingUser = :id');
+            $followingCountStatement->bindValue(':id', $userId);
+            $followingCountStatement->execute();
+            $followingCount = $followingCountStatement->rowCount();
+
+            return $followingCount;
+        }
+
+        public function getUserPosts($userId)
+        {
+            $conn = Db::getInstance();
+            $userPostsStatement = $conn->prepare('SELECT id FROM photos WHERE uploader = :id ORDER BY uploaddate DESC');
+            $userPostsStatement->bindValue(':id', $userId);
+            $userPostsStatement->execute();
+            $userPosts = $userPostsStatement->fetchAll(PDO::FETCH_ASSOC);
+
+            return $userPosts;
+        }
+
+        public function getUserPostsCount($userId)
+        {
+            $conn = Db::getInstance();
+            $userPostsStatement = $conn->prepare('SELECT id FROM photos WHERE uploader = :id ORDER BY uploaddate DESC');
+            $userPostsStatement->bindValue(':id', $userId);
+            $userPostsStatement->execute();
+            $userPostsCount = $userPostsStatement->rowCount();
+
+            return $userPostsCount;
         }
     }
