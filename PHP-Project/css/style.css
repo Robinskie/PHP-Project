@@ -79,7 +79,7 @@ h3 {
     height: 32px
 }
 
-#upload {
+#upload, .loadMoreButton {
     display: inline-block;
     text-align: center;
     border: none;
@@ -94,6 +94,7 @@ h3 {
     text-decoration: none;
     margin-left: 10.5%;
     margin-top: 5%;
+    margin-bottom: 0%;
 }
 
 #search {
