@@ -42,22 +42,16 @@
         
             <!-- we printen een foto --> 
             <div class="photoBox">
-            <!-- we halen de getter uit klasse foto --> 
-            <a href="photo.php?id=<?php echo $photo->getId(); ?>">
-            <!-- we halen getter uit klasse foto --> 
-            <h3><?php echo $photo->getName(); ?></h3>
-            <!-- we halen getter uit klasse foto --> 
-            <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
-            <!-- we halen de naam uit de klasse user --> 
-            <p><i><?php echo $uploadUser->getFullName(); ?></i></p>
-            <!-- we halen de upload data uit de klasse foto --> 
-            <p class="photoDate"><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
-            <p><span class="likeCount"><?php echo $likeCount; ?></span> people like this</p>
-                    
-            </a>
+                <a href="photo.php?id=<?php echo $photo->getId(); ?>">
+                    <p class="gebruiker"><?php echo $uploadUser->getFullName(); ?></p>
+                    <p class="photoDate"><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p><br>
+                    <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="250px" height="250px"> 
+                </a>
             </div>
         
     <?php endforeach; ?>
+
+    
  
 </div>
 
