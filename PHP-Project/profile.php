@@ -4,40 +4,26 @@
     $user = new User();
     $user->setId($_GET['id']);
 
+    $userId = $_SESSION['userid'];
+
+    // DEZE QUERY MOET NOG VERPLAATST WORDEN, DEZE ZOEKT DE GEGEVENS VAN DE USER
     $conn = Db::getInstance();
     $statement = $conn->prepare('SELECT * FROM users WHERE id = :id');
     $statement->bindValue(':id', $user->getId());
     $statement->execute();
     $result = $statement->fetch(PDO::FETCH_ASSOC);
-
+    // DE GEGEVENS WORDEN GEBRUIKT OM DE NAAM, BIO EN AVATAR OP HET PROFIEL TE ZETTEN
     $user->setFirstName($result['firstName']);
     $user->setLastName($result['lastName']);
     $user->setProfileText($result['profileText']);
     $user->setAvatarTmpName($result['avatar']);
 
-    $followersCountStatement = $conn->prepare('SELECT * FROM followers WHERE followedUser = :id');
-    $followersCountStatement->bindValue(':id', $user->getId());
-    $followersCountStatement->execute();
-    $followersCount = $followersCountStatement->rowCount();
-
-    $followingCountStatement = $conn->prepare('SELECT * FROM followers WHERE followingUser = :id');
-    $followingCountStatement->bindValue(':id', $user->getId());
-    $followingCountStatement->execute();
-    $followingCount = $followingCountStatement->rowCount();
-
-    $postsCountStatement = $conn->prepare('SELECT * FROM photos WHERE uploader = :id');
-    $postsCountStatement->bindValue(':id', $user->getId());
-    $postsCountStatement->execute();
-
-    $userId = $_SESSION['userid'];
+    $followersCount = $user->getFollowersCount($userId);
+    $followingCount = $user->getFollowingCount($userId);
     $isFollowed = $user->getFollowState($userId);
 
-    $userPostsStatement = $conn->prepare('SELECT id FROM photos WHERE uploader = :id ORDER BY uploaddate DESC');
-    $userPostsStatement->bindValue(':id', $user->getId());
-    $userPostsStatement->execute();
-    $userPosts = $userPostsStatement->fetchAll(PDO::FETCH_ASSOC);
-    $postsCount = $userPostsStatement->rowCount();
-
+    $userPosts = $user->getUserPosts($userId);
+    $postsCount = $user->getUserPostsCount($userId);
 ?>
 
 <!DOCTYPE html>
@@ -88,8 +74,6 @@
             </div>
         <?php endforeach; ?>
     </section>
-    
-
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
