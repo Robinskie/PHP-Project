@@ -245,3 +245,15 @@ h3 {
     margin-bottom: 10%;
     }
 }
+
+
+@media only screen and (max-width: 520px) {
+    h1 {
+        padding-top: 25%;
+    }
+    
+    .loadMoreButton {
+    margin-bottom: 10%;
+    margin-left: 12%;
+    }
+}
