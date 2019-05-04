@@ -220,6 +220,7 @@ h3 {
 .telaantal {
     font-size: 13px;
     color: #000000;
+    margin: 5px;
 }
 
 .gebruiker {
@@ -233,4 +234,14 @@ h3 {
 
 .photoDate {
     font-size: 8px;
+}
+
+@media only screen and (max-width: 920px) {
+    h1 {
+        padding-top: 18%;
+    }
+    
+    .loadMoreButton {
+    margin-bottom: 10%;
+    }
 }
