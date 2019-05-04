@@ -28,7 +28,6 @@
     $postsCountStatement = $conn->prepare('SELECT * FROM photos WHERE uploader = :id');
     $postsCountStatement->bindValue(':id', $user->getId());
     $postsCountStatement->execute();
-    $postsCount = $postsCountStatement->rowCount();
 
     $userId = $_SESSION['userid'];
     $isFollowed = $user->getFollowState($userId);
@@ -37,6 +36,7 @@
     $userPostsStatement->bindValue(':id', $user->getId());
     $userPostsStatement->execute();
     $userPosts = $userPostsStatement->fetchAll(PDO::FETCH_ASSOC);
+    $postsCount = $userPostsStatement->rowCount();
 
 ?>
 
@@ -51,6 +51,7 @@
     <title>Document</title>
 </head>
 <body>
+    <?php include_once 'includes/nav.inc.php'; ?>
 
     <section id="sidebar">
         <div class="profileSection">
@@ -81,7 +82,6 @@
     </section>
 
     <section id="content">
-    <?php include_once 'includes/nav.inc.php'; ?>
         <?php foreach ($userPosts as $post): ?>
             <div class="photoBox">
                 <a href="photo.php?id=<?php echo $post['id']; ?>"><img class="userPost" src="images/photos/<?php echo $post['id']; ?>_cropped.png" alt="">
