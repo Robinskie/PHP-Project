@@ -260,4 +260,14 @@
 
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public function updatePhoto($newPhotoName, $newPhotoDescription)
+        {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('UPDATE `photos` SET `name`=:name,`description`=:description WHERE id = :photoId');
+            $statement->bindValue(':name', $newPhotoName);
+            $statement->bindValue(':description', $newPhotoDescription);
+            $statement->bindValue(':photoId', $this->id);
+            $statement->execute();
+        }
     }
