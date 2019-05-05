@@ -154,6 +154,7 @@
             return Db::simpleFetch('SELECT count(*) AS count FROM likes WHERE photo_id='.$this->id.' AND user_id='.$userId)['count'];
         }
 
+        //vul de photo dmv gegeven ID
         public function setData()
         {
             $photoRow = Db::simpleFetch('SELECT * FROM photos WHERE id = '.$this->id);
@@ -165,19 +166,17 @@
             return $this;
         }
 
+        //krijg een User object van de uploader
         public function getUploaderObject()
         {
-            $userRow = Db::simpleFetch('SELECT * FROM users WHERE id = '.$this->uploader);
             $user = new User();
-            $user->setId($userRow['id']);
-            $user->setEmail($userRow['email']);
-            $user->setFirstName($userRow['firstName']);
-            $user->setLastName($userRow['lastName']);
-            $user->setProfileText($userRow['profileText']);
+            $user->setId($this->uploader);
+            $user->setData();
 
             return $user;
         }
 
+        //scan de foto op kleuren en save in DB
         public function saveColors()
         {
             $image = $this->getCroppedPhotoPath();
@@ -232,11 +231,13 @@
             }
         }
 
+        //haal een array van hex waarden vd kleuren uit db
         public function getColors()
         {
             return Db::simpleFetchAll('SELECT color FROM photoColors WHERE photoId = '.$this->id);
         }
 
+        //verwijder de foto
         public function deletePicture()
         {
             $conn = Db::getInstance();
@@ -247,5 +248,16 @@
             $statement->bindValue(':photoid', $this->id);
 
             return $statement->execute();
+        }
+
+        //krijg een comment array van deze foto
+        public function getComments()
+        {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('SELECT * FROM comments WHERE photoId = :photoId ORDER BY date');
+            $statement->bindParam(':photoId', $this->id);
+            $result = $statement->execute();
+
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
     }

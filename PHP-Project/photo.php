@@ -9,25 +9,14 @@
         $photo->setId($_GET['id']);
         $photo->setData();
 
-        //gegevens ophalen
-        $conn = Db::getInstance();
-        $statement = $conn->prepare('SELECT * FROM photos WHERE id = :id');
-        $statement->bindValue(':id', $photo->getId());
-        $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
-
         //zelfde voor uploader
         $uploaderUser = new User();
-        $uploaderUserRow = Db::simpleFetch('SELECT * FROM users WHERE id = '.$photo->getUploader());
-        $uploaderUser->setFirstName($uploaderUserRow['firstName']);
-        $uploaderUser->setLastName($uploaderUserRow['lastName']);
-        $uploaderUser->setId($uploaderUserRow['id']);
+        $uploaderUser->setId($photo->getUploader());
+        $uploaderUser->setData();
 
         $currentUser = new User();
-        $currentUserRow = Db::simpleFetch('SELECT * FROM users WHERE id = '.$_SESSION['userid']);
-        $currentUser->setFirstName($currentUserRow['firstName']);
-        $currentUser->setLastName($currentUserRow['lastName']);
-        $currentUser->setAvatar($currentUserRow['avatar']);
+        $currentUser->setId($_SESSION['userid']);
+        $currentUser->setData();
     }
 ?>
 
@@ -78,32 +67,25 @@
     <p><strong>Comments: </strong></p>
     <div id="comments" class="comments">
     <?php
-        $conn = Db::getInstance();
-        $statement = $conn->prepare('SELECT * FROM comments WHERE photoId = :photoId ORDER BY date');
-        $photoId = $photo->getId();
-        $statement->bindParam(':photoId', $photoId);
-        $result = $statement->execute();
-        $commentArray = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $commentArray = $photo->getComments();
 
         foreach ($commentArray as $commentRow):
             //comment object maken
             $comment = new Comment();
-            $comment->setPhotoId($commentRow['photoId']);
-            $comment->setUserId($commentRow['userId']);
-            $comment->setText($commentRow['text']);
-            $comment->setDate($commentRow['date']);
+            $comment->setId($commentRow['id']);
+            $comment->setData();
 
             //user die de comment geplaatst heeft ophalen
             $userRow = Db::simpleFetch('SELECT * FROM users WHERE id = '.$comment->getUserId());
-            $user = new User();
-            $user->setFirstName($userRow['firstName']);
-            $user->setLastName($userRow['lastName']);
-    ?>
+            $commentUser = new User();
+            $commentUser->setId($comment->getUserId());
+            $commentUser->setData();
+        ?>
         
             <div class="commentBox">
                 <div class="commentUserBox">
-                    <img width="50px" src="<?php echo $userRow['avatar']; ?>">
-                    <strong><?php echo $user->getFirstName().' '.$user->getLastName(); ?></strong>
+                    <img width="50px" src="<?php echo $commentUser->getAvatar(); ?>">
+                    <strong><?php echo $commentUser->getFullName(); ?></strong>
                 </div>
                 <p><?php echo $comment->getText(); ?></p>
                 <p class="commentDate"><?php echo $comment->getDate(); ?></p>
@@ -115,9 +97,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script>
         $("#commentSubmit").on("click", function(e) {
+            console.log("hey");
         var photoId = $(this).data("photoid");
         var userId = $(this).data("userid");
         var commentText = $("#commentText").val();
+
+        e.preventDefault();
 
         $.ajax({
             method: "POST",
@@ -144,8 +129,6 @@
                     $("#commentText").val("");
                 }
             });
-
-            e.preventDefault();
         });
     </script>
 </body>

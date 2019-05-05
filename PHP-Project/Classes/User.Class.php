@@ -1,7 +1,8 @@
 <?php
-    require_once("bootstrap.php");
+    require_once 'bootstrap.php';
 
-    class User {
+    class User
+    {
         private $id;
         private $email;
         private $firstName;
@@ -11,184 +12,241 @@
         private $avatar; //avatar
         private $avatarType; //filetype of uploaded avatar
         private $avatarTmpName;
-        private $profileText; 
-        private $value; //zoekfunctie
- 
+        private $profileText;
+
         //GETTER & SETTERS in de volgorde dat de variabelen hierboven staan
- 
-        public function getId() {
+
+        public function getId()
+        {
             return $this->id;
         }
-        public function setId($id) {
+
+        public function setId($id)
+        {
             $this->id = $id;
+
             return $this;
         }
 
-        public function getEmail() {
+        public function getEmail()
+        {
             return $this->email;
         }
-        public function setEmail($email) {
+
+        public function setEmail($email)
+        {
             $this->email = $email;
+
             return $this;
         }
 
-        public function getFirstName() {
+        public function getFirstName()
+        {
             return $this->firstName;
         }
 
-        public function setFirstName($firstName){
+        public function setFirstName($firstName)
+        {
             $this->firstName = $firstName;
+
             return $this;
         }
 
-        public function getLastName() {
+        public function getLastName()
+        {
             return $this->lastName;
         }
 
-        public function setLastName($lastName){
+        public function setLastName($lastName)
+        {
             $this->lastName = $lastName;
+
             return $this;
         }
 
-        public function getFullName() {
-            return $this->firstName . " " . $this->lastName;
+        public function getFullName()
+        {
+            return $this->firstName.' '.$this->lastName;
         }
 
-        public function getPw(){
+        public function getPw()
+        {
             return $this->pw;
         }
-        
-        public function setPw($pw){
-           $this->pw = $pw;
-           return $this;
+
+        public function setPw($pw)
+        {
+            $this->pw = $pw;
+
+            return $this;
         }
-        
-        public function getPwConfirm(){
+
+        public function getPwConfirm()
+        {
             return $this->pwConfirm;
         }
-       
-        public function setPwConfirm($pwConfirm){
-           $this->pwConfirm = $pwConfirm;
-           return $this;
+
+        public function setPwConfirm($pwConfirm)
+        {
+            $this->pwConfirm = $pwConfirm;
+
+            return $this;
         }
-        
-        public function getAvatar() {
+
+        public function getAvatar()
+        {
             return $this->avatar;
         }
-        public function setAvatar($avatar) {
-            $this->avatar = 'images/' . $avatar;
+
+        public function setAvatar($avatar)
+        {
+            $this->avatar = 'images/'.$avatar;
+
             return $this;
         }
 
-        public function getAvatarType() {
-                return $this->avatarType;
+        public function getAvatarType()
+        {
+            return $this->avatarType;
         }
 
-        public function setAvatarType($avatarType){
-                $this->avatarType = $avatarType;
-                return $this;
-        }
-        
-        public function getAvatarTmpName(){
-                return $this->avatarTmpName;
-        }
- 
-        public function setAvatarTmpName($avatarTmpName){
-                $this->avatarTmpName = $avatarTmpName;
-                return $this;
+        public function setAvatarType($avatarType)
+        {
+            $this->avatarType = $avatarType;
+
+            return $this;
         }
 
-        public function setProfileText($profileText) {
+        public function getAvatarTmpName()
+        {
+            return $this->avatarTmpName;
+        }
+
+        public function setAvatarTmpName($avatarTmpName)
+        {
+            $this->avatarTmpName = $avatarTmpName;
+
+            return $this;
+        }
+
+        public function setProfileText($profileText)
+        {
             $this->profileText = $profileText;
+
             return $this;
         }
-    
-        public function getProfileText() {
+
+        public function getProfileText()
+        {
             return $this->profileText;
         }
 
+        public function setData()
+        {
+            $userRow = Db::simpleFetch('SELECT * FROM users WHERE id = '.$this->id);
+
+            $this->email = $userRow['email'];
+            $this->firstName = $userRow['firstName'];
+            $this->lastName = $userRow['lastName'];
+            $this->pw = $userRow['password'];
+            $this->avatar = $userRow['avatar'];
+            $this->profileText = $userRow['profileText'];
+
+            return $this;
+        }
+
         //all the functions except GETTERS and SETTERS
-        public function filledIn($field){
-            if(empty($field)){
-            return false;
+        public function filledIn($field)
+        {
+            if (empty($field)) {
+                return false;
             } else {
-            return true;
+                return true;
             }
         }
 
-        public function itemsAreEqual($item1, $item2){
-            if($item1 != $item2){
-            return false;
-            } 
+        public function itemsAreEqual($item1, $item2)
+        {
+            if ($item1 != $item2) {
+                return false;
+            }
+
             return true;
         }
 
-        public function checkIfEmailAlreadyExists($email){
+        public function checkIfEmailAlreadyExists($email)
+        {
             $conn = Db::getInstance();
-            $statement = $conn->prepare("select * from users where email = :email");
-            $statement->bindParam(":email",$email);
+            $statement = $conn->prepare('select * from users where email = :email');
+            $statement->bindParam(':email', $email);
             $statement->execute();
             $result = $statement->fetch(PDO::FETCH_ASSOC);
- 
-            if(empty($result)){
+
+            if (empty($result)) {
                 return false; // there's no account with this email
             } else {
                 return true; // there's already an account with this email
             }
         }
 
-        public function isPwStrongEnough($pw){
-            if(strlen($pw) < 8){
+        public function isPwStrongEnough($pw)
+        {
+            if (strlen($pw) < 8) {
                 return false; // password is not strong enough
             }
+
             return true; // password is strong enough
         }
 
-        public function checkIfFileTypeIsImage($avatarType) {
-            if(preg_match('!image!', $_FILES['avatar']['type'])) {
+        public function checkIfFileTypeIsImage($avatarType)
+        {
+            if (preg_match('!image!', $_FILES['avatar']['type'])) {
                 return true;
             }
+
             return false;
         }
 
-        public function copyAvatartoImageFolder($avatar) {
+        public function copyAvatartoImageFolder($avatar)
+        {
             copy($_FILES['avatar']['tmp_name'], $avatar);
         }
 
-        public function register(){
+        public function register()
+        {
             $options = [
-		        'cost' => 12,
-		    ];
+                'cost' => 12,
+            ];
 
-            $password = password_hash($this->pw,PASSWORD_DEFAULT,$options);
+            $password = password_hash($this->pw, PASSWORD_DEFAULT, $options);
 
-		    try {
-			    $conn = Db::getInstance(); // DB CONNECTIE AANPASSEN / ROOT
-			    $statement = $conn->prepare("INSERT into users (email,firstName,lastName, password, avatar, profileText) VALUES (:email,:firstName,:lastName,:password, :avatar, :profileText)");
-                $statement->bindParam(":email",$this->email);
-                $statement->bindParam(":firstName",$this->firstName);
-                $statement->bindParam(":lastName",$this->lastName);
-                $statement->bindParam(":password",$password);
-                $statement->bindParam(":avatar",$this->avatar);
-                $statement->bindParam(":profileText",$this->profileText);
+            try {
+                $conn = Db::getInstance(); // DB CONNECTIE AANPASSEN / ROOT
+                $statement = $conn->prepare('INSERT into users (email,firstName,lastName, password, avatar, profileText) VALUES (:email,:firstName,:lastName,:password, :avatar, :profileText)');
+                $statement->bindParam(':email', $this->email);
+                $statement->bindParam(':firstName', $this->firstName);
+                $statement->bindParam(':lastName', $this->lastName);
+                $statement->bindParam(':password', $password);
+                $statement->bindParam(':avatar', $this->avatar);
+                $statement->bindParam(':profileText', $this->profileText);
                 $result = $statement->execute();
-			    return $result;
 
-		    } catch(Throwable $t){
-			    return false;
+                return $result;
+            } catch (Throwable $t) {
+                return false;
             }
         }
 
-        public function login(){
-            $conn = Db::getInstance(); 
-            $statement = $conn->prepare("select * from users where email = :email");
-            $statement->bindParam(":email",$this->email);
+        public function login()
+        {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('select * from users where email = :email');
+            $statement->bindParam(':email', $this->email);
             $result = $statement->execute();
             $result = $statement->fetch(PDO::FETCH_ASSOC);
 
-            
-            if(!empty($result)){
-                if(password_verify($this->pw, $result['password'])){
+            if (!empty($result)) {
+                if (password_verify($this->pw, $result['password'])) {
                     return $result['id'];
                 } else {
                     return false;
@@ -198,7 +256,8 @@
             }
         }
 
-        public function getFollowState($userId) {
-            return Db::simpleFetch("SELECT count(*) AS count FROM followers WHERE followedUser = " . $this->id . " AND followingUser = " . $userId)['count'];
+        public function getFollowState($userId)
+        {
+            return Db::simpleFetch('SELECT count(*) AS count FROM followers WHERE followedUser = '.$this->id.' AND followingUser = '.$userId)['count'];
+        }
     }
-}

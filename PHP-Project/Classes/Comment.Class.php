@@ -1,12 +1,25 @@
 <?php
     class Comment
     {
+        private $id;
         private $photoId;
         private $userId;
         private $text;
         private $date;
 
         //GETTERS en SETTERS
+        public function getId()
+        {
+            return $this->id;
+        }
+
+        public function setId($id)
+        {
+            $this->id = $id;
+
+            return $id;
+        }
+
         public function getPhotoId()
         {
             return $this->photoId;
@@ -51,6 +64,17 @@
         public function setDate($date)
         {
             $this->date = $date;
+
+            return $this;
+        }
+
+        public function setData()
+        {
+            $commentRow = Db::simpleFetch('SELECT * FROM comments WHERE id = '.$this->id);
+            $this->photoId = $commentRow['photoId'];
+            $this->userId = $commentRow['userId'];
+            $this->text = $commentRow['text'];
+            $this->date = $commentRow['date'];
 
             return $this;
         }
