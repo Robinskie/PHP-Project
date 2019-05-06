@@ -11,12 +11,17 @@
         $email = $_POST['email'];
         $password = $_POST['password'];
 
+        // als e-mail ingevuld is
         if (!$user->filledIn($email)) {
             global $errorMessage;
-            $errorMessage = 'you did not fill in your email';
+            $errorMessage = 'You did not fill in your email';
+
+        // als wachtwoord ingevuld is
         } elseif (!$user->filledIn($password)) {
             global $errorMessage;
-            $errorMessage = 'you did not fill in your password';
+            $errorMessage = 'You did not fill in your password';
+
+        // foutmelding tonen
         } else {
             $result = $user->login();
             if ($result != false) {
@@ -53,9 +58,9 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password">
         <br>
-        <input type="submit" value="Sign in" id="submitBtn">
+        <input type="submit" value="Sign in" id="submitBtn"><br>
+        <a href="register.php">I don't have an account yet!</a>
     </form>
-    <a href="register.php">I don't have an account yet!</a>
 </div>
 </body>
 </html>
