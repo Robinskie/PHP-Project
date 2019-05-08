@@ -6,13 +6,12 @@
 
     $userId = $_SESSION['userid'];
 
-    // DEZE QUERY MOET NOG VERPLAATST WORDEN, DEZE ZOEKT DE GEGEVENS VAN DE USER
     $conn = Db::getInstance();
     $statement = $conn->prepare('SELECT * FROM users WHERE id = :id');
     $statement->bindValue(':id', $user->getId());
     $statement->execute();
     $result = $statement->fetch(PDO::FETCH_ASSOC);
-    // DE GEGEVENS WORDEN GEBRUIKT OM DE NAAM, BIO EN AVATAR OP HET PROFIEL TE ZETTEN
+
     $user->setFirstName($result['firstName']);
     $user->setLastName($result['lastName']);
     $user->setProfileText($result['profileText']);

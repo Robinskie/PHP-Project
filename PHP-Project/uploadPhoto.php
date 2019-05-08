@@ -14,7 +14,6 @@
         $photo->setUploader($_SESSION['userid']);
         $photo->setDescription($_POST['description']);
 
-        //checks
         if (!$photo->checkIfFilledIn($photo->getName())) {
             $errorMessage = 'Please enter a name for your picture.';
         }
@@ -25,7 +24,6 @@
             $errorMessage = 'This is not an image file.';
         }
 
-        //in orde -> let's upload
         if ($errorMessage == '') {
             $conn = Db::getInstance();
             $statement = $conn->prepare('INSERT INTO photos (name, uploader, uploadDate, description) values (:name, :uploader, :uploadDate, :description)');
@@ -35,22 +33,14 @@
             $statement->bindValue(':description', $photo->getDescription());
             $statement->execute();
 
-            //image maken
             $originalImage = imagecreatefromstring(file_get_contents($file['tmp_name']));
-            //cropped image maken
             $croppedImage = $photo->cropImage($file, 600, 600);
-
-            //get/set ID of image
             $photo->setId(Db::simpleFetch('SELECT MAX(id) FROM photos')['MAX(id)']);
 
-            //nu de image kopiëren
             imagepng($originalImage, $photo->getPhotoPath());
             imagepng($croppedImage, $photo->getCroppedPhotoPath());
 
-            //kleuren uit de foto halen en opslaan
             $photo->saveColors();
-
-            //verplaatsen naar photo.php?id=(id)
             header('Location:photo.php?id='.$photo->getId());
         }
     }
@@ -96,7 +86,7 @@
     </form>
         
     <script>
-        //PREVIEW FOTO
+
         var photoPreview = document.getElementById("photoPreview");
         var photoInput = document.getElementById("photoInput");
 

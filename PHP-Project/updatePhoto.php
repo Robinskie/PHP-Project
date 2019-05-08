@@ -3,27 +3,21 @@
 
     redirectIfLoggedOut();
 
-    //VAR errormessage om errors op te vangen
     $errorMessage = '';
 
-    //info van huidige foto dat gaat bewerkt worden ophalen
     $oldPhoto = new Photo();
     $oldPhoto->setId($_GET['id']);
     $oldPhoto->setData();
 
-    //user van pagina smijten als zij niet de foto hebben geüpload (je kan geen eigen foto's bewerken/deleten)
     if ($_SESSION['userid'] != $oldPhoto->getUploader()) {
         header('Location: index.php');
     }
 
     if (!empty($_POST)) {
-
-        //geupdate versie foto aanmaken
         $newPhoto = new Photo();
         $newPhoto->setName($_POST['name']);
         $newPhoto->setDescription($_POST['description']);
-      
-        //checks
+
         if (!$newPhoto->checkIfFilledIn($newPhoto->getName())) {
             $errorMessage = 'Please enter a name for your picture.';
         }
@@ -31,7 +25,6 @@
             $errorMessage = 'Please enter a description for your picture.';
         }
 
-        //in orde -> let's update
         if ($errorMessage == '') {
             $oldPhoto->updatePhoto($newPhoto->getName(), $newPhoto->getDescription());
         }

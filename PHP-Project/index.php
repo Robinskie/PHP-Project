@@ -18,21 +18,17 @@
 
     <h1>Your feed </h1>
     
-    <!-- zoekformulier maken -->
     <form action="search.php" method="GET">
     <input id="search" name="search" type="text" placeholder="Search">
     <input id="submit" type="submit" value="Search">
     </form> 
-    <!-- einde formulier -->
     </div>
 
 
-    <!-- een foto uploaden -->
     <a href="uploadPhoto.php" id="upload">Upload a picture</a>
 
     <div class="homeFeed">
     <?php
-        //FEED
         if (empty($_GET['postLimit'])) {
             $postLimit = 5;
         } else {
@@ -51,7 +47,6 @@
         $result = $statement->execute();
         $photoArray = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    // IF USER IS ALREADY FOLLOWING OTHER ACCOUNTS
     if (!empty($photoArray)) {
         foreach ($photoArray as $photoRow):
         $photo = new Photo();
@@ -65,7 +60,6 @@
         $likeCount = $photo->getLikeCount();
         $isLiked = $photo->getLikeState($userId);
 
-        // een foto rapporteren
         $reportCount = $photo->getReportCount();
         $isReported = $photo->getReportState($userId); ?>
         
@@ -90,8 +84,7 @@
                         <a href="#" id="likeButton" class="likeButton" data-id="<?php echo $photo->getId(); ?>" data-liked=0>Like</a>
                     <?php
         } ?>
-
-                    <!-- een post rapporteren -->              
+           
                     <?php if ($isReported) {
             ?>
                         <a href="#" id="reportButton" class="reportButton" data-id="<?php echo $photo->getId(); ?>" data-reported=1>Take back</a>

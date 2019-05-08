@@ -2,14 +2,11 @@
     require_once 'bootstrap.php';
     redirectIfLoggedOut();
 
-    //check URL voor welke foto het is
     if (!empty($_GET)) {
-        //photo-object maken om u gegevens in te proppen
         $photo = new Photo();
         $photo->setId($_GET['id']);
         $photo->setData();
 
-        //zelfde voor uploader
         $uploaderUser = new User();
         $uploaderUser->setId($photo->getUploader());
         $uploaderUser->setData();
@@ -31,23 +28,19 @@
 </head>
 <body>
     <?php include_once 'includes/nav.inc.php'; ?>
-    <!--photo weergeven met nodige info-->
+
     <h1><?php echo $photo->getName(); ?></h1>
 
-    <!--foto is een link naar de vergrootte weergave-->
     <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" class="searchresult" width="250px" height="250px"> 
 
-    <!-- photo bewerken -->
     <?php if ($photo->getUploader() == $_SESSION['userid']) :?>
         <a href="updatePhoto.php?id=<?php echo $photo->getId(); ?>" >Bewerken</a>
     <?php endif; ?>
     
-    <!--foto info-->
     <p><strong>Uploaded by: </strong><a href="profile.php?id=<?php echo $uploaderUser->getId(); ?>"><?php echo $uploaderUser->getFirstName().' '.$uploaderUser->getLastName(); ?></a></p>
     <p><strong> Upload date: </strong><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
     <p><?php echo $photo->getDescription(); ?></p>
     
-    <!--colors-->
     <p><strong>Colors: </strong></p>
         <?php $colorArray = $photo->getColors();
             foreach ($colorArray as $color):?>
@@ -55,27 +48,23 @@
     <?php endforeach; ?>
     
 
-    <!--comment form-->
-    <form name="commentForm">
+     <form name="commentForm">
         <div>
             <textarea id="commentText" name="commentText" form="commentText" cols="83" rows="5" style="resize: none"></textarea>
         </div>
         <input id="commentSubmit" data-photoid="<?php echo $photo->getId(); ?>" data-userid="<?php echo $_SESSION['userid']; ?>" type="submit" value="Post comment">
     </form>
 
-    <!--alle comments printen-->
-    <p><strong>Comments: </strong></p>
+     <p><strong>Comments: </strong></p>
     <div id="comments" class="comments">
     <?php
         $commentArray = $photo->getComments();
 
         foreach ($commentArray as $commentRow):
-            //comment object maken
             $comment = new Comment();
             $comment->setId($commentRow['id']);
             $comment->setData();
 
-            //user die de comment geplaatst heeft ophalen
             $userRow = Db::simpleFetch('SELECT * FROM users WHERE id = '.$comment->getUserId());
             $commentUser = new User();
             $commentUser->setId($comment->getUserId());
