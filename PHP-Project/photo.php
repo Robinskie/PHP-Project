@@ -31,7 +31,9 @@
 
     <h1><?php echo $photo->getName(); ?></h1>
 
-    <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" class="searchresult" width="250px" height="250px"> 
+    <a href="<?php echo $photo->getPhotoPath(); ?>" target="_blank">
+        <img src="<?php echo $photo->getCroppedPhotoPath(); ?>" class="searchresult" width="250px" height="250px"> 
+    </a>
 
     <?php if ($photo->getUploader() == $_SESSION['userid']) :?>
         <a href="updatePhoto.php?id=<?php echo $photo->getId(); ?>" >Bewerken</a>
@@ -66,9 +68,7 @@
             $comment->setId($commentRow['id']);
             $comment->setData();
 
-            $commentUser = new User();
-            $commentUser->setId($comment->getUserId());
-            $commentUser->setData();
+            $commentUser = $comment->getCommenterObject();
         ?>
         
             <div class="commentBox">

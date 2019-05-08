@@ -37,4 +37,20 @@
 
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public static function getUserFeed($userId, $postLimit)
+        {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare(
+                'SELECT *, photos.id AS pId, users.id AS uId FROM photos 
+                LEFT JOIN users ON photos.uploader = users.id 
+                RIGHT JOIN followers ON followers.followedUser = photos.uploader
+                WHERE followers.followingUser = :currentUser
+                ORDER BY uploadDate DESC
+                LIMIT '.$postLimit);
+            $statement->bindParam(':currentUser', $userId);
+            $result = $statement->execute();
+
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
     }

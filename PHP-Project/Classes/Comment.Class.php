@@ -78,6 +78,15 @@
             return $this;
         }
 
+        public function getCommenterObject()
+        {
+            $commentUser = new User();
+            $commentUser->setId($this->userId);
+            $commentUser->setData();
+
+            return $commentUser;
+        }
+
         public function save()
         {
             $conn = Db::getInstance();

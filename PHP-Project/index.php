@@ -2,6 +2,8 @@
     require_once 'bootstrap.php';
     redirectIfLoggedOut();
 
+    $userId = $_SESSION['userid'];
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,17 +37,7 @@
             $postLimit = $_GET['postLimit'];
         }
 
-        $conn = Db::getInstance();
-        $statement = $conn->prepare(
-            'SELECT *, photos.id AS pId, users.id AS uId FROM photos 
-            LEFT JOIN users ON photos.uploader = users.id 
-            RIGHT JOIN followers ON followers.followedUser = photos.uploader
-            WHERE followers.followingUser = :currentUser
-            ORDER BY uploadDate DESC
-            LIMIT '.$postLimit);
-        $statement->bindParam(':currentUser', $_SESSION['userid']);
-        $result = $statement->execute();
-        $photoArray = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $photoArray = Db::getUserFeed($userId, $postLimit);
 
     if (!empty($photoArray)) {
         foreach ($photoArray as $photoRow):
@@ -53,7 +45,6 @@
         $photo->setId($photoRow['pId']);
         $photo->setData();
         $photoId = $photo->getId();
-        $userId = $_SESSION['userid'];
 
         $uploadUser = $photo->getUploaderObject();
 
