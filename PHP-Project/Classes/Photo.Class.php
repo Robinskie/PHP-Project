@@ -99,18 +99,15 @@
             $croppedAspect = $croppedWidth / $croppedHeight;
 
             if ($originalAspect >= $croppedAspect) {
-                // If image is wider than thumbnail (in aspect ratio sense)
                 $newHeight = $croppedHeight;
                 $newWidth = $width / ($height / $croppedHeight);
             } else {
-                // If the thumbnail is wider than the image
                 $newWidth = $croppedWidth;
                 $newHeight = $height / ($width / $croppedWidth);
             }
 
             $croppedImage = imagecreatetruecolor($croppedWidth, $croppedHeight);
 
-            // Resize and crop
             imagecopyresampled($croppedImage,
                             $originalImage,
                             0 - ($newWidth - $croppedWidth) / 2, // Center the image horizontally
@@ -132,8 +129,6 @@
             return 'images/photos/'.$this->id.'_cropped.png';
         }
 
-        // een foto rapporteren
-
         public function getReportCount()
         {
             return Db::simpleFetch('SELECT count(*) AS count FROM reports WHERE photo_id='.$this->id)['count'];
@@ -154,7 +149,6 @@
             return Db::simpleFetch('SELECT count(*) AS count FROM likes WHERE photo_id='.$this->id.' AND user_id='.$userId)['count'];
         }
 
-        //vul de photo dmv gegeven ID
         public function setData()
         {
             $photoRow = Db::simpleFetch('SELECT * FROM photos WHERE id = '.$this->id);
@@ -166,7 +160,6 @@
             return $this;
         }
 
-        //krijg een User object van de uploader
         public function getUploaderObject()
         {
             $user = new User();
@@ -176,7 +169,6 @@
             return $user;
         }
 
-        //scan de foto op kleuren en save in DB
         public function saveColors()
         {
             $image = $this->getCroppedPhotoPath();
@@ -231,13 +223,11 @@
             }
         }
 
-        //haal een array van hex waarden vd kleuren uit db
         public function getColors()
         {
             return Db::simpleFetchAll('SELECT color FROM photoColors WHERE photoId = '.$this->id);
         }
 
-        //verwijder de foto
         public function deletePicture()
         {
             $conn = Db::getInstance();
@@ -250,7 +240,6 @@
             return $statement->execute();
         }
 
-        //krijg een comment array van deze foto
         public function getComments()
         {
             $conn = Db::getInstance();

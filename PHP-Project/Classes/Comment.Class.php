@@ -7,7 +7,6 @@
         private $text;
         private $date;
 
-        //GETTERS en SETTERS
         public function getId()
         {
             return $this->id;
@@ -79,7 +78,6 @@
             return $this;
         }
 
-        // functies
         public function save()
         {
             $conn = Db::getInstance();

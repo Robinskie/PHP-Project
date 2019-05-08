@@ -4,7 +4,6 @@
         private $photoId;
         private $userId;
 
-        //GETTERS en SETTERS
         public function getPhotoId()
         {
             return $this->photoId;
@@ -29,11 +28,8 @@
             return $this;
         }
 
-        // functies
         public function save()
         {
-            // @todo: hook in a new function that checks if a user has already liked a post
-
             $conn = Db::getInstance();
             $statement = $conn->prepare('insert into likes (photo_id, user_id, date_created) values (:photoid, :userid, NOW())');
             $statement->bindValue(':photoid', $this->getPhotoId());
@@ -44,8 +40,6 @@
 
         public function unSave()
         {
-            // @todo: hook in a new function that checks if a user has already liked a post
-
             $conn = Db::getInstance();
             $statement = $conn->prepare('DELETE FROM likes WHERE photo_id=:photoid AND user_id=:userid');
             $statement->bindValue(':photoid', $this->getPhotoId());

@@ -1,7 +1,6 @@
 <?php
     require_once("../bootstrap.php");
 
-    // POST?
     if( !empty($_POST)){
         $photoId = $_POST['photoId'];
         $userId = $_POST['userId'];
@@ -17,7 +16,6 @@
             $comment->setDate($date);
             $comment->save();
 
-            //JSON object
             $result = [
                 "status" => "success",
                 "message" => "Comment has been saved! :)"

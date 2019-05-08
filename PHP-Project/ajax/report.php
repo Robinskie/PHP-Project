@@ -18,7 +18,7 @@
             $report->setUserId($userId);
             $report->takeBack();
         }
-        //JSON OBJECT
+
         $result = [
             "status" => "success",
             "message" => "Report has been updated"
