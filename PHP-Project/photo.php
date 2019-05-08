@@ -38,7 +38,9 @@
     <?php endif; ?>
     
     <p><strong>Uploaded by: </strong><a href="profile.php?id=<?php echo $uploaderUser->getId(); ?>"><?php echo $uploaderUser->getFirstName().' '.$uploaderUser->getLastName(); ?></a></p>
-    <p><strong> Upload date: </strong><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
+    <p><strong>Upload date: </strong><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
+    <p><strong>Upload location: </strong><span id="locationCity"></span></p>
+    <div id="mapDiv" class="mapDiv"></div>
     <p><?php echo $photo->getDescription(); ?></p>
     
     <p><strong>Colors: </strong></p>
@@ -47,7 +49,6 @@
                 <a href="searchColor.php?color=<?php echo substr($color['color'], strpos($color['color'], '#') + 1); ?>"><div class="colorBall" style="background-color: <?php echo $color['color']; ?>"></div></a>
     <?php endforeach; ?>
     
-
      <form name="commentForm">
         <div>
             <textarea id="commentText" name="commentText" form="commentText" cols="83" rows="5" style="resize: none"></textarea>
@@ -65,7 +66,6 @@
             $comment->setId($commentRow['id']);
             $comment->setData();
 
-            $userRow = Db::simpleFetch('SELECT * FROM users WHERE id = '.$comment->getUserId());
             $commentUser = new User();
             $commentUser->setId($comment->getUserId());
             $commentUser->setData();
@@ -84,42 +84,79 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
     <script>
-
-        $("#commentSubmit").on("click", function(e) {
-            console.log("hey");
-        var photoId = $(this).data("photoid");
-        var userId = $(this).data("userid");
-        var commentText = $("#commentText").val();
-
-        e.preventDefault();
-
+        //location stuff
+        console.log("locationCity");
+        var locationCity = document.getElementById("locationCity");
+        var lat = <?php echo $photo->getLocation()->latitude; ?>;
+        var lon = <?php echo $photo->getLocation()->longitude; ?>;
         $.ajax({
-            method: "POST",
-            url: "ajax/postComment.php", 
+            method: "GET",
+            url: "https://nominatim.openstreetmap.org/reverse", 
             data: { 
-                photoId: photoId,
-                userId: userId,
-                commentText: commentText
+                format: "json",
+                lat: lat,
+                lon: lon
             },
                 dataType: "JSON" 
             }).done(function(res) {
-                if(res.status == 'success') {
-                    var newComment = "<div class='commentBox'>" +
-                        "<div class='commentUserBox'>" +
-                            "<img width='50px' src='<?php echo $currentUserRow['avatar']; ?>'>" +
-                            "<strong><?php echo $currentUser->getFirstName().' '.$currentUser->getLastName(); ?></strong>" +
-                        "</div>" +
-                        "<p>" + $("#commentText").val() + "</p>" +
-                        "<p class='commentDate'><?php echo $comment->getDate(); ?></p>" +
-                    "</div>";
+                locationCity.innerHTML = res['address']['town'];
 
-                    $("#comments").append(newComment);
+                map = new OpenLayers.Map("mapDiv");
+                map.addLayer(new OpenLayers.Layer.OSM());
 
-                    $("#commentText").val("");
-                }
+                var lonLat = new OpenLayers.LonLat(lon, lat)//position.coords.latitude, position.coords.longitude)
+                    .transform(
+                        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                        map.getProjectionObject() // to Spherical Mercator Projection
+                    );
+                    
+                var zoom=16;
+
+                var markers = new OpenLayers.Layer.Markers( "Markers" );
+                map.addLayer(markers);
+                
+                markers.addMarker(new OpenLayers.Marker(lonLat));
+                
+                map.setCenter (lonLat, zoom);
             });
-        });
+
+        //adding a comment stuff
+        $("#commentSubmit").on("click", function(e) {
+            var photoId = $(this).data("photoid");
+            var userId = $(this).data("userid");
+            var commentText = $("#commentText").val();
+
+            e.preventDefault();
+
+            $.ajax({
+                method: "POST",
+                url: "ajax/postComment.php", 
+                data: { 
+                    photoId: photoId,
+                    userId: userId,
+                    commentText: commentText
+                },
+                    dataType: "JSON" 
+                }).done(function(res) {
+                    console.log(res);
+                    if(res.status == 'success') {
+                        var newComment = "<div class='commentBox'>" +
+                            "<div class='commentUserBox'>" +
+                                "<img width='50px' src='<?php echo $currentUser->getAvatar(); ?>'>" +
+                                " <strong><?php echo $currentUser->getFullName(); ?></strong>" +
+                            "</div>" +
+                            "<p>" + $("#commentText").val() + "</p>" +
+                            "<p class='commentDate'><?php echo date('Y-m-d', time()); ?></p>" +
+                        "</div>";
+
+                        $("#comments").append(newComment);
+
+                        $("#commentText").val("");
+                    }
+                });
+            });
     </script>
 </body>
 </html>

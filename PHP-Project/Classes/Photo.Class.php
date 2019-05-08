@@ -9,6 +9,7 @@
         private $likes;
         private $reports;
         private $input;
+        private $location;
 
         public function getId()
         {
@@ -68,6 +69,20 @@
             $this->uploader = $uploader;
 
             return $this;
+        }
+
+        public function setLocation($latitude, $longitude)
+        {
+            $this->position = (object) array();
+            $this->position->latitude = $latitude;
+            $this->position->longitude = $longitude;
+
+            return $this;
+        }
+
+        public function getLocation()
+        {
+            return $this->position;
         }
 
         public function checkIfFilledIn($field)
@@ -156,6 +171,15 @@
             $this->uploader = $photoRow['uploader'];
             $this->description = $photoRow['description'];
             $this->uploadDate = $photoRow['uploadDate'];
+            $this->position = (object) array();
+            if ($photoRow['location'] != '') {
+                $coords = explode(',', $photoRow['location']);
+                $this->position->latitude = $coords[0];
+                $this->position->longitude = $coords[1];
+            } else {
+                $this->position->latitude = 0;
+                $this->position->longitude = 0;
+            }
 
             return $this;
         }

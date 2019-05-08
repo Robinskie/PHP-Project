@@ -3,7 +3,7 @@
     redirectIfLoggedOut();
 
     if (!empty($_GET)) {
-        $foundPhotos = Db::searchPhotosOnColor('#'.$_GET['color']);
+        $foundPhotos = Search::searchPhotosOnColor('#'.$_GET['color']);
     }
 
 ?><!DOCTYPE html>

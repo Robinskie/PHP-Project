@@ -3,6 +3,7 @@
 
     $user = new User();
     $user->setId($_GET['id']);
+    $user->setData();
 
     $userId = $_SESSION['userid'];
 
@@ -11,11 +12,6 @@
     $statement->bindValue(':id', $user->getId());
     $statement->execute();
     $result = $statement->fetch(PDO::FETCH_ASSOC);
-
-    $user->setFirstName($result['firstName']);
-    $user->setLastName($result['lastName']);
-    $user->setProfileText($result['profileText']);
-    $user->setAvatarTmpName($result['avatar']);
 
     $followersCount = $user->getFollowersCount($userId);
     $followingCount = $user->getFollowingCount($userId);
@@ -40,7 +36,7 @@
 
     <section id="sidebar">
         <div class="profileSection">
-        <img class="profilePicture" src="<?php echo $user->getAvatarTmpName(); ?>" alt="Profile picture">
+        <img class="profilePicture" src="<?php echo $user->getAvatar(); ?>" alt="Profile picture">
         <h1><?php echo $user->getFirstName().' '.$user->getLastName(); ?></h1>
         <p class="bio"><?php echo $user->getProfileText(); ?></p>
         <hr>
