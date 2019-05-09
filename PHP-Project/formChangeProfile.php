@@ -21,7 +21,6 @@ if(!empty($_POST['submit'])) {
             
             if ($newEmail != $confirmNewEmail) {
                 $msg = $msg.'Both email adresses are not matching<BR>';
-        
                 $status = 'NOTOK';
             }
         
@@ -60,7 +59,6 @@ if(!empty($_POST['submit'])) {
         
             if ($newPw != $confirmNewPw) {
                 $msg = $msg.'Both passwords are not matching<BR>';
-        
                 $status = 'NOTOK';
             }
         
@@ -71,7 +69,6 @@ if(!empty($_POST['submit'])) {
         
             if (!$user->isPwStrongEnough($newPw)) {
                 $msg = $msg."Password isn't strong enough<BR>";
-        
                 $status = 'NOTOK';
             }
         
