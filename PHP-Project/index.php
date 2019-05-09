@@ -40,7 +40,7 @@
     <h1>Your feed </h1>
     
     <form action="search.php" method="GET">
-    <p>Suggestions: <span id="txtHint"></span></p>
+    <p> Suggestions: <span id="txtHint"></span></p>
     <input id="search" name="search" type="text" placeholder="Search" onkeyup="showHint(this.value)">
     <input id="submit" type="submit" value="Search">
     </form> 

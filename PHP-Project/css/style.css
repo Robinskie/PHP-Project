@@ -25,7 +25,6 @@ body p {
     float: left;
 }
 
-
 #nav a {
     text-decoration: none;
     color: #ffffff;
@@ -244,6 +243,11 @@ margin-left: 11%;
     display: block;
     width: 500px;
     height: 250px;
+}
+
+#txtHint {
+    margin-left: 10%;
+    margin-bottom: 1%;
 }
 
 @media only screen and (max-width: 920px) {
