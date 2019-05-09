@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/styleContact.css">
     <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
     <title>PROJECT</title>
 </head>
@@ -30,16 +30,16 @@
 
 
     <form name="contactform" action="" method="post">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" class="name" />
+                    <label for="name"></label>
+                    <input type="text" name="name" id="name" class="name" placeholder="Your name" /><br>
 
-                    <label for="email">E-mail</label>
-                    <input type="text" name="email" id="email" class="email" />
+                    <label for="email"></label>
+                    <input type="text" name="email" id="email" class="email" placeholder="Your email"/><br>
 
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" ></textarea>
+                    <label for="message"></label>
+                    <textarea id="message" name="message"  placeholder="Write your message"></textarea><br>
 
-                <input type="submit" class="send" value="Send" name="sendmessage" />
+                <input type="submit" id="submit" class="send" value="Send" name="sendmessage" />
     </form>
 
 </body>
