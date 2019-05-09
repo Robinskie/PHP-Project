@@ -6,8 +6,9 @@
     $userId = $_SESSION['userid'];
 
     if (!empty($_POST)) {
-        $message = $_POST['message'].$_POST['name'].$_POST['email'];
+        $message = '<br>'.$_POST['name'].'<br>'.$_POST['email'].'<br>'.$_POST['message'];
         mail('sarah.vandenheuvel@outlook.com', 'My Subject', $message);
+        var_dump($message);
     } else {
         $errorMessage = 'This is not correct, please try again';
     }
