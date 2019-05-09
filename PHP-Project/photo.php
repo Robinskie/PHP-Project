@@ -44,7 +44,7 @@
     <p><strong>Upload date: </strong><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
     <p><strong>Upload location: </strong><span id="locationCity"></span></p>
     <div id="mapDiv" class="mapDiv"></div>
-    <p><?php echo $photo->getDescription(); ?></p>
+    <p id="description"><?php echo $photo->getDescription(); ?></p>
     
     <p><strong>Colors: </strong></p>
         <?php $colorArray = $photo->getColors();
@@ -85,8 +85,26 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script src="https://openlayers.org/api/OpenLayers.js"></script>
     <script>
+        // find hashtags
+        var description = document.getElementById("description").innerText;
+        findHashtags(description);
+        function findHashtags(searchText) {
+            var regexp = /\B\#\w\w+\b/g;
+            hashtags = searchText.match(regexp);
+            if (hashtags) {
+                console.log(hashtags);
+            } else {
+                return false;
+            }
+                hashtags.forEach(el=>{
+                description.replace(el, "hond");
+            })
+
+            
+        }
+
         //location stuff
         console.log("locationCity");
         var locationCity = document.getElementById("locationCity");
