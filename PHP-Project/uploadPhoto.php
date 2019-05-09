@@ -62,7 +62,7 @@
 <body>
     <?php include_once 'includes/nav.inc.php'; ?>
 
-    <h2>Upload Photo</h2>
+    <h1>Upload Photo</h1>
     <?php
         if ($errorMessage != '') {
             echo "<span class='errorBox'>$errorMessage</span>";
