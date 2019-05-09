@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
     <title>PROJECT</title>
 
 </head>
@@ -58,7 +59,7 @@
                 <a href="photo.php?id=<?php echo $photo->getId(); ?>">
                     <p class="gebruiker"><?php echo $uploadUser->getFullName(); ?></p>
                     <p class="photoDate"><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p><br>
-                    <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="250px" height="250px"> 
+                    <img class="<?php echo $photo->getPhotoFilter(); ?>" src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="250px" height="250px"> 
                     <p> <?php // echo $photo->getName();?></p>
                     
                     <div class="telaantal">
