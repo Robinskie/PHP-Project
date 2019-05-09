@@ -92,23 +92,15 @@
 
     // IF USER IS NOT FOLLOWING ANY ACCOUNTS YET
     } else {
-        $userId = $_SESSION['userid'];
-        $conn = Db::getInstance();
-        $randomUserStatement = $conn->prepare("SELECT * FROM users WHERE NOT id = $userId ORDER BY RAND() LIMIT 1");
-        $randomUserStatement->execute();
-        $randomUser = $randomUserStatement->fetch(PDO::FETCH_ASSOC); ?>
+        $randomUser = Db::getRandomOtherUser($userId); ?>
 
         <p>You're not following anyone yet.<br>
         Perhaps you'll like
 
-        <a href="profile.php?id=<?php echo $randomUser['id']; ?>"><?php echo $randomUser['firstName'].' '.$randomUser['lastName']; ?></a><br></p>
+        <a href="profile.php?id=<?php echo $randomUser->getId(); ?>"><?php echo $randomUser->getFullName(); ?></a><br></p>
 
         <?php
-            $randomUserPostsStatement = $conn->prepare('SELECT * FROM photos WHERE uploader = :randomUserId LIMIT 3');
-        $randomUserPostsStatement->bindParam(':randomUserId', $randomUser['id']);
-        $randomUserPostsStatement->execute();
-
-        $randomUserPosts = $randomUserPostsStatement->fetchAll(PDO::FETCH_ASSOC);
+        $randomUserPosts = $randomUser->getUserPosts($randomUser->getId());
 
         foreach ($randomUserPosts as $randomUserPost):
         ?>
