@@ -24,6 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
     <title>PROJECT - PHOTO</title>
 </head>
 <body>
@@ -32,7 +33,7 @@
     <h1><?php echo $photo->getName(); ?></h1>
 
     <a href="<?php echo $photo->getPhotoPath(); ?>" target="_blank">
-        <img src="<?php echo $photo->getCroppedPhotoPath(); ?>" class="searchresult" width="250px" height="250px"> 
+        <img src="<?php echo $photo->getCroppedPhotoPath(); ?>" class="searchresult <?php echo $photo->getPhotoFilter(); ?>" width="250px" height="250px"> 
     </a>
 
     <?php if ($photo->getUploader() == $_SESSION['userid']) :?>

@@ -13,6 +13,7 @@
         $photo->setUploadDate(date('Y-m-d H:i:s'));
         $photo->setUploader($_SESSION['userid']);
         $photo->setDescription($_POST['description']);
+        $photo->setPhotoFilter($_POST['photoFilters']);
         $photo->setLocation($_POST['locationLat'], $_POST['locationLon']);
 
         if (!$photo->checkIfFilledIn($photo->getName())) {
@@ -27,11 +28,12 @@
 
         if ($errorMessage == '') {
             $conn = Db::getInstance();
-            $statement = $conn->prepare('INSERT INTO photos (name, uploader, uploadDate, description, location) values (:name, :uploader, :uploadDate, :description, :location)');
+            $statement = $conn->prepare('INSERT INTO photos (name, uploader, uploadDate, description, location, photoFilter) values (:name, :uploader, :uploadDate, :description, :location, :photoFilter)');
             $statement->bindValue(':name', $photo->getName());
             $statement->bindValue(':uploader', $photo->getUploader());
             $statement->bindValue(':uploadDate', $photo->getUploadDate());
             $statement->bindValue(':description', $photo->getDescription());
+            $statement->bindValue(':photoFilter', $photo->getPhotoFilter());
             $statement->bindValue(':location', $photo->getLocation()->latitude.','.$photo->getLocation()->longitude);
             $statement->execute();
 
@@ -55,7 +57,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/styleUpload.css">
+    <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
     <title>PROJECT - UPLOAD</title>
 </head>
 
@@ -73,11 +76,23 @@
             <label for="name">Name: </label>
             <input type="name" id="name" name="name">
         </div>
-        <img id="photoPreview" src="./images/placeholder.png">
+        <img id="photoPreview" src="./images/placeholder.png" width="500px">
         <div>
             <label for="File">File: </label>
             <input id="photoInput" type="file" id="file" name="file">
         </div>
+        <label>
+            <input type="radio" name="photoFilters" value="brannan">
+            <img id="photoFilterOne" src="./images/filters/brannan.png" alt="filter one">
+        </label>
+        <label>
+            <input type="radio" name="photoFilters" value="moon">
+            <img id="photoFilterTwo" src="./images/filters/moon.png" alt="filter two">
+        </label>
+        <label>
+            <input type="radio" name="photoFilters" value="_1977">
+            <img id="photoFilterThree" src="./images/filters/1977.png" alt="filter three">
+        </label>
         <div>
             <label for="description">Description: </label>
         </div>
@@ -106,6 +121,27 @@
                 photoPreview.src = reader.result;
             }
             reader.readAsDataURL(e.target.files[0])
+        });
+
+        var filterOne = document.getElementById('photoFilterOne');
+
+        filterOne.addEventListener('click', function(e){
+            photoPreview.className= '';
+            photoPreview.classList.add('brannan');
+        });
+
+        var filterTwo = document.getElementById('photoFilterTwo');
+
+        filterTwo.addEventListener('click', function(e){
+            photoPreview.className= '';
+            photoPreview.classList.add('moon');
+        });
+
+        var filterThree = document.getElementById('photoFilterThree');
+
+        filterThree.addEventListener('click', function(e){
+            photoPreview.className= '';
+            photoPreview.classList.add('_1977');
         });
 
         var locationInput = document.getElementById("locationCity");

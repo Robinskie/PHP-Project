@@ -53,4 +53,18 @@
 
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public function getRandomOtherUser($userId)
+        {
+            $conn = Db::getInstance();
+            $randomUserStatement = $conn->prepare("SELECT id FROM users WHERE NOT id = $userId ORDER BY RAND() LIMIT 1");
+            $randomUserStatement->execute();
+            $fetch = $randomUserStatement->fetch(PDO::FETCH_ASSOC);
+
+            $randomUser = new User();
+            $randomUser->setId($fetch['id']);
+            $randomUser->setData();
+
+            return $randomUser;
+        }
     }

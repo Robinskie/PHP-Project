@@ -40,10 +40,10 @@
 <body>
 <div class="leftColumn">
     <form action="" method="post" enctype="multipart/form-data" id="form">
-        <h2 form__title>Sign in</h2>
+    <h2 form__title>Sign in</h2>
 
         <?php if (!empty($errorMessage)): ?>
-            <p id="errorMessage"><?php echo $errorMessage; ?></p>
+        <p id="errorMessage"><?php echo $errorMessage; ?></p>
         <?php endif; ?>
 
         <label for="email">Email</label>
@@ -53,7 +53,7 @@
         <input type="password" id="password" name="password">
         <br>
         <input type="submit" value="Sign in" id="submitBtn"><br>
-        <a href="register.php">I don't have an account yet!</a>
+        <a href="register.php">I don't have an account</a>
     </form>
 </div>
 </body>

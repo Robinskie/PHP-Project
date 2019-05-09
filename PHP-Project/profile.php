@@ -17,7 +17,7 @@
     $followingCount = $user->getFollowingCount($userId);
     $isFollowed = $user->getFollowState($userId);
 
-    $userPosts = $user->getUserPosts($userId);
+    $userPosts = $user->getUserPosts($_GET['id']);
     $postsCount = $user->getUserPostsCount($userId);
 ?>
 
@@ -29,6 +29,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/styleProfile.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
     <title>Document</title>
 </head>
 <body>
@@ -37,7 +38,7 @@
     <section id="sidebar">
         <div class="profileSection">
         <img class="profilePicture" src="<?php echo $user->getAvatar(); ?>" alt="Profile picture">
-        <h1><?php echo $user->getFirstName().' '.$user->getLastName(); ?></h1>
+        <h1><?php echo $user->getFullName(); ?></h1>
         <p class="bio"><?php echo $user->getProfileText(); ?></p>
         <hr>
         </div>
@@ -65,7 +66,7 @@
     <section id="content">
         <?php foreach ($userPosts as $post): ?>
             <div class="photoBox">
-                <a href="photo.php?id=<?php echo $post['id']; ?>"><img class="userPost" src="images/photos/<?php echo $post['id']; ?>_cropped.png" alt="">
+                <a href="photo.php?id=<?php echo $post['id']; ?>"><img id="userPost" class="<?php echo $post['photoFilter']; ?>" src="images/photos/<?php echo $post['id']; ?>_cropped.png" alt="">
             </div>
         <?php endforeach; ?>
     </section>

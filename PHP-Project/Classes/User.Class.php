@@ -283,7 +283,7 @@
         public function getUserPosts($userId)
         {
             $conn = Db::getInstance();
-            $userPostsStatement = $conn->prepare('SELECT id FROM photos WHERE uploader = :id ORDER BY uploaddate DESC');
+            $userPostsStatement = $conn->prepare('SELECT id, photoFilter FROM photos WHERE uploader = :id ORDER BY uploaddate DESC');
             $userPostsStatement->bindValue(':id', $userId);
             $userPostsStatement->execute();
             $userPosts = $userPostsStatement->fetchAll(PDO::FETCH_ASSOC);
