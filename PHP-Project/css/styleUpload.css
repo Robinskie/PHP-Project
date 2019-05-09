@@ -279,7 +279,6 @@ h3 {
     font-size: 8px;
 }
 
-<<<<<<< HEAD
 #uploaden {
 
     box-shadow: none;
@@ -337,14 +336,13 @@ h3 {
 }
 
 
-=======
+
 .mapDiv {
     display: block;
     width: 500px;
     height: 250px;
 }
 
->>>>>>> 93ceb2a1ed2ed67edfddd6d0fd06ab0d6c46d272
 @media only screen and (max-width: 920px) {
     h1 {
         padding-top: 18%;
