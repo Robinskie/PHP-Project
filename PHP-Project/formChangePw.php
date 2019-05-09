@@ -7,31 +7,27 @@ if (!empty($_POST)) {
     changePw($_POST['oldPw'], $_POST['newPw'], $_POST['confirmNewPw']);
 }
 
-function changePw($oldpw, $newpw, $confirmNewPw)
+function changePw($oldPw, $newPw, $confirmNewPw)
 {
     $user = new User();
+    $user->setId($_SESSION['userid']);
+    $user->setData();
+
     $status = 'OK';
     $msg = '';
 
-    if ($newpw != $confirmNewPw) {
+    if ($newPw != $confirmNewPw) {
         $msg = $msg.'Both passwords are not matching<BR>';
 
         $status = 'NOTOK';
     }
 
-    $userId = $_SESSION['userid'];
-    $conn = Db::getInstance();
-    $statement = $conn->prepare('SELECT password FROM users WHERE id= :userid');
-    $statement->bindParam(':userid', $userId);
-    $result = $statement->execute();
-    $DBresult = $statement->fetch(PDO::FETCH_ASSOC);
-
-    if (!password_verify($oldpw, $DBresult['password'])) {
+    if (!password_verify($oldPw, $user->getPw()) ) {
         $msg = $msg.'Your old password  is not matching as per our record.<BR>';
         $status = 'NOTOK';
     }
 
-    if (!$user->isPwStrongEnough($newpw)) {
+    if (!$user->isPwStrongEnough($newPw)) {
         $msg = $msg."Password isn't strong enough<BR>";
 
         $status = 'NOTOK';
@@ -40,20 +36,17 @@ function changePw($oldpw, $newpw, $confirmNewPw)
     if ($status != 'OK') {
         echo $msg;
     } else {
-        $user->setPw($newpw);
+        $user->setPw($newPw);
 
         $options = [
                 'cost' => 12,
             ];
 
-        $newpw = password_hash($newpw, PASSWORD_DEFAULT, $options);
-
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("UPDATE users SET password=:password WHERE id='".$_SESSION['userid']."'");
-        $statement->bindParam(':password', $newpw);
-        $result = $statement->execute();
+        $newPw = password_hash($newPw, PASSWORD_DEFAULT, $options);
+        $user->savePw($newPw);
 
         return true;
+        echo "Your password is changed";
     }
 }
 ?><!DOCTYPE html>
@@ -69,7 +62,7 @@ function changePw($oldpw, $newpw, $confirmNewPw)
     <p><input type="password" name="oldPw" id="oldPW"placeholder="Old Password"></p>
     <p><input type="password" name="newPw" id="newPw" placeholder="New Password"></p>
     <p><input type="password" name="confirmNewPw" id="ConfirmNewPw" placeholder="Confirm Password"></p>
-    <input type="submit" name="submit" id="submit" value="change password">
+    <input type="submit" name="submit" id="submit" value="Change password">
     </form>  
  
 </body>

@@ -32,8 +32,8 @@ function changeEmail($oldEmail, $newEmail, $confirmNewEmail)    {
         $user->setEmail($newEmail);
         $user->saveEmail($newEmail, $user->getId());
 
-        echo "your email is changed";
         return true;
+        echo "Your email is changed";
     }
 }
 
