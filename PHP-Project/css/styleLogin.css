@@ -87,13 +87,6 @@ a {
         width: 110%;
         padding: 12% 10% 2%;
     }
-    
-}
 
-@media only screen and (max-width: 500px) {
-
-    h2 {
-        color: red;
-    }    
 
 }
