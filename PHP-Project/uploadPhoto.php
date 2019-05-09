@@ -112,7 +112,7 @@
     </form>
         
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script src="https://www.openlayers.org/api/OpenLayers.js"></script>
     <script>
 
         var photoPreview = document.getElementById("photoPreview");
@@ -123,7 +123,7 @@
             reader.onload = function() {
                 photoPreview.src = reader.result;
             }
-            reader.readAsDataURL(e.target.files[0])
+            reader.readAsDataURL(e.target.files[0]);
         });
 
         photoInput.addEventListener("change", function(e) {    

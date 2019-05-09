@@ -1,6 +1,4 @@
 <?php
-    require_once 'bootstrap.php';
-
     class User
     {
         private $id;
@@ -302,7 +300,7 @@
             return $userPostsCount;
         }
 
-        public function saveEmail($newEmail, $userId) 
+        public function saveEmail($newEmail, $userId)
         {
             $conn = Db::getInstance();
             $statement = $conn->prepare('UPDATE users SET email=:email WHERE id=:userid');
@@ -313,7 +311,7 @@
             return $result;
         }
 
-        public function savePw($newPw) 
+        public function savePw($newPw)
         {
             $conn = Db::getInstance();
             $statement = $conn->prepare("UPDATE users SET password=:password WHERE id='".$_SESSION['userid']."'");

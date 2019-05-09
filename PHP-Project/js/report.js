@@ -1,4 +1,5 @@
 	
+	function addReportListeners() {
 		$("a.reportButton").on("click", function(e){ 
 			e.preventDefault();
 
@@ -19,9 +20,6 @@
 					dataType: "JSON" 
 				}).done(function(res) {
 					if( res.status == "success" ) {
-			
-						console.log(isReported);
-						console.log(res.status);
 						if(isReported == 0) {
 							reports++;
 							elReports.html(reports);
@@ -36,4 +34,5 @@
 						}
 				}
 			});
-		})
+		});
+	}
