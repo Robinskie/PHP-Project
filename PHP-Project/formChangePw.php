@@ -44,9 +44,10 @@ function changePw($oldPw, $newPw, $confirmNewPw)
 
         $newPw = password_hash($newPw, PASSWORD_DEFAULT, $options);
         $user->savePw($newPw);
-
-        return true;
+        
         echo "Your password is changed";
+        return true;
+        
     }
 }
 ?><!DOCTYPE html>
