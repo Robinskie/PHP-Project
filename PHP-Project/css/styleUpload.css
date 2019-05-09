@@ -83,7 +83,7 @@ h1 {
     color: #00A86B;
     font-size: 32px;
     margin-bottom: 25px;
-    margin-left: 10.5%;
+    margin-left: 5%;
     margin-top: 0%;
 }
 
@@ -279,6 +279,64 @@ h3 {
     font-size: 8px;
 }
 
+#uploaden {
+
+    box-shadow: none;
+    border: none;
+
+    display: inline-block;
+    text-align: center;
+    border: none;
+    background-color: #00A86B;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 14px 0px 12px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 180px;
+    text-decoration: none;
+    margin-left: 5%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+
+}
+
+#name {
+    height: 25px;
+    width: 150px;
+    border: none;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    padding-left: 20px;
+    margin-left: 5%;
+}
+
+#description {
+    height: 50px;
+    width: 350px;
+    border: none;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    padding-left: 20px;
+    margin-left: 5%;
+    padding-top: 10px;
+}
+
+#photoPreview {
+    margin-left: 5%;
+    width: 180px;
+}
+
+#photoInput {
+    margin-left: 5%;
+    width: 180px;
+}
+
+
+
 .mapDiv {
     display: block;
     width: 500px;
@@ -295,14 +353,6 @@ h3 {
     }
 }
 
-
 @media only screen and (max-width: 520px) {
-    h1 {
-        padding-top: 25%;
-    }
-    
-    .loadMoreButton {
-    margin-bottom: 10%;
-    margin-left: 12%;
-    }
+
 }
