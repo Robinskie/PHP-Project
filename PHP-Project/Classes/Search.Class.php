@@ -31,4 +31,13 @@
 
             return $fetch;
         }
+
+        public function searchNames()
+        {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('SELECT name FROM photos');
+            $statement->execute();
+
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
     }

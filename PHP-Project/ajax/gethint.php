@@ -1,26 +1,33 @@
 <?php
 
+require_once '../bootstrap.php';
+/*
 $a[] = 'Giraf';
 $a[] = 'Axolotl';
 $a[] = 'Plompe Lori';
 $a[] = 'Sheep';
+*/
 
-$q = $_REQUEST['q'];
+$search = new Search();
+$nameArray = $search->searchNames();
 
-$hint = '';
+    $q = $_REQUEST['q'];
 
-if ($q !== '') {
-    $q = strtolower($q);
-    $len = strlen($q);
-    foreach ($a as $name) {
-        if (stristr($q, substr($name, 0, $len))) {
-            if ($hint === '') {
-                $hint = $name;
-            } else {
-                $hint .= ", $name";
+    $hint = '';
+        if ($q !== '') {
+            $q = strtolower($q);
+            $len = strlen($q);
+            foreach ($nameArray as $names) {
+                foreach ($names as $name) {
+                    if (stristr($q, substr($name, 0, $len))) {
+                        if ($hint === '') {
+                            $hint = $name;
+                        } else {
+                            $hint .= ", $name";
+                        }
+                    }
+                }
             }
         }
-    }
-}
 
-echo $hint === '' ? 'no suggestion' : $hint;
+        echo $hint === '' ? 'no suggestion' : $hint;
