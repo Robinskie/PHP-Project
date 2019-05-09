@@ -8,7 +8,6 @@
     if (!empty($_POST)) {
         $message = '<html><body>'.$_POST['name'].'<br>'.$_POST['email'].'<br>'.$_POST['message'].'</body></html>';
         mail('sarah.vandenheuvel@outlook.com', 'subject', $message);
-        var_dump($message);
     } else {
         $errorMessage = 'This is not correct, please try again';
     }
