@@ -8,4 +8,4 @@
     <a href="profile.php?id=<?php echo $userId = $_SESSION['userid']; ?>">Profile</a>
     <a href="logout.php">Log out</a>
 </nav>
-<header>
+</header>

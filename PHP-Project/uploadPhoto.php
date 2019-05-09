@@ -101,7 +101,7 @@
         </div>
         <textarea name="description" form="uploadForm" id="description" placeholder="What is this photo about?" style="resize: none"></textarea>
         <div>
-            <p>Location: <span id="locationCity"></span></p>
+            <p class="location">Your location: <span id="locationCity"></span></p>
             <input id="locationLat" type="hidden" name="locationLat">
             <input id="locationLon" type="hidden" name="locationLon">
         </div>
@@ -112,7 +112,7 @@
     </form>
         
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script src="https://openlayers.org/api/OpenLayers.js"></script>
     <script>
 
         var photoPreview = document.getElementById("photoPreview");
