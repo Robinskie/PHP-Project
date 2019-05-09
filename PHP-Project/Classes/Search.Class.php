@@ -15,7 +15,17 @@
         public static function searchPhotosOnColor($color)
         {
             self::$conn = Db::getInstance();
-            $statement = self::$conn->prepare("SELECT photoId FROM photoColors WHERE color = '$color'");
+            $statement = self::$conn->prepare("SELECT photoId as id FROM photoColors WHERE color = '$color'");
+            $statement->execute();
+            $fetch = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            return $fetch;
+        }
+
+        public static function searchPhotosByTags($tag)
+        {
+            self::$conn = Db::getInstance();
+            $statement = self::$conn->prepare("SELECT id FROM photos WHERE description LIKE '%$tag%'");
             $statement->execute();
             $fetch = $statement->fetchAll(PDO::FETCH_ASSOC);
 
