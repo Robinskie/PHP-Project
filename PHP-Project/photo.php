@@ -44,12 +44,12 @@
     <p><strong>Upload date: </strong><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
     <p><strong>Upload location: </strong><span id="locationCity"></span></p>
     <div id="mapDiv" class="mapDiv"></div>
-    <p><?php echo $photo->getDescription(); ?></p>
+    <p id="description"><?php echo $photo->getDescription(); ?></p>
     
     <p><strong>Colors: </strong></p>
         <?php $colorArray = $photo->getColors();
             foreach ($colorArray as $color):?>
-                <a href="searchColor.php?color=<?php echo substr($color['color'], strpos($color['color'], '#') + 1); ?>"><div class="colorBall" style="background-color: <?php echo $color['color']; ?>"></div></a>
+                <a href="search.php?color=<?php echo substr($color['color'], strpos($color['color'], '#') + 1); ?>"><div class="colorBall" style="background-color: <?php echo $color['color']; ?>"></div></a>
     <?php endforeach; ?>
     
      <form name="commentForm">
@@ -85,7 +85,23 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://openlayers.org/api/OpenLayers.js"></script>
     <script>
+        // find hashtags
+        var description = document.getElementById("description").innerText;
+        findHashtags(description);
+        function findHashtags(searchText) {
+            var regexp = /\B\#\w\w+\b/g;
+            hashtags = searchText.match(regexp);
+
+            hashtags.forEach(el=>{
+                var tag = el.substr(1);
+                description = description.replace(el, '<a href="search.php?tag='+tag+'" target="_blank">'+el+'</a>');
+                $("#description").html(description);
+            })
+            
+        }
+
         //location stuff
         console.log("locationCity");
         var locationCity = document.getElementById("locationCity");

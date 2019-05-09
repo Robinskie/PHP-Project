@@ -34,6 +34,7 @@
         <img class="profilePicture" src="<?php echo $user->getAvatar(); ?>" alt="Profile picture">
         <h1><?php echo $user->getFullName(); ?></h1>
         <p class="bio"><?php echo $user->getProfileText(); ?></p>
+        <a href="./formChangeProfile.php">Change your profile</a>
         <hr>
         </div>
         <div class="info">
