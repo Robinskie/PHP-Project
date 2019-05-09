@@ -22,8 +22,8 @@
     <h1>Your feed </h1>
     
     <form action="search.php" method="GET">
-    <input id="search" name="search" type="text" placeholder="Search">
-    <input id="submit" type="submit" value="Search">
+        <input id="search" name="search" type="text" placeholder="Search">
+        <input id="submit" type="submit" value="Search">
     </form> 
     </div>
 

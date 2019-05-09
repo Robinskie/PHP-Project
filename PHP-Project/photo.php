@@ -49,7 +49,7 @@
     <p><strong>Colors: </strong></p>
         <?php $colorArray = $photo->getColors();
             foreach ($colorArray as $color):?>
-                <a href="searchColor.php?color=<?php echo substr($color['color'], strpos($color['color'], '#') + 1); ?>"><div class="colorBall" style="background-color: <?php echo $color['color']; ?>"></div></a>
+                <a href="search.php?color=<?php echo substr($color['color'], strpos($color['color'], '#') + 1); ?>"><div class="colorBall" style="background-color: <?php echo $color['color']; ?>"></div></a>
     <?php endforeach; ?>
     
      <form name="commentForm">
@@ -93,15 +93,12 @@
         function findHashtags(searchText) {
             var regexp = /\B\#\w\w+\b/g;
             hashtags = searchText.match(regexp);
-            if (hashtags) {
-                console.log(hashtags);
-            } else {
-                return false;
-            }
-                hashtags.forEach(el=>{
-                description.replace(el, "hond");
-            })
 
+            hashtags.forEach(el=>{
+                var tag = el.substr(1);
+                description = description.replace(el, '<a href="search.php?tag='+tag+'" target="_blank">'+el+'</a>');
+                $("#description").html(description);
+            })
             
         }
 
