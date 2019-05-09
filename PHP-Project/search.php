@@ -1,10 +1,28 @@
 <?php
 
     require_once 'bootstrap.php';
+
     redirectIfLoggedOut();
 
     if (!empty($_GET)) {
-        $foundPhotos = Search::searchPhotos($_GET['search']);
+        if (isset($_GET['search'])) {
+            $foundPhotos = Search::searchPhotos($_GET['search']);
+        }
+
+        if (isset($_GET['color'])) {
+            $foundPhotos = Search::searchPhotosOnColor('#'.$_GET['color']);
+        }
+
+        if (isset($_GET['tag'])) {
+            $foundPhotos = Search::searchPhotosByTags('#'.$_GET['tag']);
+            $userId = $_SESSION['userid'];
+
+            $thisTag = $_GET['tag'];
+
+            $tag = new Tag();
+            $tag->setTagName($thisTag);
+            $isTagFollowed = $tag->getFollowState($userId);
+        }
     }
 
 ?><!DOCTYPE html>
@@ -21,6 +39,19 @@
 <body>
     <?php include_once 'includes/nav.inc.php'; ?> 
     <h1>Search results</h1>
+
+    <?php if (isset($_GET['tag'])) {
+    if ($isTagFollowed) {
+        ?>
+            <a href="#" id="followButton" class="followButton" data-id="<?php echo $tag->getTagName(); ?>" data-followed=1>Unfollow</a>
+        <?php
+    } else {
+        ?>
+            <a href="#" id="followButton" class="followButton" data-id="<?php echo $tag->getTagName(); ?>" data-followed=0>Follow</a>
+        <?php
+    }
+} ?>
+
     <div class="content">
 
 <?php foreach ($foundPhotos as $foundPhoto):
@@ -43,9 +74,14 @@
         
     <?php endforeach; ?>
 
-
+    
+ 
 </div>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
 
+<script src="js/followTag.js"></script>
 </body>
 </html>
