@@ -3,12 +3,13 @@
 
 * {
     font-family: 'Roboto', sans-serif;
-    margin: 0;
+    margin: 0%;
 }
 
 html {
     width: 100%;
     height: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -31,7 +32,6 @@ body p {
     display: block;
     float: left;
 }
-
 
 #nav a {
     text-decoration: none;
@@ -192,7 +192,6 @@ h3 {
 
 .photoBox .likeButton {
     display: inline-block;
-    margin-right: 5px;
     text-align: center;
     border: none;
     background-color: #00A86B;
@@ -207,7 +206,6 @@ h3 {
 
 .photoBox .reportButton {
     display: inline-block;
-    margin-right: 5px;
     text-align: center;
     border: none;
     background-color: lightgray;
@@ -364,7 +362,6 @@ h3 {
     margin-bottom: 10%;
     }
 }
-
 @media only screen and (max-width: 520px) {
 
     #photoPreview {
@@ -393,10 +390,10 @@ h3 {
     }
 
     header {
-        margin: 0px;
+        margin: 0%;
     }
 
     nav {
-        margin: 0px;
+        margin: 0%;
     }
 }
