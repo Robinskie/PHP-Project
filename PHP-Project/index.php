@@ -59,7 +59,7 @@
                     <p class="gebruiker"><?php echo $uploadUser->getFullName(); ?></p>
                     <p class="photoDate"><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p><br>
                     <img class="<?php echo $photo->getPhotoFilter(); ?>" src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="250px" height="250px"> 
-                    <p> <?php // echo $photo->getName();?></p>
+                    <p> <?php // echo $photo->getName();?></p> 
                     
                     <div class="telaantal">
                     <p><span class="likeCount"><?php echo $likeCount; ?></span> likes

@@ -14,6 +14,10 @@
         private $avatarTmpName;
         private $profileText;
 
+        private $contactemail;
+        private $contactname;
+        private $contactmessage;
+
         public function getId()
         {
             return $this->id;
@@ -302,7 +306,7 @@
             return $userPostsCount;
         }
 
-        public function saveEmail($newEmail, $userId) 
+        public function saveEmail($newEmail, $userId)
         {
             $conn = Db::getInstance();
             $statement = $conn->prepare('UPDATE users SET email=:email WHERE id=:userid');
@@ -313,11 +317,27 @@
             return $result;
         }
 
-        public function savePw($newPw) 
+        public function savePw($newPw)
         {
             $conn = Db::getInstance();
             $statement = $conn->prepare("UPDATE users SET password=:password WHERE id='".$_SESSION['userid']."'");
             $statement->bindParam(':password', $newPw);
+            $result = $statement->execute();
+        }
+
+        public function saveAvatar()
+        {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("UPDATE users SET avatar=:avatar WHERE id='".$_SESSION['userid']."'");
+            $statement->bindParam(':avatar', $this->avatar);
+            $result = $statement->execute();
+        }
+
+        public function saveProfileText()
+        {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("UPDATE users SET profiletext=:profileText WHERE id='".$_SESSION['userid']."'");
+            $statement->bindParam(':profileText', $this->profileText);
             $result = $statement->execute();
         }
     }

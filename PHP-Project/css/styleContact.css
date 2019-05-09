@@ -1,0 +1,120 @@
+
+* {
+    font-family: 'Roboto', sans-serif;
+    margin: 0%;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+
+#nav {
+    margin-left: 10.5%;
+    padding: 20px 0px 20px 0px;
+    display: block;
+    float: left;
+}
+
+#nav a {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 15px;
+    float: left;
+    display: block;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    padding-top: 10px;
+}
+
+#header {
+    background-color: #00A86B; 
+    height: 70px;
+    padding: 0px;
+    margin: 0px;
+    width: 100vw;
+    z-index: 3;
+}
+
+
+h1 {
+    font-weight: 900;
+    color: #00A86B;
+    font-size: 32px;
+    margin-bottom: 25px;
+    margin-left: 5%;
+    padding-top: 100px;
+    
+}
+
+#name, #email {
+    height: 35px;
+    width: 350px;
+    border: none;
+    background-color: #F2F2F2;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    padding-left: 20px;
+    margin-left: 5%;
+}
+
+#message {
+    height: 90px;
+    width: 350px;
+    border: none;
+    background-color: #F2F2F2;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    padding-left: 20px;
+    margin-left: 5%;
+    padding-top: 10px;
+    margin-bottom: 1%;
+}
+
+#submit {
+    display: inline-block;
+    text-align: center;
+    border: none;
+    background-color: #00A86B;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 12px 0px 12px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 180px;
+    text-decoration: none;
+    margin-left: 5%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+::placeholder {
+    border: none;
+    border-radius: 100px;
+    padding-left: -20px;
+    z-index: 2;
+}
+
+
+
+
+@media only screen and (max-width: 920px) {
+    h1 {
+    padding-top: 18%;
+    }
+    
+}
+@media only screen and (max-width: 520px) {
+
+    header {
+        margin: 0%;
+    }
+
+    nav {
+        margin: 0%;
+    }
+}
