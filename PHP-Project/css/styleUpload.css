@@ -58,6 +58,14 @@ body p {
     width: 100px;
 }
 
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
 [type=radio] { 
     position: absolute;
     opacity: 0;

@@ -6,9 +6,11 @@ redirectIfLoggedOut();
 if (!empty($_POST)) {
     changeEmail($_POST['oldEmail'], $_POST['newEmail'], $_POST['confirmNewEmail']);
 }
-function changeEmail($oldEmail, $newEmail, $confirmNewEmail)
-{
+
+function changeEmail($oldEmail, $newEmail, $confirmNewEmail)    {
     $user = new User();
+    $user->setId($_SESSION['userid']);
+    $user->setData();
 
     $status = 'OK';
     $msg = '';
@@ -19,14 +21,7 @@ function changeEmail($oldEmail, $newEmail, $confirmNewEmail)
         $status = 'NOTOK';
     }
 
-    $userId = $_SESSION['userid'];
-    $conn = Db::getInstance();
-    $statement = $conn->prepare('SELECT email FROM users WHERE id=:userid');
-    $statement->bindParam(':userid', $userId);
-    $result = $statement->execute();
-    $DBresult = $statement->fetch(PDO::FETCH_ASSOC);
-
-    if ($DBresult['email'] != $oldEmail) {
+    if ($user->getEmail() != $oldEmail) {
         $msg = $msg.'Your old email  is not matching as per our record.<BR>';
         $status = 'NOTOK';
     }
@@ -35,13 +30,9 @@ function changeEmail($oldEmail, $newEmail, $confirmNewEmail)
         echo $msg;
     } else {
         $user->setEmail($newEmail);
+        $user->saveEmail($newEmail, $user->getId());
 
-        $conn = Db::getInstance();
-        $statement = $conn->prepare('UPDATE users SET email=:email WHERE id=:userid');
-        $statement->bindParam(':email', $newEmail);
-        $statement->bindParam(':userid', $userId);
-        $result = $statement->execute();
-
+        echo "your email is changed";
         return true;
     }
 }
