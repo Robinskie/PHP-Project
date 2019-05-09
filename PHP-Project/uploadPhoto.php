@@ -101,7 +101,7 @@
         </div>
         <textarea name="description" form="uploadForm" id="description" placeholder="What is this photo about?" style="resize: none"></textarea>
         <div>
-            <p>Location: <span id="locationCity"></span></p>
+            <p class="location">Your location: <span id="locationCity"></span></p>
             <input id="locationLat" type="hidden" name="locationLat">
             <input id="locationLon" type="hidden" name="locationLon">
         </div>
