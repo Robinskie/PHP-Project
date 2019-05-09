@@ -117,7 +117,7 @@ hr {
     padding: 8% 5%;
 }
 
-.userPost {
+#userPost {
     width: 25%;
     float: left;
     margin: 2% 2% 0 0;

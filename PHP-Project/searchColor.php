@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
     <title>PROJECT</title>
 
 </head>
@@ -35,7 +36,7 @@
             <div class="photoBox">
             <a href="photo.php?id=<?php echo $photo->getId(); ?>">
             <h3><?php echo $photo->getName(); ?></h3>
-            <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="300px"> 
+            <img src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" class="<?php echo $photo->getPhotoFilter(); ?>" width="300px"> 
             <p><i><?php echo $uploadUser->getFullName(); ?></i></p>
             <p class="photoDate"><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
 

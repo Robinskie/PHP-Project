@@ -3,11 +3,10 @@
     {
         private static $conn;
 
-      
         public static function searchPhotos($foundPhotos)
         {
             self::$conn = Db::getInstance();
-            $statement = self::$conn->prepare("SELECT * FROM photos WHERE description LIKE '%$foundPhotos%'");
+            $statement = self::$conn->prepare("SELECT * FROM photos WHERE description LIKE '%$foundPhotos%' ORDER BY uploaddate DESC");
             $statement->execute();
 
             return $statement->fetchAll(PDO::FETCH_ASSOC);
