@@ -17,7 +17,7 @@
     $followingCount = $user->getFollowingCount($userId);
     $isFollowed = $user->getFollowState($userId);
 
-    $userPosts = $user->getUserPosts($userId);
+    $userPosts = $user->getUserPosts($_GET['id']);
     $postsCount = $user->getUserPostsCount($userId);
 ?>
 
