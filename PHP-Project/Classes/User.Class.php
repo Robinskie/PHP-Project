@@ -7,14 +7,12 @@
         private $email;
         private $firstName;
         private $lastName;
-        private $pw; //password
-        private $pwConfirm; // passwordConfirmation
-        private $avatar; //avatar
-        private $avatarType; //filetype of uploaded avatar
+        private $pw;
+        private $pwConfirm;
+        private $avatar;
+        private $avatarType;
         private $avatarTmpName;
         private $profileText;
-
-        //GETTER & SETTERS in de volgorde dat de variabelen hierboven staan
 
         public function getId()
         {
@@ -155,7 +153,6 @@
             return $this;
         }
 
-        //all the functions except GETTERS and SETTERS
         public function filledIn($field)
         {
             if (empty($field)) {
@@ -183,19 +180,19 @@
             $result = $statement->fetch(PDO::FETCH_ASSOC);
 
             if (empty($result)) {
-                return false; // there's no account with this email
+                return false;
             } else {
-                return true; // there's already an account with this email
+                return true;
             }
         }
 
         public function isPwStrongEnough($pw)
         {
             if (strlen($pw) < 8) {
-                return false; // password is not strong enough
+                return false;
             }
 
-            return true; // password is strong enough
+            return true;
         }
 
         public function checkIfFileTypeIsImage($avatarType)
@@ -221,7 +218,7 @@
             $password = password_hash($this->pw, PASSWORD_DEFAULT, $options);
 
             try {
-                $conn = Db::getInstance(); // DB CONNECTIE AANPASSEN / ROOT
+                $conn = Db::getInstance();
                 $statement = $conn->prepare('INSERT into users (email,firstName,lastName, password, avatar, profileText) VALUES (:email,:firstName,:lastName,:password, :avatar, :profileText)');
                 $statement->bindParam(':email', $this->email);
                 $statement->bindParam(':firstName', $this->firstName);

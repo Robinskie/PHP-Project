@@ -7,7 +7,6 @@
         private $text;
         private $date;
 
-        //GETTERS en SETTERS
         public function getId()
         {
             return $this->id;
@@ -79,7 +78,15 @@
             return $this;
         }
 
-        // functies
+        public function getCommenterObject()
+        {
+            $commentUser = new User();
+            $commentUser->setId($this->userId);
+            $commentUser->setData();
+
+            return $commentUser;
+        }
+
         public function save()
         {
             $conn = Db::getInstance();

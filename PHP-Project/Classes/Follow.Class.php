@@ -4,7 +4,6 @@
         private $thisUserId;
         private $userId;
 
-        //GETTERS en SETTERS
         public function getThisUserId()
         {
             return $this->thisUserId;
@@ -29,7 +28,6 @@
             return $this;
         }
 
-        // functies
         public function save()
         {
             $conn = Db::getInstance();

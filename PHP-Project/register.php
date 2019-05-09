@@ -26,49 +26,32 @@
         $profileText = $user->getProfileText();
 
         if (!$user->filledIn($email)) {
-            //echo "you did not fill in your email";
             global $errorMessage;
             $errorMessage = 'You did not fill in your email.';
-
         } elseif (!$user->filledIn($firstName)) {
-            //echo "you did not fill in your first name";
             global $errorMessage;
             $errorMessage = 'You did not fill in your first name.';
-
         } elseif (!$user->filledIn($lastName)) {
-            //echo "you did not fill in your last name";
             global $errorMessage;
             $errorMessage = 'You did not fill in your last name.';
-
         } elseif (!$user->filledIn($password)) {
-            //echo "you didn't enter a password";
             global $errorMessage;
             $errorMessage = "You didn't enter a password.";
-
         } elseif (!$user->filledIn($passwordConfirmation)) {
-            //echo "you need to confirm your password";
             global $errorMessage;
             $errorMessage = 'You need to confirm your password.';
-
         } elseif (!$user->itemsAreEqual($password, $passwordConfirmation)) {
-            //echo "these passwords don't match";
             global $errorMessage;
             $errorMessage = "These passwords don't match.";
-
         } elseif ($user->checkIfEmailAlreadyExists($email)) {
-            //echo "there's already an account with this email, try logging in instead or use a different email";
             global $errorMessage;
             $errorMessage = "There's already an account with this email, try logging in instead or use a different email.";
-
         } elseif (!$user->isPwStrongEnough($password)) {
-            //echo "this password is not strong enough";
             global $errorMessage;
             $errorMessage = 'This password is not strong enough.';
-
         } elseif (!$user->checkIfFileTypeIsImage($avatarType)) {
             global $errorMessage;
             $errorMessage = 'The uploaded file for your avatar is not an image.';
-            
         } else {
             $user->copyAvatartoImageFolder($avatar);
             $result = $user->register();

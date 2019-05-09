@@ -3,7 +3,7 @@
     {
         private static $conn;
 
-        // zoekfunctie maken
+      
         public static function searchPhotos($foundPhotos)
         {
             self::$conn = Db::getInstance();

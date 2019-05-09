@@ -2,6 +2,8 @@
     require_once 'bootstrap.php';
     redirectIfLoggedOut();
 
+    $userId = $_SESSION['userid'];
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,54 +20,37 @@
 
     <h1>Your feed </h1>
     
-    <!-- zoekformulier maken -->
     <form action="search.php" method="GET">
     <input id="search" name="search" type="text" placeholder="Search">
     <input id="submit" type="submit" value="Search">
     </form> 
-    <!-- einde formulier -->
     </div>
 
 
-    <!-- een foto uploaden -->
     <a href="uploadPhoto.php" id="upload">Upload a picture</a>
 
     <div class="homeFeed">
     <?php
-        //FEED
         if (empty($_GET['postLimit'])) {
             $postLimit = 5;
         } else {
             $postLimit = $_GET['postLimit'];
         }
 
-        $conn = Db::getInstance();
-        $statement = $conn->prepare(
-            'SELECT *, photos.id AS pId, users.id AS uId FROM photos 
-            LEFT JOIN users ON photos.uploader = users.id 
-            RIGHT JOIN followers ON followers.followedUser = photos.uploader
-            WHERE followers.followingUser = :currentUser
-            ORDER BY uploadDate DESC
-            LIMIT '.$postLimit);
-        $statement->bindParam(':currentUser', $_SESSION['userid']);
-        $result = $statement->execute();
-        $photoArray = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $photoArray = Db::getUserFeed($userId, $postLimit);
 
-    // IF USER IS ALREADY FOLLOWING OTHER ACCOUNTS
     if (!empty($photoArray)) {
         foreach ($photoArray as $photoRow):
         $photo = new Photo();
         $photo->setId($photoRow['pId']);
         $photo->setData();
         $photoId = $photo->getId();
-        $userId = $_SESSION['userid'];
 
         $uploadUser = $photo->getUploaderObject();
 
         $likeCount = $photo->getLikeCount();
         $isLiked = $photo->getLikeState($userId);
 
-        // een foto rapporteren
         $reportCount = $photo->getReportCount();
         $isReported = $photo->getReportState($userId); ?>
         
@@ -90,8 +75,7 @@
                         <a href="#" id="likeButton" class="likeButton" data-id="<?php echo $photo->getId(); ?>" data-liked=0>Like</a>
                     <?php
         } ?>
-
-                    <!-- een post rapporteren -->              
+           
                     <?php if ($isReported) {
             ?>
                         <a href="#" id="reportButton" class="reportButton" data-id="<?php echo $photo->getId(); ?>" data-reported=1>Take back</a>

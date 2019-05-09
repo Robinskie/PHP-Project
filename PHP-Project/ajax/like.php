@@ -1,27 +1,26 @@
 <?php
-    require_once("../bootstrap.php");
-    // POST?
-    if( !empty($_POST)){
-        //var_dump($_POST); //ga in u console onder network kijken
+    require_once '../bootstrap.php';
+
+    if (!empty($_POST)) {
         $photoId = $_POST['photoId'];
-        $userId = $_SESSION['userid']; //hier kunt ge u user vanuit u databank meegeven
+        $userId = $_SESSION['userid'];
         $isLiked = $_POST['isLiked'];
 
-        if($isLiked == 0) {
+        if ($isLiked == 0) {
             $like = new Like();
             $like->setPhotoId($photoId);
             $like->setUserId($userId);
-            $like->save();//staat in classes/like.php
-        } else if($isLiked == 1) {
+            $like->save();
+        } elseif ($isLiked == 1) {
             $like = new Like();
             $like->setPhotoId($photoId);
             $like->setUserId($userId);
             $like->unSave();
         }
-        //JSON object
+
         $result = [
-            "status" => "success",
-            "message" => "Like has been updated"
+            'status' => 'success',
+            'message' => 'Like has been updated',
         ];
 
         echo json_encode($result);

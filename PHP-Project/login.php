@@ -7,21 +7,15 @@
         $user->setEmail($_POST['email']);
         $user->setPw($_POST['password']);
 
-        // gegevens uit velden halen
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        // als e-mail ingevuld is
         if (!$user->filledIn($email)) {
             global $errorMessage;
             $errorMessage = 'You did not fill in your email';
-
-        // als wachtwoord ingevuld is
         } elseif (!$user->filledIn($password)) {
             global $errorMessage;
             $errorMessage = 'You did not fill in your password';
-
-        // foutmelding tonen
         } else {
             $result = $user->login();
             if ($result != false) {

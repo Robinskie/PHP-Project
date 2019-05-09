@@ -13,8 +13,8 @@
         $photo->setUploadDate(date('Y-m-d H:i:s'));
         $photo->setUploader($_SESSION['userid']);
         $photo->setDescription($_POST['description']);
+        $photo->setLocation($_POST['locationLat'], $_POST['locationLon']);
 
-        //checks
         if (!$photo->checkIfFilledIn($photo->getName())) {
             $errorMessage = 'Please enter a name for your picture.';
         }
@@ -25,32 +25,24 @@
             $errorMessage = 'This is not an image file.';
         }
 
-        //in orde -> let's upload
         if ($errorMessage == '') {
             $conn = Db::getInstance();
-            $statement = $conn->prepare('INSERT INTO photos (name, uploader, uploadDate, description) values (:name, :uploader, :uploadDate, :description)');
+            $statement = $conn->prepare('INSERT INTO photos (name, uploader, uploadDate, description, location) values (:name, :uploader, :uploadDate, :description, :location)');
             $statement->bindValue(':name', $photo->getName());
             $statement->bindValue(':uploader', $photo->getUploader());
             $statement->bindValue(':uploadDate', $photo->getUploadDate());
             $statement->bindValue(':description', $photo->getDescription());
+            $statement->bindValue(':location', $photo->getLocation()->latitude.','.$photo->getLocation()->longitude);
             $statement->execute();
 
-            //image maken
             $originalImage = imagecreatefromstring(file_get_contents($file['tmp_name']));
-            //cropped image maken
             $croppedImage = $photo->cropImage($file, 600, 600);
-
-            //get/set ID of image
             $photo->setId(Db::simpleFetch('SELECT MAX(id) FROM photos')['MAX(id)']);
 
-            //nu de image kopiëren
             imagepng($originalImage, $photo->getPhotoPath());
             imagepng($croppedImage, $photo->getCroppedPhotoPath());
 
-            //kleuren uit de foto halen en opslaan
             $photo->saveColors();
-
-            //verplaatsen naar photo.php?id=(id)
             header('Location:photo.php?id='.$photo->getId());
         }
     }
@@ -90,13 +82,21 @@
             <label for="description">Description: </label>
         </div>
         <textarea name="description" form="uploadForm" cols="83" rows="5" style="resize: none"></textarea>
+        <div>
+            <p>Location: <span id="locationCity"></span></p>
+            <input id="locationLat" type="hidden" name="locationLat">
+            <input id="locationLon" type="hidden" name="locationLon">
+        </div>
+        <div id="mapDiv" class="mapDiv"></div>
         <div>        
             <input type="submit" value="Upload">
         </div>
     </form>
         
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
     <script>
-        //PREVIEW FOTO
+
         var photoPreview = document.getElementById("photoPreview");
         var photoInput = document.getElementById("photoInput");
 
@@ -107,6 +107,45 @@
             }
             reader.readAsDataURL(e.target.files[0])
         });
+
+        var locationInput = document.getElementById("locationCity");
+        var locationLatInput = document.getElementById("locationLat");
+        var locationLonInput = document.getElementById("locationLon");
+        navigator.geolocation.getCurrentPosition(function(position) {
+            $.ajax({
+            method: "GET",
+            url: "https://nominatim.openstreetmap.org/reverse", 
+            data: { 
+                format: "json",
+                lat: position.coords.latitude,
+                lon: position.coords.longitude
+            },
+                dataType: "JSON" 
+            }).done(function(res) {
+                locationInput.innerHTML = res['address']['town'];
+                locationLatInput.value = position.coords.latitude
+                locationLonInput.value = position.coords.longitude;
+
+                map = new OpenLayers.Map("mapDiv");
+                map.addLayer(new OpenLayers.Layer.OSM());
+
+                var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)//position.coords.latitude, position.coords.longitude)
+                    .transform(
+                        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                        map.getProjectionObject() // to Spherical Mercator Projection
+                    );
+                    
+                var zoom=16;
+
+                var markers = new OpenLayers.Layer.Markers( "Markers" );
+                map.addLayer(markers);
+                
+                markers.addMarker(new OpenLayers.Marker(lonLat));
+                
+                map.setCenter (lonLat, zoom);
+            });
+        });
+
     </script>
 </body>
 </html>

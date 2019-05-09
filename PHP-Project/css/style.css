@@ -240,6 +240,13 @@ margin-left: 11%;
     font-size: 8px;
 }
 
+.mapDiv {
+    width: 500px;
+    height: 250px;
+}
+
+
+
 @media only screen and (max-width: 920px) {
     h1 {
         padding-top: 18%;

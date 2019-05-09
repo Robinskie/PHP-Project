@@ -1,17 +1,17 @@
 <?php
-    require_once("../bootstrap.php");
+    require_once '../bootstrap.php';
 
-    if(!empty($_POST)){
+    if (!empty($_POST)) {
         $thisUserId = $_POST['thisUserId'];
         $userId = $_SESSION['userid'];
         $isFollowed = $_POST['isFollowed'];
 
-        if($isFollowed == 0) {
+        if ($isFollowed == 0) {
             $follow = new Follow();
             $follow->setThisUserId($thisUserId);
             $follow->setUserId($userId);
             $follow->save();
-        } else if($isFollowed == 1) {
+        } elseif ($isFollowed == 1) {
             $follow = new Follow();
             $follow->setThisUserId($thisUserId);
             $follow->setUserId($userId);
@@ -19,8 +19,8 @@
         }
 
         $result = [
-            "status" => "success",
-            "message" => "Follow has been updated"
+            'status' => 'success',
+            'message' => 'Follow has been updated',
         ];
 
         echo json_encode($result);

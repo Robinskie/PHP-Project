@@ -3,20 +3,15 @@
 
     $user = new User();
     $user->setId($_GET['id']);
+    $user->setData();
 
     $userId = $_SESSION['userid'];
 
-    // DEZE QUERY MOET NOG VERPLAATST WORDEN, DEZE ZOEKT DE GEGEVENS VAN DE USER
     $conn = Db::getInstance();
     $statement = $conn->prepare('SELECT * FROM users WHERE id = :id');
     $statement->bindValue(':id', $user->getId());
     $statement->execute();
     $result = $statement->fetch(PDO::FETCH_ASSOC);
-    // DE GEGEVENS WORDEN GEBRUIKT OM DE NAAM, BIO EN AVATAR OP HET PROFIEL TE ZETTEN
-    $user->setFirstName($result['firstName']);
-    $user->setLastName($result['lastName']);
-    $user->setProfileText($result['profileText']);
-    $user->setAvatarTmpName($result['avatar']);
 
     $followersCount = $user->getFollowersCount($userId);
     $followingCount = $user->getFollowingCount($userId);
@@ -41,7 +36,7 @@
 
     <section id="sidebar">
         <div class="profileSection">
-        <img class="profilePicture" src="<?php echo $user->getAvatarTmpName(); ?>" alt="Profile picture">
+        <img class="profilePicture" src="<?php echo $user->getAvatar(); ?>" alt="Profile picture">
         <h1><?php echo $user->getFirstName().' '.$user->getLastName(); ?></h1>
         <p class="bio"><?php echo $user->getProfileText(); ?></p>
         <hr>

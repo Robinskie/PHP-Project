@@ -30,8 +30,7 @@
 
         public function reportPicture()
         {
-            // checks if a user has already reported a post
-
+ 
             $conn = Db::getInstance();
             $statement = $conn->prepare('INSERT INTO reports (photo_id, user_id, date_created) VALUES (:photoid, :userid, NOW())');
             $statement->bindValue(':photoid', $this->getPhotoId());
@@ -48,8 +47,7 @@
 
         public function takeBack()
         {
-            // checks if a user has already reported a post
-
+ 
             $conn = Db::getInstance();
             $statement = $conn->prepare('DELETE FROM reports WHERE photo_id=:photoid AND user_id=:userid');
             $statement->bindValue(':photoid', $this->getPhotoId());

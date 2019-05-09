@@ -3,7 +3,7 @@
     redirectIfLoggedOut();
 
     if (!empty($_GET)) {
-        $foundPhotos = Db::searchPhotosOnColor('#'.$_GET['color']);
+        $foundPhotos = Search::searchPhotosOnColor('#'.$_GET['color']);
     }
 
 ?><!DOCTYPE html>
@@ -21,10 +21,7 @@
     
     <h1>Search color results</h1>
     <div class="content">
-    <!-- zoekresultaten op basis van tags/zoekwoorden -->
 
-<!-- de resultaten toon je in een feed --> 
-<!-- klik je op een resultaat, dan krijg je de detailpagina te zien met commentaren -->
 <?php foreach ($foundPhotos as $foundPhoto):
 
             $photo = new Photo();
