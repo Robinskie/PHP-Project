@@ -53,7 +53,7 @@
         <input type="password" id="password" name="password">
         <br>
         <input type="submit" value="Sign in" id="submitBtn"><br>
-        <a href="register.php">I don't have an account yet!</a>
+        <a href="register.php">I don't have an account</a>
     </form>
 </div>
 </body>
