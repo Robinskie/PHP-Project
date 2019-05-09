@@ -84,6 +84,10 @@
         </div>
         <div id="photoFilters" class="hidden">
             <label>
+                <input type="radio" name="photoFilters" value="none">
+                <img id="photoFilterNone" src="" alt="no filter" width="100px">
+            </label>
+            <label>
                 <input type="radio" name="photoFilters" value="brannan">
                 <img id="photoFilterOne" src="" class="brannan" alt="filter one" width="100px">
             </label>
@@ -129,6 +133,20 @@
         photoInput.addEventListener("change", function(e) {    
             document.getElementById("photoFilters").classList.remove('hidden');       
             document.getElementById("photoFilters").classList.add('visible');
+        });
+
+        var noFilter = document.getElementById('photoFilterNone');
+
+        photoInput.addEventListener("change", function(e) {           
+            var reader = new FileReader();
+            reader.onload = function() {
+                noFilter.src = reader.result;
+            }
+            reader.readAsDataURL(e.target.files[0])
+        });
+
+        noFilter.addEventListener('click', function(e){
+            photoPreview.className= '';
         });
 
         var filterOne = document.getElementById('photoFilterOne');
