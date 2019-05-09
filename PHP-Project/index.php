@@ -14,6 +14,24 @@
     <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
     <title>PROJECT</title>
 
+<script>
+    function showHint(str) {
+    if (str.length == 0) { 
+    document.getElementById("txtHint").innerHTML = "";
+    return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("txtHint").innerHTML = this.responseText;
+        }
+        };
+        xmlhttp.open("GET", "ajax/gethint.php?q=" + str, true);
+        xmlhttp.send();
+    }
+}
+</script>
+
 </head>
 <body>
     <?php include_once 'includes/nav.inc.php'; ?>
@@ -22,9 +40,12 @@
     <h1>Your feed </h1>
     
     <form action="search.php" method="GET">
-        <input id="search" name="search" type="text" placeholder="Search">
-        <input id="submit" type="submit" value="Search">
+    <p>Suggestions: <span id="txtHint"></span></p>
+    <input id="search" name="search" type="text" placeholder="Search" onkeyup="showHint(this.value)">
+    <input id="submit" type="submit" value="Search">
     </form> 
+
+
     </div>
 
     <a href="uploadPhoto.php" id="upload">Upload a picture</a>
@@ -116,13 +137,16 @@
 
     <a class="loadMoreButton" id="loadMoreButton" href="#" data-user="<?php echo $userId; ?>" data-loadedposts="5" >Load more...</a>
 
-    <script
+  <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   
 <script src="js/like.js"></script>
 <script src="js/report.js"></script>
+
 <script>
     addLikeListeners();
     addReportListeners();

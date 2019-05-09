@@ -13,6 +13,7 @@
     } else {
         $errorMessage = 'This is not correct, please try again';
     }
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>  
@@ -22,6 +23,7 @@
     <link rel="stylesheet" href="./css/styleContact.css">
     <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
     <title>PROJECT</title>
+
 </head>
 <body>
     <?php include_once 'includes/nav.inc.php'; ?>
