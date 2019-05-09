@@ -89,6 +89,10 @@
             <input type="radio" name="photoFilters" value="moon">
             <img id="photoFilterTwo" src="./images/filters/moon.png" alt="filter two">
         </label>
+        <label>
+            <input type="radio" name="photoFilters" value="_1977">
+            <img id="photoFilterThree" src="./images/filters/1977.png" alt="filter three">
+        </label>
         <div>
             <label for="description">Description: </label>
         </div>
@@ -131,6 +135,13 @@
         filterTwo.addEventListener('click', function(e){
             photoPreview.className= '';
             photoPreview.classList.add('moon');
+        });
+
+        var filterThree = document.getElementById('photoFilterThree');
+
+        filterThree.addEventListener('click', function(e){
+            photoPreview.className= '';
+            photoPreview.classList.add('_1977');
         });
 
         var locationInput = document.getElementById("locationCity");
