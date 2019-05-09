@@ -65,21 +65,22 @@
 <body>
     <?php include_once 'includes/nav.inc.php'; ?>
 
-    <h1>Upload Photo</h1>
+    <h1>Upload photo</h1>
     <?php
         if ($errorMessage != '') {
             echo "<span class='errorBox'>$errorMessage</span>";
         }
     ?>
     <form id="uploadForm" method="post" action="" enctype="multipart/form-data">
+
+        <img id="photoPreview" src="./images/avatars/placeholder.png">
         <div>
-            <label for="name">Name: </label>
-            <input type="name" id="name" name="name">
+            <label for="name"></label>
+            <input type="name" id="name" name="name" placeholder="Fill in your name">
         </div>
-        <img id="photoPreview" src="./images/avatars/placeholder.png" width="500px">
-        <div>
-            <label for="File">File: </label>
-            <input id="photoInput" type="file" id="file" name="file">
+        <div> 
+            <label for="File"></label>
+            <input id="photoInput" type="file" id="filebtn" name="file">
         </div>
         <div id="photoFilters" class="hidden">
             <label>
@@ -96,9 +97,9 @@
             </label>
         </div>
         <div>
-            <label for="description">Description: </label>
+            <label for="description"></label>
         </div>
-        <textarea name="description" form="uploadForm" cols="83" rows="5" style="resize: none"></textarea>
+        <textarea name="description" form="uploadForm" id="description" placeholder="What is this photo about?" style="resize: none"></textarea>
         <div>
             <p>Location: <span id="locationCity"></span></p>
             <input id="locationLat" type="hidden" name="locationLat">
@@ -106,7 +107,7 @@
         </div>
         <div id="mapDiv" class="mapDiv"></div>
         <div>        
-            <input type="submit" value="Upload">
+            <input type="submit" id="uploaden" value="Upload">
         </div>
     </form>
         
