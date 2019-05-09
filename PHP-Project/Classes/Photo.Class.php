@@ -6,6 +6,7 @@
         private $uploader;
         private $uploadDate;
         private $description;
+        private $photoFilter;
         private $likes;
         private $reports;
         private $input;
@@ -55,6 +56,18 @@
         public function setDescription($description)
         {
             $this->description = $description;
+
+            return $this;
+        }
+
+        public function getPhotoFilter()
+        {
+            return $this->photoFilter;
+        }
+
+        public function setPhotoFilter($photoFilter)
+        {
+            $this->photoFilter = $photoFilter;
 
             return $this;
         }
@@ -171,6 +184,7 @@
             $this->uploader = $photoRow['uploader'];
             $this->description = $photoRow['description'];
             $this->uploadDate = $photoRow['uploadDate'];
+            $this->photoFilter = $photoRow['photoFilter'];
             $this->position = (object) array();
             if ($photoRow['location'] != '') {
                 $coords = explode(',', $photoRow['location']);
