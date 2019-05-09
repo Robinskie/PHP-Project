@@ -38,7 +38,7 @@
     <section id="sidebar">
         <div class="profileSection">
         <img class="profilePicture" src="<?php echo $user->getAvatar(); ?>" alt="Profile picture">
-        <h1><?php echo $user->getFirstName().' '.$user->getLastName(); ?></h1>
+        <h1><?php echo $user->getFullName(); ?></h1>
         <p class="bio"><?php echo $user->getProfileText(); ?></p>
         <hr>
         </div>
