@@ -7,18 +7,12 @@
 
     $userId = $_SESSION['userid'];
 
-    $conn = Db::getInstance();
-    $statement = $conn->prepare('SELECT * FROM users WHERE id = :id');
-    $statement->bindValue(':id', $user->getId());
-    $statement->execute();
-    $result = $statement->fetch(PDO::FETCH_ASSOC);
-
-    $followersCount = $user->getFollowersCount($userId);
-    $followingCount = $user->getFollowingCount($userId);
+    $followersCount = $user->getFollowersCount($_GET['id']);
+    $followingCount = $user->getFollowingCount($_GET['id']);
     $isFollowed = $user->getFollowState($userId);
 
     $userPosts = $user->getUserPosts($_GET['id']);
-    $postsCount = $user->getUserPostsCount($userId);
+    $postsCount = $user->getUserPostsCount($_GET['id']);
 ?>
 
 <!DOCTYPE html>

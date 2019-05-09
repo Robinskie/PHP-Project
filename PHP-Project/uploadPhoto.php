@@ -76,23 +76,25 @@
             <label for="name">Name: </label>
             <input type="name" id="name" name="name">
         </div>
-        <img id="photoPreview" src="./images/placeholder.png" width="500px">
+        <img id="photoPreview" src="./images/avatars/placeholder.png" width="500px">
         <div>
             <label for="File">File: </label>
             <input id="photoInput" type="file" id="file" name="file">
         </div>
-        <label>
-            <input type="radio" name="photoFilters" value="brannan">
-            <img id="photoFilterOne" src="./images/filters/brannan.png" alt="filter one">
-        </label>
-        <label>
-            <input type="radio" name="photoFilters" value="moon">
-            <img id="photoFilterTwo" src="./images/filters/moon.png" alt="filter two">
-        </label>
-        <label>
-            <input type="radio" name="photoFilters" value="_1977">
-            <img id="photoFilterThree" src="./images/filters/1977.png" alt="filter three">
-        </label>
+        <div id="photoFilters" class="hidden">
+            <label>
+                <input type="radio" name="photoFilters" value="brannan">
+                <img id="photoFilterOne" src="" class="brannan" alt="filter one" width="100px">
+            </label>
+            <label>
+                <input type="radio" name="photoFilters" value="moon">
+                <img id="photoFilterTwo" src="" class="moon" alt="filter two" width="100px">
+            </label>
+            <label>
+                <input type="radio" name="photoFilters" value="_1977">
+                <img id="photoFilterThree" src="" class="_1977" alt="filter three" width="100px">
+            </label>
+        </div>
         <div>
             <label for="description">Description: </label>
         </div>
@@ -123,7 +125,20 @@
             reader.readAsDataURL(e.target.files[0])
         });
 
+        photoInput.addEventListener("change", function(e) {    
+            document.getElementById("photoFilters").classList.remove('hidden');       
+            document.getElementById("photoFilters").classList.add('visible');
+        });
+
         var filterOne = document.getElementById('photoFilterOne');
+
+        photoInput.addEventListener("change", function(e) {           
+            var reader = new FileReader();
+            reader.onload = function() {
+                filterOne.src = reader.result;
+            }
+            reader.readAsDataURL(e.target.files[0])
+        });
 
         filterOne.addEventListener('click', function(e){
             photoPreview.className= '';
@@ -132,12 +147,28 @@
 
         var filterTwo = document.getElementById('photoFilterTwo');
 
+        photoInput.addEventListener("change", function(e) {           
+            var reader = new FileReader();
+            reader.onload = function() {
+                filterTwo.src = reader.result;
+            }
+            reader.readAsDataURL(e.target.files[0])
+        });
+
         filterTwo.addEventListener('click', function(e){
             photoPreview.className= '';
             photoPreview.classList.add('moon');
         });
 
         var filterThree = document.getElementById('photoFilterThree');
+
+        photoInput.addEventListener("change", function(e) {           
+            var reader = new FileReader();
+            reader.onload = function() {
+                filterThree.src = reader.result;
+            }
+            reader.readAsDataURL(e.target.files[0])
+        });
 
         filterThree.addEventListener('click', function(e){
             photoPreview.className= '';

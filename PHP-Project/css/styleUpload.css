@@ -58,6 +58,14 @@ body p {
     width: 100px;
 }
 
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
 [type=radio] { 
     position: absolute;
     opacity: 0;
@@ -255,7 +263,7 @@ h3 {
 }
 
 .searchresult {
-margin-left: 11%;
+    margin-left: 11%;
 }
 
 .gebruiker {
@@ -269,6 +277,12 @@ margin-left: 11%;
 
 .photoDate {
     font-size: 8px;
+}
+
+.mapDiv {
+    display: block;
+    width: 500px;
+    height: 250px;
 }
 
 @media only screen and (max-width: 920px) {
