@@ -312,4 +312,12 @@
 
             return $result;
         }
+
+        public function savePw($newPw) 
+        {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare("UPDATE users SET password=:password WHERE id='".$_SESSION['userid']."'");
+            $statement->bindParam(':password', $newPw);
+            $result = $statement->execute();
+        }
     }

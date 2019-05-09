@@ -27,7 +27,6 @@
     </form> 
     </div>
 
-
     <a href="uploadPhoto.php" id="upload">Upload a picture</a>
 
     <div class="homeFeed">

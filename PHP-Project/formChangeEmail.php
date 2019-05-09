@@ -32,7 +32,7 @@ function changeEmail($oldEmail, $newEmail, $confirmNewEmail)    {
         $user->setEmail($newEmail);
         $user->saveEmail($newEmail, $user->getId());
 
-        echo "your email is changed";
+        echo "Your email is changed";
         return true;
     }
 }
