@@ -80,10 +80,6 @@ h3 {
     height: 32px
 }
 
-.detail {
-    color: red;
-}
-
 #upload, .loadMoreButton {
     display: inline-block;
     text-align: center;
@@ -270,3 +266,4 @@ margin-left: 11%;
     margin-left: 12%;
     }
 }
+
