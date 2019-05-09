@@ -73,7 +73,7 @@
             <label for="name">Name: </label>
             <input type="name" id="name" name="name">
         </div>
-        <img id="photoPreview" src="./images/placeholder.png">
+        <img id="photoPreview" src="./images/placeholder.png" width="200px">
         <div>
             <label for="File">File: </label>
             <input id="photoInput" type="file" id="file" name="file">

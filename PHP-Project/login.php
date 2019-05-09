@@ -40,10 +40,10 @@
 <body>
 <div class="leftColumn">
     <form action="" method="post" enctype="multipart/form-data" id="form">
-        <h2 form__title>Sign in</h2>
+    <h2 form__title>Sign in</h2>
 
         <?php if (!empty($errorMessage)): ?>
-            <p id="errorMessage"><?php echo $errorMessage; ?></p>
+        <p id="errorMessage"><?php echo $errorMessage; ?></p>
         <?php endif; ?>
 
         <label for="email">Email</label>
