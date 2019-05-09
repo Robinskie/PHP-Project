@@ -301,4 +301,15 @@
 
             return $userPostsCount;
         }
+
+        public function saveEmail($newEmail, $userId) 
+        {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('UPDATE users SET email=:email WHERE id=:userid');
+            $statement->bindParam(':email', $newEmail);
+            $statement->bindParam(':userid', $userId);
+            $result = $statement->execute();
+
+            return $result;
+        }
     }

@@ -89,3 +89,20 @@ a {
     }
 }
 
+@media only screen and (max-width: 400px) {
+    #submitBtn {
+        width: 80%;
+    }  
+
+    a {
+        font-weight: 400;
+        color: #00A86B;
+        margin-left: 7%;
+        font-size: 15px;
+    }
+    
+    h2 {
+        margin-top: 30%;
+    }
+
+}

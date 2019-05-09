@@ -124,4 +124,38 @@ hr {
     border: 12px solid #ffffff;
 }
 
+@media only screen and (max-width: 900px) {
+    
+    #content {
+        width: 50%;
+        height: 100%;
+        margin-left: 0px;
+        border-radius: 100%;
+        padding: 0px;
+        padding-left: 40%;
+    }
+    
+    #userPost {
+        width: 90%;
+        float: right;
+        margin-bottom: 10%;
+    }  
 
+    .followButton {
+        font-size: 13px;
+        width: 60%;
+        padding: 10px 10px;
+        margin: 20% auto;
+    }
+    
+    h1 {
+        font-size: 18px;
+    }
+
+    .profilePicture {
+        width: 80px;
+        height: 80px;
+        margin-top: 60%;
+    }
+
+}
