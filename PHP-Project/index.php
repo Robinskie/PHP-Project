@@ -29,7 +29,7 @@
 
     <a href="uploadPhoto.php" id="upload">Upload a picture</a>
 
-    <div class="homeFeed">
+    <div class="homeFeed" id="homeFeed">
     <?php
         if (empty($_GET['postLimit'])) {
             $postLimit = 5;
@@ -37,7 +37,7 @@
             $postLimit = $_GET['postLimit'];
         }
 
-        $photoArray = Db::getUserFeed($userId, $postLimit);
+        $photoArray = Db::getUserFeed($userId, 0, $postLimit);
 
     if (!empty($photoArray)) {
         foreach ($photoArray as $photoRow):
@@ -74,9 +74,9 @@
             ?>
                         <a href="#" id="likeButton" class="likeButton" data-id="<?php echo $photo->getId(); ?>" data-liked=0>Like</a>
                     <?php
-        } ?>
-           
-                    <?php if ($isReported) {
+        }
+
+        if ($isReported) {
             ?>
                         <a href="#" id="reportButton" class="reportButton" data-id="<?php echo $photo->getId(); ?>" data-reported=1>Take back</a>
                     <?php
@@ -114,7 +114,7 @@
         
     </div class="homeFeed">
 
-    <a class="loadMoreButton" id="loadMoreButton" href="index.php?postLimit=<?php echo $postLimit + 5; ?>">Load more...</a>
+    <a class="loadMoreButton" id="loadMoreButton" href="#" data-user="<?php echo $userId; ?>" data-loadedposts="5" >Load more...</a>
 
     <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -123,6 +123,67 @@
   
 <script src="js/like.js"></script>
 <script src="js/report.js"></script>
+<script>
+    addLikeListeners();
+    addReportListeners();
+
+    $("#loadMoreButton").on('click', function(e) {
+        e.preventDefault();
+
+        var btn = $(this);
+
+        var user = btn.data("user");
+        var loadedPosts = btn.data("loadedposts");
+
+        var content = document.getElementById("homeFeed");
+
+        $.ajax({
+                method: "GET",
+                url: "ajax/getFeed.php", 
+                data: { 
+                    from: loadedPosts,
+                    to: loadedPosts + 5,
+                    user: user
+                },
+                    dataType: "JSON" 
+                }).done(function(res) {
+                    console.log(res);
+                    res['photos'].forEach(function(photo) {
+                        console.log(photo['uploader']);
+                        var temp = '<div class="photoBox">' +
+                        '<a href="photo.php?id=' + photo['id'] + '">' +
+                        '<p class="gebruiker">' + photo['uploader'] + '</p>' +
+                        '<p class="photoDate">' + photo['uploadDate'] + '</p>' + 
+                        '<img class="' + photo['filter'] + '" src="' + photo['croppedPhoto'] + '"width="250px" height="250px">' +
+                        '<div class="telaantal">' +
+                        '<p><span class="likeCount">' + photo['likeCount'] + '</span> likes ' +
+                        '<span class="reportCount">' + photo['reportCount'] + '</span> reports</p>' +
+                        '</div>';
+
+                        if(photo['likeState'] == "1") {
+                            temp += '<a href="#" id="likeButton" class="likeButton" data-id="' + photo['id'] + '" data-liked=1>Unlike</a>';
+                        } else {
+                            temp += '<a href="#" id="likeButton" class="likeButton" data-id="' + photo['id'] + '" data-liked=0>Like</a>';
+                        }
+
+                        if(photo['reportState'] == "1") {
+                            temp += '<a href="#" id="reportButton" class="reportButton" data-id="' + photo['id'] + '" data-reported=1>Take back</a>';
+                        } else {
+                            temp += '<a href="#" id="reportButton" class="reportButton" data-id="' + photo['id'] + '" data-reported=0>Report</a>';
+                        }
+
+                        temp += "</a></div>";
+
+                        content.innerHTML += temp;
+                    });
+                    
+                    addLikeListeners();
+                    addReportListeners();
+                    
+                    btn.data("loadedposts", loadedPosts + 5);
+                });
+    });
+</script>
     
 </body>
 </html>

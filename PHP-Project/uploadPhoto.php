@@ -127,7 +127,7 @@
             reader.onload = function() {
                 photoPreview.src = reader.result;
             }
-            reader.readAsDataURL(e.target.files[0])
+            reader.readAsDataURL(e.target.files[0]);
         });
 
         photoInput.addEventListener("change", function(e) {    

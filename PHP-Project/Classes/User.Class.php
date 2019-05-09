@@ -1,6 +1,4 @@
 <?php
-    require_once 'bootstrap.php';
-
     class User
     {
         private $id;
