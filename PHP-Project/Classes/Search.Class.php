@@ -12,6 +12,15 @@
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        public static function searchProfiles($foundProfiles)
+        {
+            self::$conn = Db::getInstance();
+            $statement = self::$conn->prepare("SELECT * FROM users WHERE firstName LIKE '%$foundProfiles%' OR lastName LIKE '%$foundProfiles%'");
+            $statement->execute();
+
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
         public static function searchPhotosOnColor($color)
         {
             self::$conn = Db::getInstance();
@@ -35,7 +44,7 @@
         public function searchNames()
         {
             $conn = Db::getInstance();
-            $statement = $conn->prepare('SELECT name FROM photos');
+            $statement = $conn->prepare('SELECT name FROM photos UNION SELECT firstName from users UNION SELECT lastName from users');
             $statement->execute();
 
             return $statement->fetchAll(PDO::FETCH_ASSOC);
