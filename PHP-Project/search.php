@@ -7,6 +7,7 @@
     if (!empty($_GET)) {
         if (isset($_GET['search'])) {
             $foundPhotos = Search::searchPhotos($_GET['search']);
+            $foundProfiles = Search::searchProfiles($_GET['search']);
         }
 
         if (isset($_GET['color'])) {
@@ -59,6 +60,28 @@
 } ?>
 
     <div class="content">
+
+    <?php if (!empty($foundProfiles)) {
+    foreach ($foundProfiles as $profile) {
+        $user = new User();
+        $user->setId($profile['id']);
+        $user->setData(); ?>
+        <div class="foundProfile">
+            <a href="profile.php?id=<?php echo $profile['id']; ?>">
+                <img src="<?php echo $user->getAvatar(); ?>" alt="Profile picture">
+                <div class="foundProfileInfo">
+                    <h2><?php echo $profile['firstName'].' '.$profile['lastName']; ?></h2>
+                    <p>Followers: <?php echo $user->getFollowersCount($profile['id']); ?></p>
+                    <p>Posts: <?php echo $user->getUserPostsCount($profile['id']); ?></p>
+                </div>
+            </a>
+         </div>
+        <?php
+    } ?>
+
+
+    <?php
+} ?>
 
 <?php foreach ($foundPhotos as $foundPhoto):
 

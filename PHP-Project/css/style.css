@@ -265,6 +265,37 @@ margin-left: 11%;
     margin-bottom: 1%;
 }
 
+.foundProfile {
+    margin-bottom: 20px;
+}
+
+.foundProfile img {
+    width: 80px;
+    height: 80px;
+    margin-left: 10%;
+    border-radius: 100%;
+    border: 6px solid #00A86B;
+    display: inline-block;
+}
+
+.foundProfileInfo {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.foundProfile a {
+    text-decoration: none;
+}
+
+.foundProfile h2 {
+    color: #00A86B;
+    margin-bottom: 5px;
+}
+
+.foundProfile p {
+    color: black;
+}
+
 @media only screen and (max-width: 920px) {
     h1 {
         padding-top: 18%;

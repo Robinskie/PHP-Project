@@ -34,7 +34,6 @@
         <img class="profilePicture" src="<?php echo $user->getAvatar(); ?>" alt="Profile picture">
         <h1><?php echo $user->getFullName(); ?></h1>
         <p class="bio"><?php echo $user->getProfileText(); ?></p>
-        <a href="./formChangeProfile.php">Change your profile</a>
         <hr>
         </div>
         <div class="info">
@@ -46,12 +45,15 @@
         <p><?php echo $postsCount; ?></p>
         <hr>
         </div>
-
-        <?php if ($isFollowed) {
+        <?php if ($_GET['id'] == $userId) {
     ?>
+        <a class="changeButton" href="./formChangeProfile.php">Change your profile</a>
+        <?php
+} elseif ($isFollowed) {
+        ?>
             <a href="#" id="followButton" class="followButton" data-id="<?php echo $user->getId(); ?>" data-followed=1>Unfollow</a>
         <?php
-} else {
+    } else {
         ?>
             <a href="#" id="followButton" class="followButton" data-id="<?php echo $user->getId(); ?>" data-followed=0>Follow</a>
         <?php
