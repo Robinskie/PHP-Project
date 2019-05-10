@@ -79,6 +79,21 @@ h3 {
     height: 32px
 }
 
+#searchLocationButton {
+    display: inline-block;
+    text-align: center;
+    border: none;
+    background-color: #222222;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 8px 5px 10px 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 180px;
+    height: 32px
+}
+
 #upload, .loadMoreButton {
     display: inline-block;
     text-align: center;
@@ -106,7 +121,7 @@ h3 {
     margin-top: 0%;
 }
 
-#search {
+#search, #searchLocation {
     height: 30px;
     border: none;
     background-color: rgba(0,0,0,0.05);

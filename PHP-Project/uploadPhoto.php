@@ -14,7 +14,8 @@
         $photo->setUploader($_SESSION['userid']);
         $photo->setDescription($_POST['description']);
         $photo->setPhotoFilter($_POST['photoFilters']);
-        $photo->setLocation($_POST['locationLat'], $_POST['locationLon']);
+        $photo->setLatitude($_POST['locationLat']);
+        $photo->setLongitude($_POST['locationLon']);
 
         if (!$photo->checkIfFilledIn($photo->getName())) {
             $errorMessage = 'Please enter a name for your picture.';
@@ -28,13 +29,14 @@
 
         if ($errorMessage == '') {
             $conn = Db::getInstance();
-            $statement = $conn->prepare('INSERT INTO photos (name, uploader, uploadDate, description, location, photoFilter) values (:name, :uploader, :uploadDate, :description, :location, :photoFilter)');
+            $statement = $conn->prepare('INSERT INTO photos (name, uploader, uploadDate, description, photoFilter, latitude, longitude) values (:name, :uploader, :uploadDate, :description, :photoFilter, :latitude, :longitude)');
             $statement->bindValue(':name', $photo->getName());
             $statement->bindValue(':uploader', $photo->getUploader());
             $statement->bindValue(':uploadDate', $photo->getUploadDate());
             $statement->bindValue(':description', $photo->getDescription());
             $statement->bindValue(':photoFilter', $photo->getPhotoFilter());
-            $statement->bindValue(':location', $photo->getLocation()->latitude.','.$photo->getLocation()->longitude);
+            $statement->bindValue(':latitude', $photo->getLatitude());
+            $statement->bindValue(':longitude', $photo->getLongitude());
             $statement->execute();
 
             $originalImage = imagecreatefromstring(file_get_contents($file['tmp_name']));
@@ -118,7 +120,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://openlayers.org/api/OpenLayers.js"></script>
     <script>
-
+        //photo preview & filters
         var photoPreview = document.getElementById("photoPreview");
         var photoInput = document.getElementById("photoInput");
 
@@ -194,6 +196,7 @@
             photoPreview.classList.add('_1977');
         });
 
+        //location stuff
         var locationInput = document.getElementById("locationCity");
         var locationLatInput = document.getElementById("locationLat");
         var locationLonInput = document.getElementById("locationLon");

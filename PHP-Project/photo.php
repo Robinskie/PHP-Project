@@ -103,10 +103,9 @@
         }
 
         //location stuff
-        console.log("locationCity");
         var locationCity = document.getElementById("locationCity");
-        var lat = <?php echo $photo->getLocation()->latitude; ?>;
-        var lon = <?php echo $photo->getLocation()->longitude; ?>;
+        var lat = <?php echo $photo->getLatitude(); ?>;
+        var lon = <?php echo $photo->getLongitude(); ?>;
         $.ajax({
             method: "GET",
             url: "https://nominatim.openstreetmap.org/reverse", 

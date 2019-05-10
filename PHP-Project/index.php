@@ -43,6 +43,10 @@
     <p> Suggestions: <span id="txtHint"></span></p>
     <input id="search" name="search" type="text" placeholder="Search" onkeyup="showHint(this.value)">
     <input id="submit" type="submit" value="Search">
+    </form>
+    <form action="search.php" method="GET">
+    <input id="searchLocation" name="location" type="text" placeholder="Your location">
+    <input class="searchLocationButton" id="searchLocationButton" type="submit" value="Search by location">
     </form> 
 
 
@@ -146,11 +150,13 @@
   
 <script src="js/like.js"></script>
 <script src="js/report.js"></script>
+<script src="js/loadMore.js"></script>
 
 <script>
     addLikeListeners();
     addReportListeners();
 
+    //load more
     $("#loadMoreButton").on('click', function(e) {
         e.preventDefault();
 
@@ -173,32 +179,7 @@
                 }).done(function(res) {
                     console.log(res);
                     res['photos'].forEach(function(photo) {
-                        console.log(photo['uploader']);
-                        var temp = '<div class="photoBox">' +
-                        '<a href="photo.php?id=' + photo['id'] + '">' +
-                        '<p class="gebruiker">' + photo['uploader'] + '</p>' +
-                        '<p class="photoDate">' + photo['uploadDate'] + '</p>' + 
-                        '<img class="' + photo['filter'] + '" src="' + photo['croppedPhoto'] + '"width="250px" height="250px">' +
-                        '<div class="telaantal">' +
-                        '<p><span class="likeCount">' + photo['likeCount'] + '</span> likes ' +
-                        '<span class="reportCount">' + photo['reportCount'] + '</span> reports</p>' +
-                        '</div>';
-
-                        if(photo['likeState'] == "1") {
-                            temp += '<a href="#" id="likeButton" class="likeButton" data-id="' + photo['id'] + '" data-liked=1>Unlike</a>';
-                        } else {
-                            temp += '<a href="#" id="likeButton" class="likeButton" data-id="' + photo['id'] + '" data-liked=0>Like</a>';
-                        }
-
-                        if(photo['reportState'] == "1") {
-                            temp += '<a href="#" id="reportButton" class="reportButton" data-id="' + photo['id'] + '" data-reported=1>Take back</a>';
-                        } else {
-                            temp += '<a href="#" id="reportButton" class="reportButton" data-id="' + photo['id'] + '" data-reported=0>Report</a>';
-                        }
-
-                        temp += "</a></div>";
-
-                        content.innerHTML += temp;
+                        content.innerHTML += getPhotoHTML(photo);
                     });
                     
                     addLikeListeners();
@@ -206,6 +187,34 @@
                     
                     btn.data("loadedposts", loadedPosts + 5);
                 });
+    });
+
+    //location search
+    $("#searchLocationButton").on('click', function(e) {
+        e.preventDefault();
+
+        var location = $("#searchLocation").val();
+
+        if(location != "") {
+            $.ajax({
+                method: "GET",
+                url: "https://nominatim.openstreetmap.org/search", 
+                data: { 
+                    q: location,
+                    limit: 1,
+                    format: 'json'
+                },
+                    dataType: "JSON" 
+                }).done(function(res) {
+                    var lat = res[0]['lat'];
+                    var lon = res[0]['lon'];
+                    window.location.href = "search.php?lat=" + lat + "&lon=" + lon;
+                });
+        } else {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                window.location.href = "search.php?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude;
+            });
+        }
     });
 </script>
     

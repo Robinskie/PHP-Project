@@ -23,6 +23,12 @@
             $tag->setTagName($thisTag);
             $isTagFollowed = $tag->getFollowState($userId);
         }
+
+        if (isset($_GET['lat'])) {
+            $lat = $_GET['lat'];
+            $lon = $_GET['lon'];
+            $foundPhotos = Search::searchPhotosByLocation($lat, $lon, 10);
+        }
     }
 
 ?><!DOCTYPE html>
