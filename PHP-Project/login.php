@@ -3,6 +3,7 @@
     $errorMessage = '';
 
     if (!empty($_POST)) {
+        // User.Class.php aanmaken
         $user = new User();
         $user->setEmail($_POST['email']);
         $user->setPw($_POST['password']);
