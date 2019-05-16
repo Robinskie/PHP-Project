@@ -22,9 +22,11 @@
     } else {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("txtHint").innerHTML = this.responseText;
-        }
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+                var hintArray = this.responseText.split(',');
+                console.log(hintArray);  
+            }
         };
         xmlhttp.open("GET", "ajax/gethint.php?q=" + str, true);
         xmlhttp.send();
@@ -40,16 +42,14 @@
     <h1>Your feed </h1>
     
     <form action="search.php" method="GET">
-    <p> Suggestions: <span id="txtHint"></span></p>
-    <input id="search" name="search" type="text" placeholder="Search" onkeyup="showHint(this.value)">
-    <input id="submit" type="submit" value="Search">
+        <p> Suggestions: <span id="txtHint"></span></p>
+        <input id="search" name="search" type="text" placeholder="Search" onkeyup="showHint(this.value)">
+        <input id="submit" type="submit" value="Search">
     </form>
     <form action="search.php" method="GET">
-    <input id="searchLocation" name="location" type="text" placeholder="Your location">
-    <input class="searchLocationButton" id="searchLocationButton" type="submit" value="Search by location">
+        <input id="searchLocation" name="location" type="text" placeholder="Your location">
+        <input class="searchLocationButton" id="searchLocationButton" type="submit" value="Search by location">
     </form> 
-
-
     </div>
 
     <a href="uploadPhoto.php" id="upload">Upload a picture</a>

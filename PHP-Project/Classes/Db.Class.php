@@ -50,55 +50,41 @@
                 ORDER BY uploadDate DESC
                 LIMIT '.$postLimit.' OFFSET '.$from);
             $statement->bindParam(':currentUser', $userId);
-            $result = $statement->execute();
+            $statement->execute();
+            $followingPosts = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
-
-            /*
-            // FEED MET POSTS VAN FOLLOWED USERS EN TAGS
             $conn = Db::getInstance();
             $statement = $conn->prepare('SELECT tagName FROM tags WHERE followingUser = '.$userId);
             $statement->execute();
             $tags = $statement->fetchAll(PDO::FETCH_ASSOC);
-            //var_dump($tags);
 
-            $queryStart = 'SELECT *, photos.id AS pId, users.id AS uId FROM photos
-            LEFT JOIN users ON photos.uploader = users.id
-            RIGHT JOIN followers ON followers.followedUser = photos.uploader
-            WHERE followers.followingUser = :currentUser ';
-
-            //var_dump($queryStart);
-
-            $count = 0;
+            $followingTags = '';
 
             foreach ($tags as $tag) {
                 $tagName = $tag['tagName'];
-                $queryName = 'query'.$count;
-                //var_dump($tagName);
-                $$queryName = 'UNION
-                SELECT * FROM photos WHERE description LIKE %'.$tagName.'% ';
-                ++$count;
+                $followingTags .= '|#'.$tagName;
             }
 
-            //var_dump($query2);
-
-            $queryEnd = 'ORDER BY uploadDate DESC
-            LIMIT '.$postLimit.' OFFSET '.$from;
-
-            //var_dump($queryEnd);
-
-            $finalQuery = $queryStart.$queryEnd;
-
-            var_dump($finalQuery);
+            $followingTags = substr($followingTags, 1);
 
             $conn = Db::getInstance();
-            $statement = $conn->prepare($finalQuery);
-            $statement->bindParam(':currentUser', $userId);
+            $statement = $conn->prepare('SELECT *, photos.id  AS pId FROM photos WHERE description REGEXP "'.$followingTags.'" ORDER BY uploadDate DESC LIMIT '.$postLimit.' OFFSET '.$from);
             $statement->execute();
+            $followingTagsPosts = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
+            $userfeed = array_merge($followingPosts, $followingTagsPosts);
+            $userfeed = array_unique($userfeed, SORT_REGULAR);
 
-            */
+            function date_compare($a, $b)
+            {
+                $t1 = strtotime($a['uploadDate']);
+                $t2 = strtotime($b['uploadDate']);
+
+                return $t2 - $t1;
+            }
+            usort($userfeed, 'date_compare');
+
+            return $userfeed;
         }
 
         public static function getRandomOtherUser($userId)
