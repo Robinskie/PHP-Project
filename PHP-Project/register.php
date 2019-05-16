@@ -54,10 +54,10 @@
             $errorMessage = 'The uploaded file for your avatar is not an image.';
         } else {
             $user->copyAvatartoImageFolder($avatar);
-            $result = $user->register();
-            if ($result) {
-                header('Location: login.php');
-            }
+            $user->register();
+            $userid = $user->getUserId($_POST['email']);
+            $_SESSION['userid'] = $userid;
+            header('Location: index.php');
         }
     }
 ?>
@@ -96,7 +96,7 @@
         <label for="password_confirmation">Confirm your password</label>
         <input type="password" id="passwordConfirmation" name="passwordConfirmation">
         <br>
-        <label for="avatar">Choose an avatar</label>
+        <label for="avatar">Upload a profile picture (required)</label>
         <input type="file" name="avatar" accept="image/*"/>
         <br>
         <label for="profileText">Write your profile text here</label>
