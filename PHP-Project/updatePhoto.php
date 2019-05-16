@@ -85,7 +85,6 @@
                 } else {
                     console.log('something went wrong');
                 }
-            ?>
             e.preventDefault();
         });
     </script>
