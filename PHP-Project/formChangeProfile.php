@@ -3,39 +3,39 @@ require_once 'bootstrap.php';
 
 redirectIfLoggedOut();
 
-if(!empty($_POST['submit'])) {
-
+if (!empty($_POST['submit'])) {
     //welke form word gebruikt?
-    switch($_POST['submit']) {
-
+    switch ($_POST['submit']) {
         //email veranderen
-        case 'Change email': 
-        
-        function changeEmail($oldEmail, $newEmail, $confirmNewEmail)    {
+        case 'Change email':
+
+        function changeEmail($oldEmail, $newEmail, $confirmNewEmail)
+        {
             $user = new User();
             $user->setId($_SESSION['userid']);
             $user->setData();
-        
+
             $status = 'OK';
             $msg = '';
-            
+
             if ($newEmail != $confirmNewEmail) {
                 $msg = $msg.'Both email adresses are not matching<BR>';
                 $status = 'NOTOK';
             }
-        
+
             if ($user->getEmail() != $oldEmail) {
                 $msg = $msg.'Your old email  is not matching as per our record.<BR>';
                 $status = 'NOTOK';
             }
-        
+
             if ($status != 'OK') {
                 echo $msg;
             } else {
                 $user->setEmail($newEmail);
                 $user->saveEmail($newEmail, $user->getId());
-        
-                echo "Your email is changed";
+
+                echo 'Your email is changed';
+
                 return true;
             }
         }
@@ -47,46 +47,46 @@ if(!empty($_POST['submit'])) {
 
         //email veranderen
         case 'Change password':
-        
+
         function changePw($oldPw, $newPw, $confirmNewPw)
         {
             $user = new User();
             $user->setId($_SESSION['userid']);
             $user->setData();
-        
+
             $status = 'OK';
             $msg = '';
-        
+
             if ($newPw != $confirmNewPw) {
                 $msg = $msg.'Both passwords are not matching<BR>';
                 $status = 'NOTOK';
             }
-        
-            if (!password_verify($oldPw, $user->getPw()) ) {
+
+            if (!password_verify($oldPw, $user->getPw())) {
                 $msg = $msg.'Your old password  is not matching as per our record.<BR>';
                 $status = 'NOTOK';
             }
-        
+
             if (!$user->isPwStrongEnough($newPw)) {
                 $msg = $msg."Password isn't strong enough<BR>";
                 $status = 'NOTOK';
             }
-        
+
             if ($status != 'OK') {
                 echo $msg;
             } else {
                 $user->setPw($newPw);
-        
+
                 $options = [
                         'cost' => 12,
                     ];
-        
+
                 $newPw = password_hash($newPw, PASSWORD_DEFAULT, $options);
                 $user->savePw($newPw);
-                
-                echo "Your password is changed";
+
+                echo 'Your password is changed';
+
                 return true;
-                
             }
         }
 
@@ -104,10 +104,10 @@ if(!empty($_POST['submit'])) {
             $user->setData();
             $user->setProfileText($newProfileText);
             $user->saveProfileText();
-                
-            echo "Your profiletext is changed";
+
+            echo 'Your profiletext is changed';
+
             return true;
-  
         }
 
         if (!empty($_POST)) {
@@ -118,7 +118,8 @@ if(!empty($_POST['submit'])) {
         //avatar veranderen
         case 'Change avatar':
 
-            function changeAvatar($newAvatar) {
+            function changeAvatar($newAvatar)
+            {
                 $user = new User();
                 $user->setId($_SESSION['userid']);
                 $user->setData();
@@ -140,11 +141,12 @@ if(!empty($_POST['submit'])) {
                     $user->copyAvatartoImageFolder($user->getAvatar());
                     $user->saveAvatar($user->getAvatar());
 
-                    echo "Your avatar is changed";
+                    echo 'Your avatar is changed';
+
                     return true;
                 }
             }
-        
+
         if (!empty($_FILES)) {
             changeAvatar($_FILES['avatar']);
         }

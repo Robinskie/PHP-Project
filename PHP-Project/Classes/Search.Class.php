@@ -50,7 +50,7 @@
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function searchPhotosByLocation($lat, $lon, $km)
+        public static function searchPhotosByLocation($lat, $lon, $km)
         {
             self::$conn = Db::getInstance();
             $statement = self::$conn->prepare('SELECT * FROM photos ORDER BY uploadDate DESC');
