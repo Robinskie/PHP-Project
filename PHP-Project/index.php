@@ -21,6 +21,7 @@
 
 <script>
     function showHint(str) {
+
     if (str.length == 0) { 
     document.getElementById("txtHint").innerHTML = "";
     return;
@@ -33,6 +34,7 @@
                 console.log(hintArray);  
             }
         };
+        // naar PHP file verwijzen
         xmlhttp.open("GET", "ajax/gethint.php?q=" + str, true);
         xmlhttp.send();
     }
@@ -120,7 +122,7 @@
             </div>
         <?php endforeach;
 
-    // IF USER IS NOT FOLLOWING ANY ACCOUNTS YET
+    // volgt niemand
     } else {
         $randomUser = Db::getRandomOtherUser($userId); ?>
 

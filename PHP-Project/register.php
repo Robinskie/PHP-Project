@@ -98,6 +98,8 @@
         <br>
         <label for="avatar">Upload a profile picture (required)</label>
         <input type="file" name="avatar" accept="image/*"/>
+        <label for="avatar">Choose an avatar</label>
+        <input type="file" name="avatar" accept="image/*" required>
         <br>
         <label for="profileText">Write your profile text here</label>
         <input type="text" name="profileText" id="profileText" value="<?php echo isset($_POST['profileText']) ? $_POST['profileText'] : ''; ?>">

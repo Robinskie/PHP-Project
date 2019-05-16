@@ -5,7 +5,6 @@ if (!empty($_POST)) {
     $photo = new Photo();
 
     $photo->setId($_POST['photoId']);
-    var_dump($_POST['photoId']);
     $photo->setData();
     $photo->deletePicture();
 
