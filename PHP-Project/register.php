@@ -97,7 +97,7 @@
         <input type="password" id="passwordConfirmation" name="passwordConfirmation">
         <br>
         <label for="avatar">Choose an avatar</label>
-        <input type="file" name="avatar" accept="image/*"/>
+        <input type="file" name="avatar" accept="image/*" required>
         <br>
         <label for="profileText">Write your profile text here</label>
         <input type="text" name="profileText" id="profileText">
