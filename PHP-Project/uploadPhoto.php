@@ -78,7 +78,7 @@
         <img id="photoPreview" src="./images/avatars/placeholder.png">
         <div>
             <label for="name"></label>
-            <input type="name" id="name" name="name" placeholder="Fill in your name">
+            <input type="name" id="name" name="name" placeholder="Which animal is this?">
         </div>
         <div> 
             <label for="File"></label>
