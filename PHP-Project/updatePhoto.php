@@ -75,18 +75,21 @@
 
         deleteBtn.addEventListener("click", function(e) {
             console.log('er is geklikt');
-            var user = <?php echo $_SESSION['userid']; ?>
+            var user = <?php echo $_SESSION['userid']; ?>;
+            var photoId = <?php echo $oldPhoto->getId(); ?>;
 
             $.ajax({
                 method: "POST",
                 url: "ajax/deletePhoto.php", 
                 data: { 
-                    user: user
+                    user: user,
+                    photoId: photoId
                 },
                     dataType: "JSON" 
             }).done(function(res) {
                 console.log(res);
                 if(res['status'] === "success") {
+                    console.log('success');
                     window.location.href = "index.php";
                 } else {
                     console.log('something went wrong');
