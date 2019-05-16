@@ -74,14 +74,20 @@
         var deleteBtn = document.getElementById("deleteBtn");
 
         deleteBtn.addEventListener("click", function(e) {
+            console.log('er is geklikt');
+            var user = <?php echo $_SESSION['userid']; ?>
+
             $.ajax({
                 method: "POST",
-                url: "ajax/deletePhoto.php",
-                data: {format:"json"},
-                dataType: "Json" // de server ga json terugggeven
+                url: "ajax/deletePhoto.php", 
+                data: { 
+                    user: user
+                },
+                    dataType: "JSON" 
             }).done(function(res) {
-                if(res === "succes") {
-                    header('Location: index.php');
+                console.log(res);
+                if(res['status'] === "success") {
+                    window.location.href = "index.php";
                 } else {
                     console.log('something went wrong');
                 }
