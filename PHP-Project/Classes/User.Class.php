@@ -35,7 +35,7 @@
 
         public function setEmail($email)
         {
-            $this->email = $email;
+            $this->email = strip_tags($email);
 
             return $this;
         }
@@ -47,7 +47,7 @@
 
         public function setFirstName($firstName)
         {
-            $this->firstName = $firstName;
+            $this->firstName = strip_tags($firstName);
 
             return $this;
         }
@@ -59,7 +59,7 @@
 
         public function setLastName($lastName)
         {
-            $this->lastName = $lastName;
+            $this->lastName = strip_tags($lastName);
 
             return $this;
         }
