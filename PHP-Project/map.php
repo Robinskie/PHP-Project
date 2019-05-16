@@ -1,10 +1,6 @@
 <?php
     require_once 'bootstrap.php';
     redirectIfLoggedOut();
-    
-    //$userId = $_SESSION['userid'];
-    //$photo = new Photo();
-
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -22,8 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://openlayers.org/api/OpenLayers.js"></script>
     <script>
-            //var lat = "";
-            //var lon = "";
+
             $.ajax({
                 method: "POST",
                 url: "getAllLocations.php",
@@ -38,11 +33,12 @@
                 map.addLayer(new OpenLayers.Layer.OSM());
 
                 jsonData.forEach(function(key) {
+                    if (key.latitude != '' && key.longitude != '') {
                     var lat = key.latitude;
                     var lon = key.longitude;
                     console.log(lon);
                     console.log(lat);
-
+                    
 
                     var lonLat = new OpenLayers.LonLat(lon, lat)//position.coords.latitude, position.coords.longitude)
                         .transform(
@@ -56,8 +52,9 @@
                         map.addLayer(markers);
                         
                         markers.addMarker(new OpenLayers.Marker(lonLat));
-                        
+                    }   
                         });
+                    
                 });
     
     </script>

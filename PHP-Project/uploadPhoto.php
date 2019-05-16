@@ -200,6 +200,7 @@
         var locationInput = document.getElementById("locationCity");
         var locationLatInput = document.getElementById("locationLat");
         var locationLonInput = document.getElementById("locationLon");
+       
         navigator.geolocation.getCurrentPosition(function(position) {
             $.ajax({
             method: "GET",
@@ -233,7 +234,7 @@
                 
                 map.setCenter (lonLat, zoom);
             });
-        });
+        }, function(){}, {enableHighAccuracy: true});
 
     </script>
 </body>
