@@ -68,15 +68,23 @@
     </form>
 
     <a href="#" id="deleteBtn" >Verwijderen</a>
-        
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script>
         var deleteBtn = document.getElementById("deleteBtn");
 
         deleteBtn.addEventListener("click", function(e) {
-            <?php $photo = new Photo();
-                $photo->setId($_GET['id']);
-                $photo->setData();
-                $photo->deletePicture();
+            $.ajax({
+                method: "POST",
+                url: "ajax/deletePhoto.php",
+                data: {format:"json"},
+                dataType: "Json" // de server ga json terugggeven
+            }).done(function(res) {
+                if(res === "succes") {
+                    header('Location: index.php');
+                } else {
+                    console.log('something went wrong');
+                }
             ?>
             e.preventDefault();
         });
