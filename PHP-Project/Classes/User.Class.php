@@ -155,6 +155,19 @@
             return $this;
         }
 
+        public function getUserId($email)
+        {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('select * from users where email = :email');
+            $statement->bindParam(':email', $email);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+            $this->id = $result['id'];
+
+            return $this->id;
+        }
+
         public function filledIn($field)
         {
             if (empty($field)) {
