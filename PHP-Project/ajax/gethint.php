@@ -1,12 +1,6 @@
 <?php
 
 require_once '../bootstrap.php';
-/*
-$a[] = 'Giraf';
-$a[] = 'Axolotl';
-$a[] = 'Plompe Lori';
-$a[] = 'Sheep';
-*/
 
 $search = new Search();
 $nameArray = $search->searchNames();
@@ -21,9 +15,9 @@ $nameArray = $search->searchNames();
                 foreach ($names as $name) {
                     if (stristr($q, substr($name, 0, $len))) {
                         if ($hint === '') {
-                            $hint = $name;
+                            $hint = '<a id="linkHint" href="search.php?search='.$name.'">'.$name.'</a>';
                         } else {
-                            $hint .= ", $name";
+                            $hint .= ', '.'<a id="linkHint" href="search.php?search='.$name.'">'.$name.'</a>';
                         }
                     }
                 }
