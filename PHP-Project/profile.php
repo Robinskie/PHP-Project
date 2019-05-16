@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="./css/styleProfile.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,900" rel="stylesheet">
     <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
-    <title>Document</title>
+    <title><?php echo $user->getFullName(); ?> - Zoogram</title>
 </head>
 <body>
     <?php include_once 'includes/nav.inc.php'; ?>
