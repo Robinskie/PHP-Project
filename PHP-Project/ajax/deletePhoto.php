@@ -4,7 +4,7 @@ require_once '../bootstrap.php';
 if (!empty($_POST)) {
     $photo = new Photo();
 
-    $photo->setId($_GET['id']);
+    $photo->setId($_POST['user']);
     $photo->setData();
     $photo->deletePicture();
 
