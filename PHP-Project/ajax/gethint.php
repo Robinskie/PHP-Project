@@ -1,5 +1,7 @@
 <?php
 
+// index.php rest van code
+
 require_once '../bootstrap.php';
 
 $search = new Search();
