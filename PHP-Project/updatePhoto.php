@@ -85,8 +85,9 @@
                 } else {
                     console.log('something went wrong');
                 }
-            e.preventDefault();
-        });
+                e.preventDefault();
+            });
+        }
     </script>
 </body>
 </html>
