@@ -33,7 +33,7 @@ class Photo
 
     public function setName($name)
     {
-        $this->name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+        $this->name = strip_tags($name);
 
         return $this;
     }
