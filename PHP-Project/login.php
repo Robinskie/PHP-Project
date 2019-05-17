@@ -37,7 +37,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/styleLogin.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,900" rel="stylesheet">
-    <title>PROJECT</title>
+    <title>Log in - Zoogram</title>
 </head>
 <body>
 <div class="leftColumn">

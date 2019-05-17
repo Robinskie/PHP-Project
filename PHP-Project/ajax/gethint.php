@@ -1,14 +1,11 @@
 <?php
 
+// index.php rest van code
+
 require_once '../bootstrap.php';
-/*
-$a[] = 'Giraf';
-$a[] = 'Axolotl';
-$a[] = 'Plompe Lori';
-$a[] = 'Sheep';
-*/
 
 $search = new Search();
+// een functie in Search.Class.php
 $nameArray = $search->searchNames();
 
     $q = $_REQUEST['q'];
@@ -20,10 +17,11 @@ $nameArray = $search->searchNames();
             foreach ($nameArray as $names) {
                 foreach ($names as $name) {
                     if (stristr($q, substr($name, 0, $len))) {
+                        // link
                         if ($hint === '') {
-                            $hint = $name;
+                            $hint = '<a id="linkHint" href="search.php?search='.$name.'">'.$name.'</a>';
                         } else {
-                            $hint .= ", $name";
+                            $hint .= ', '.'<a id="linkHint" href="search.php?search='.$name.'">'.$name.'</a>';
                         }
                     }
                 }

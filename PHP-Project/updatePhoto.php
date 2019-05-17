@@ -39,7 +39,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/style.css">
-    <title>PROJECT - UPDATE</title>
+    <title>Update Photo - Zoogram</title>
 </head>
 
 <body>
@@ -68,17 +68,34 @@
     </form>
 
     <a href="#" id="deleteBtn" >Verwijderen</a>
-        
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script>
         var deleteBtn = document.getElementById("deleteBtn");
 
         deleteBtn.addEventListener("click", function(e) {
-            <?php $photo = new Photo();
-                $photo->setId($_GET['id']);
-                $photo->setData();
-                $photo->deletePicture();
-            ?>
-            e.preventDefault();
+            console.log('er is geklikt');
+            var user = <?php echo $_SESSION['userid']; ?>;
+            var photoId = <?php echo $oldPhoto->getId(); ?>;
+
+            $.ajax({
+                method: "POST",
+                url: "ajax/deletePhoto.php", 
+                data: { 
+                    user: user,
+                    photoId: photoId
+                },
+                    dataType: "JSON" 
+            }).done(function(res) {
+                console.log(res);
+                if(res['status'] === "success") {
+                    console.log('success');
+                    window.location.href = "index.php";
+                } else {
+                    console.log('something went wrong');
+                }
+                e.preventDefault();
+            });
         });
     </script>
 </body>

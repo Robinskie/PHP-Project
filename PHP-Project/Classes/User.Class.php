@@ -35,7 +35,7 @@
 
         public function setEmail($email)
         {
-            $this->email = $email;
+            $this->email = strip_tags($email);
 
             return $this;
         }
@@ -47,7 +47,7 @@
 
         public function setFirstName($firstName)
         {
-            $this->firstName = $firstName;
+            $this->firstName = strip_tags($firstName);
 
             return $this;
         }
@@ -59,7 +59,7 @@
 
         public function setLastName($lastName)
         {
-            $this->lastName = $lastName;
+            $this->lastName = strip_tags($lastName);
 
             return $this;
         }
@@ -76,7 +76,7 @@
 
         public function setPw($pw)
         {
-            $this->pw = $pw;
+            $this->pw = strip_tags($pw);
 
             return $this;
         }
@@ -88,7 +88,7 @@
 
         public function setPwConfirm($pwConfirm)
         {
-            $this->pwConfirm = $pwConfirm;
+            $this->pwConfirm = strip_tags($pwConfirm);
 
             return $this;
         }
@@ -131,7 +131,7 @@
 
         public function setProfileText($profileText)
         {
-            $this->profileText = $profileText;
+            $this->profileText = strip_tags($profileText);
 
             return $this;
         }
@@ -153,6 +153,19 @@
             $this->profileText = $userRow['profileText'];
 
             return $this;
+        }
+
+        public function getUserId($email)
+        {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('select * from users where email = :email');
+            $statement->bindParam(':email', $email);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+            $this->id = $result['id'];
+
+            return $this->id;
         }
 
         public function filledIn($field)

@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
-    <title>Document</title>
+    <title>Map - Zoogram</title>
 </head>
 <body>
     <?php include_once 'includes/nav.inc.php'; ?>

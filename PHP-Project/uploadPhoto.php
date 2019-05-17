@@ -48,7 +48,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/styleUpload.css">
     <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
-    <title>PROJECT - UPLOAD</title>
+    <title>Upload - Zoogram</title>
 </head>
 
 <body>

@@ -12,20 +12,29 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
-    <title>PROJECT</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <title>Home - Zoogram</title>
 
 <script>
     function showHint(str) {
+
     if (str.length == 0) { 
     document.getElementById("txtHint").innerHTML = "";
     return;
     } else {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("txtHint").innerHTML = this.responseText;
-        }
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+                var hintArray = this.responseText.split(',');
+                console.log(hintArray);  
+            }
         };
+        // naar PHP file verwijzen
         xmlhttp.open("GET", "ajax/gethint.php?q=" + str, true);
         xmlhttp.send();
     }
@@ -40,16 +49,14 @@
     <h1>Your feed </h1>
     
     <form action="search.php" method="GET">
-    <p> Suggestions: <span id="txtHint"></span></p>
-    <input id="search" name="search" type="text" placeholder="Search" onkeyup="showHint(this.value)">
-    <input id="submit" type="submit" value="Search">
+        <p> Suggestions: <span id="txtHint"></span></p>
+        <input id="search" name="search" type="text" placeholder="Search" onkeyup="showHint(this.value)">
+        <input id="submit" type="submit" value="Search">
     </form>
     <form action="search.php" method="GET">
-    <input id="searchLocation" name="location" type="text" placeholder="Your location">
-    <input class="searchLocationButton" id="searchLocationButton" type="submit" value="Search by location">
+        <input id="searchLocation" name="location" type="text" placeholder="Your location">
+        <input class="searchLocationButton" id="searchLocationButton" type="submit" value="Search by location">
     </form> 
-
-
     </div>
 
     <a href="uploadPhoto.php" id="upload">Upload a picture</a>
@@ -115,7 +122,7 @@
             </div>
         <?php endforeach;
 
-    // IF USER IS NOT FOLLOWING ANY ACCOUNTS YET
+    // volgt niemand
     } else {
         $randomUser = Db::getRandomOtherUser($userId); ?>
 
