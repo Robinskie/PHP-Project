@@ -13,7 +13,12 @@
         $photo->setUploadDate(date('Y-m-d H:i:s'));
         $photo->setUploader($_SESSION['userid']);
         $photo->setDescription($_POST['description']);
-        $photo->setPhotoFilter($_POST['photoFilters']);
+
+        if (isset($_POST['photoFilters'])) {
+            $photo->setPhotoFilter($_POST['photoFilters']);
+        } else {
+            $photo->setPhotoFilter('none');
+        }
         $photo->setLatitude($_POST['locationLat']);
         $photo->setLongitude($_POST['locationLon']);
 
@@ -28,25 +33,7 @@
         }
 
         if ($errorMessage == '') {
-            $conn = Db::getInstance();
-            $statement = $conn->prepare('INSERT INTO photos (name, uploader, uploadDate, description, photoFilter, latitude, longitude) values (:name, :uploader, :uploadDate, :description, :photoFilter, :latitude, :longitude)');
-            $statement->bindValue(':name', $photo->getName());
-            $statement->bindValue(':uploader', $photo->getUploader());
-            $statement->bindValue(':uploadDate', $photo->getUploadDate());
-            $statement->bindValue(':description', $photo->getDescription());
-            $statement->bindValue(':photoFilter', $photo->getPhotoFilter());
-            $statement->bindValue(':latitude', $photo->getLatitude());
-            $statement->bindValue(':longitude', $photo->getLongitude());
-            $statement->execute();
-
-            $originalImage = imagecreatefromstring(file_get_contents($file['tmp_name']));
-            $croppedImage = $photo->cropImage($file, 600, 600);
-            $photo->setId(Db::simpleFetch('SELECT MAX(id) FROM photos')['MAX(id)']);
-
-            imagepng($originalImage, $photo->getPhotoPath());
-            imagepng($croppedImage, $photo->getCroppedPhotoPath());
-
-            $photo->saveColors();
+            $photo->save($file);
             header('Location:photo.php?id='.$photo->getId());
         }
     }
@@ -78,7 +65,7 @@
         <img id="photoPreview" src="./images/avatars/placeholder.png">
         <div>
             <label for="name"></label>
-            <input type="name" id="name" name="name" placeholder="Fill in your name">
+            <input type="name" id="name" name="name" placeholder="Photo name">
         </div>
         <div> 
             <label for="File"></label>

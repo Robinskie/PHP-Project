@@ -1,5 +1,6 @@
 <?php
     require_once 'bootstrap.php';
+
     $errorMessage = '';
 
     if (!empty($_POST)) {

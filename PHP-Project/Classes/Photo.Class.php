@@ -1,4 +1,6 @@
 <?php
+
+//namespace Zoogram {
     class Photo
     {
         private $id;
@@ -202,6 +204,29 @@
             return $this;
         }
 
+        public function save($file)
+        {
+            $conn = Db::getInstance($file);
+            $statement = $conn->prepare('INSERT INTO photos (name, uploader, uploadDate, description, photoFilter, latitude, longitude) values (:name, :uploader, :uploadDate, :description, :photoFilter, :latitude, :longitude)');
+            $statement->bindValue(':name', $this->name);
+            $statement->bindValue(':uploader', $this->uploader);
+            $statement->bindValue(':uploadDate', $this->uploadDate);
+            $statement->bindValue(':description', $this->description);
+            $statement->bindValue(':photoFilter', $this->photoFilter);
+            $statement->bindValue(':latitude', $this->latitude);
+            $statement->bindValue(':longitude', $this->longitude);
+            $statement->execute();
+
+            $originalImage = imagecreatefromstring(file_get_contents($file['tmp_name']));
+            $croppedImage = $this->cropImage($file, 600, 600);
+            $this->setId(Db::simpleFetch('SELECT MAX(id) FROM photos')['MAX(id)']);
+
+            imagepng($originalImage, $this->getPhotoPath());
+            imagepng($croppedImage, $this->getCroppedPhotoPath());
+
+            $this->saveColors();
+        }
+
         public function getUploaderObject()
         {
             $user = new User();
@@ -235,7 +260,7 @@
                         return false;
                 }
             imagetruecolortopalette($img, false, 10);
-            imagepng($img, '/images/temp/reducedColor.png');
+            imagepng($img, './images/temp/reducedColor.png');
             if (!$img) {
                 return false;
             }
@@ -302,3 +327,4 @@
             $statement->execute();
         }
     }
+//}

@@ -13,7 +13,8 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="mapDiv" class="mapDiv"></div>
+    <?php include_once 'includes/nav.inc.php'; ?>
+    <div id="mapDiv" class="bigMapDiv"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://openlayers.org/api/OpenLayers.js"></script>
@@ -46,12 +47,14 @@
                             map.getProjectionObject() // to Spherical Mercator Projection
                         );
                             
-                        var zoom=16;
+                        var zoom = 10;
 
                         var markers = new OpenLayers.Layer.Markers( "Markers" );
                         map.addLayer(markers);
                         
                         markers.addMarker(new OpenLayers.Marker(lonLat));
+
+                        map.setCenter (lonLat, zoom);
                     }   
                         });
                     
