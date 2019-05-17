@@ -58,33 +58,37 @@
             $statement->execute();
             $tags = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-            $followingTags = '';
+            if (!empty($tags)) {
+                $followingTags = '';
 
-            foreach ($tags as $tag) {
-                $tagName = $tag['tagName'];
-                $followingTags .= '|#'.$tagName;
+                foreach ($tags as $tag) {
+                    $tagName = $tag['tagName'];
+                    $followingTags .= '|#'.$tagName;
+                }
+
+                $followingTags = substr($followingTags, 1);
+
+                $conn = Db::getInstance();
+                $statement = $conn->prepare('SELECT *, photos.id  AS pId FROM photos WHERE description REGEXP "'.$followingTags.'" ORDER BY uploadDate DESC LIMIT '.$postLimit.' OFFSET '.$from);
+                $statement->execute();
+                $followingTagsPosts = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                $userfeed = array_merge($followingPosts, $followingTagsPosts);
+                $userfeed = array_unique($userfeed, SORT_REGULAR);
+
+                function date_compare($a, $b)
+                {
+                    $t1 = strtotime($a['uploadDate']);
+                    $t2 = strtotime($b['uploadDate']);
+
+                    return $t2 - $t1;
+                }
+                usort($userfeed, 'date_compare');
+
+                return $userfeed;
+            } else {
+                return $followingPosts;
             }
-
-            $followingTags = substr($followingTags, 1);
-
-            $conn = Db::getInstance();
-            $statement = $conn->prepare('SELECT *, photos.id  AS pId FROM photos WHERE description REGEXP "'.$followingTags.'" ORDER BY uploadDate DESC LIMIT '.$postLimit.' OFFSET '.$from);
-            $statement->execute();
-            $followingTagsPosts = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-            $userfeed = array_merge($followingPosts, $followingTagsPosts);
-            $userfeed = array_unique($userfeed, SORT_REGULAR);
-
-            function date_compare($a, $b)
-            {
-                $t1 = strtotime($a['uploadDate']);
-                $t2 = strtotime($b['uploadDate']);
-
-                return $t2 - $t1;
-            }
-            usort($userfeed, 'date_compare');
-
-            return $userfeed;
         }
 
         public static function getRandomOtherUser($userId)
