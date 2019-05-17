@@ -76,7 +76,6 @@
         $photo = new Photo();
         $photo->setId($photoRow['pId']);
         $photo->setData();
-        $photoId = $photo->getId();
 
         $uploadUser = $photo->getUploaderObject();
 
