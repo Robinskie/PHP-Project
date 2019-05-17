@@ -76,7 +76,7 @@
 
         public function setPw($pw)
         {
-            $this->pw = $pw;
+            $this->pw = strip_tags($pw);
 
             return $this;
         }
@@ -88,7 +88,7 @@
 
         public function setPwConfirm($pwConfirm)
         {
-            $this->pwConfirm = $pwConfirm;
+            $this->pwConfirm = strip_tags($pwConfirm);
 
             return $this;
         }
@@ -131,7 +131,7 @@
 
         public function setProfileText($profileText)
         {
-            $this->profileText = $profileText;
+            $this->profileText = strip_tags($profileText);
 
             return $this;
         }

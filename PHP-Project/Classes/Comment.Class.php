@@ -50,7 +50,7 @@
 
         public function setText($text)
         {
-            $this->text = $text;
+            $this->text = strip_tags($text);
 
             return $this;
         }
