@@ -260,6 +260,14 @@ margin-left: 11%;
     height: 250px;
 }
 
+.bigMapDiv {
+    display: block;
+    margin: auto;
+    width: 800px;
+    height: 500px;
+    border: 10px solid #ffffff;
+}
+
 #txtHint {
     margin-left: 10%;
     margin-bottom: 1%;
