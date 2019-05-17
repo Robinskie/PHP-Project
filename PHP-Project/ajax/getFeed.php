@@ -25,7 +25,7 @@
                 $result['photos'][$photoCount]['name'] = $photo->getName();
                 $result['photos'][$photoCount]['croppedPhoto'] = $photo->getCroppedPhotoPath();
                 $result['photos'][$photoCount]['filter'] = $photo->getPhotoFilter();
-                $result['photos'][$photoCount]['uploadDate'] = $photo->getUploadDate();
+                $result['photos'][$photoCount]['uploadDate'] = howLongAgo(strtotime($photo->getUploadDate()));
                 $result['photos'][$photoCount]['uploader'] = $uploader->getFullname();
                 $result['photos'][$photoCount]['likeCount'] = $photo->getLikeCount();
                 $result['photos'][$photoCount]['likeState'] = $photo->getLikeState($user);
