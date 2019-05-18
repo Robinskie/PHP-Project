@@ -199,9 +199,10 @@
     //location search
     $("#searchLocationButton").on('click', function(e) {
         e.preventDefault();
-
+        
         var location = $("#searchLocation").val();
-
+        location =  location.replace(/(<([^>]+)>)/ig,"");
+        
         if(location != "") {
             $.ajax({
                 method: "GET",
