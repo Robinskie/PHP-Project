@@ -94,12 +94,13 @@
             var regexp = /\B\#\w\w+\b/g;
             hashtags = searchText.match(regexp);
 
-            hashtags.forEach(el=>{
-                var tag = el.substr(1);
-                description = description.replace(el, '<a href="search.php?tag='+tag+'" target="_blank">'+el+'</a>');
-                $("#description").html(description);
-            })
-            
+            if(hashtags != null) {
+                hashtags.forEach(el=>{
+                    var tag = el.substr(1);
+                    description = description.replace(el, '<a href="search.php?tag='+tag+'" target="_blank">'+el+'</a>');
+                    $("#description").html(description);
+                })
+            }
         }
 
         //location stuff
