@@ -19,6 +19,7 @@
         } else {
             $photo->setPhotoFilter('none');
         }
+
         $photo->setLatitude($_POST['locationLat']);
         $photo->setLongitude($_POST['locationLon']);
 

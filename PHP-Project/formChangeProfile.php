@@ -32,7 +32,7 @@ if (!empty($_POST['submit'])) {
                 echo $msg;
             } else {
                 $user->setEmail($newEmail);
-                $user->saveEmail($newEmail, $user->getId());
+                $user->saveEmail($user->getEmail(), $user->getId());
 
                 echo 'Your email is changed';
 
