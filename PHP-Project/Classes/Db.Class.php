@@ -43,9 +43,9 @@
             $postLimit = $to - $from;
             $conn = Db::getInstance();
             $statement = $conn->prepare(
-                'SELECT *, photos.id AS pId, users.id AS uId FROM photos
-                LEFT JOIN users ON photos.uploader = users.id
-                RIGHT JOIN followers ON followers.followedUser = photos.uploader
+                'SELECT *, photos.id AS pId, users.id AS uId, followers.id AS fId FROM photos
+                JOIN users ON photos.uploader = users.id
+                JOIN followers ON followers.followedUser = photos.uploader
                 WHERE followers.followingUser = :currentUser
                 ORDER BY uploadDate DESC
                 LIMIT '.$postLimit.' OFFSET '.$from);
