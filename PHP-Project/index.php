@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,900" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
@@ -49,15 +49,16 @@
     <h1>Your feed </h1>
     
     <form action="search.php" method="GET">
-        <p> Suggestions: <span id="txtHint"></span></p>
-        <input id="search" name="search" type="text" placeholder="Search" onkeyup="showHint(this.value)">
+        <div>
+        <input id="search" name="search" type="text" placeholder="Search" autocomplete="off" onkeyup="showHint(this.value)">
         <input id="submit" type="submit" value="Search">
+        <p class="suggestions"> Suggestions: <span id="txtHint"></span></p>
+        </div>
     </form>
     <form action="search.php" method="GET">
         <input id="searchLocation" name="location" type="text" placeholder="Your location">
         <input class="searchLocationButton" id="searchLocationButton" type="submit" value="Search by location">
     </form> 
-    </div>
 
     <a href="uploadPhoto.php" id="upload">Upload a picture</a>
 
@@ -146,7 +147,7 @@
     </div class="homeFeed">
 
     <a class="loadMoreButton" id="loadMoreButton" href="#" data-user="<?php echo $userId; ?>" data-loadedposts="5" >Load more...</a>
-
+    </div>
   <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

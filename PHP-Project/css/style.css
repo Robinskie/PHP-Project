@@ -46,22 +46,16 @@ body p {
     z-index: 3;
 }
 
+.content {
+    margin-left: 10%;
+}
+
 h1 {
-    padding-top: 10%;
     font-weight: 900;
     color: #00A86B;
     font-size: 32px;
     margin-bottom: 25px;
-    margin-left: 10.5%;
-    margin-top: 0%;
-}
-
-h3 {
-    margin-left: 20px;
-    color: #00A86B;
-    display: block;
-    text-transform: uppercase;
-    font-size: 15px;
+    margin-top: 5%;
 }
 
 #submit {
@@ -94,6 +88,10 @@ h3 {
     height: 32px
 }
 
+#submit:hover, #searchLocationButton:hover {
+    background-color: #00A86B;
+}
+
 #upload, .loadMoreButton {
     display: inline-block;
     text-align: center;
@@ -107,18 +105,32 @@ h3 {
     font-weight: bold;
     width: 180px;
     text-decoration: none;
-    margin-left: 10.5%;
     margin-top: 0%;
     margin-bottom: 0%;
 }
 
 #upload {
-    margin-bottom: 5%;
-    margin-top: 5%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    z-index: 5;
+    background-color: #222222;
+}
+
+#upload:hover {
+    background-color: #00A86B;
 }
 
 .loadMoreButton {
-    margin-top: 0%;
+    margin-top: 24px;
+    margin-bottom: 88px;
+}
+
+.loadMoreButton:hover {
+    background-color: #222222;
 }
 
 #search, #searchLocation {
@@ -127,9 +139,13 @@ h3 {
     background-color: rgba(0,0,0,0.05);
     width: 170px;
     padding-left: 20px;
-    margin-left: 20px;
     font-size: 13px;
-    margin-left: 10.5%;
+    display: inline-block;
+}
+
+.suggestions {
+    display: inline-block;
+    margin-left: 10px;
 }
 
 ::placeholder {
@@ -141,9 +157,7 @@ h3 {
 
 .photoBox {
     display: inline-block;
-    padding: 10px;
-    margin-left: 10%; 
-    margin-bottom: 2%; 
+    margin: 48px 10% 2% 0;
     border: none;
     background-color: none;
 }
@@ -190,6 +204,14 @@ h3 {
     padding: 10px 10px 10px 10px;
     text-transform: uppercase;
     font-weight: bold;
+}
+
+.reportButton:hover {
+    background-color: rgb(180, 75, 79);
+}
+
+.likeButton:hover {
+    background-color: #222222;
 }
 
 .errorBox {
@@ -268,11 +290,6 @@ margin-left: 11%;
     border: 10px solid #ffffff;
 }
 
-#txtHint {
-    margin-left: 10%;
-    margin-bottom: 1%;
-}
-
 .foundProfile {
     margin-bottom: 20px;
 }
@@ -323,6 +340,11 @@ margin-left: 11%;
     .loadMoreButton {
     margin-bottom: 10%;
     margin-left: 12%;
+    }
+
+    #nav a {
+        font-size: 12px;
+        padding-right: 10px;
     }
 }
 

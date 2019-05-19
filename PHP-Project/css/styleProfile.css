@@ -9,6 +9,7 @@
     padding: 20px 0px 20px 0px;
     display: block;
     float: left;
+    position: fixed;
 }
 
 #nav a {
@@ -29,12 +30,13 @@
     padding: 0px;
     margin: 0px;
     width: 100vw;
-    z-index: 3;
+    position: fixed;
+    z-index: 1;
 }
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #FEF8E8;
+    background-color: #fff;
 }
 
 #sidebar {
@@ -44,10 +46,14 @@ body {
     z-index: -1;
     top: 0;
     left: 0;
-    background-color: #ffffff;
     overflow: hidden;
     text-align: center;
     padding-top: 60px;
+    background-color:#222222;
+}
+
+#sidebar {
+    color: #fff;
 }
 
 .profileSection {
@@ -63,14 +69,14 @@ body {
 }
 
 h1 {
-    color: #00A86B;
+    color: #ffffff;
     font-weight: 900;
     font-variant-caps: all-small-caps;
     font-size: 32px;
 }
 
 h2 {
-    color: #00A86B;
+    color: #ffffff;
     font-weight: 500;
     font-variant-caps: all-small-caps;
     font-size: 24px;
@@ -80,7 +86,7 @@ h2 {
 .bio {
     margin-top: 5%;
     font-size: 14px;
-    color: rgb(70, 70, 70);
+    color: #ffffff;
 }
 
 hr {
@@ -99,16 +105,16 @@ hr {
     color: #ffffff;
     font-weight: 500;
     font-size: 18px;
-    width: 24%;
+    width: 40%;
     padding: 10px 20px;
-    border-radius: 100px;
     margin: 10% auto;
     display: block;
 }
 
 .followButton:hover,
 .changeButton:hover {
-    background-color: #008C53;
+    background-color: #fff;
+    color: #222222;
 }
 
 #content {
@@ -116,29 +122,25 @@ hr {
     height: 100%;
     margin-left: 30vw;
     border-radius: 100%;
-    padding: 8% 5%;
+    padding: 96px 5%;
 }
 
-#userPost {
+.photoBox {
     width: 25%;
     float: left;
-    margin: 2% 2% 0 0;
-    border: 12px solid #ffffff;
+    margin: 2% 8% 2% 0;
+    border-top: 7px solid #00A86B;
+    padding-top: 16px;
 }
 
 @media only screen and (max-width: 900px) {
     
     #content {
-        width: 50%;
-        height: 100%;
         margin-left: 0px;
-        border-radius: 100%;
-        padding: 0px;
         padding-left: 40%;
     }
     
     #userPost {
-        width: 90%;
         float: right;
         margin-bottom: 10%;
     }  
@@ -157,7 +159,112 @@ hr {
     .profilePicture {
         width: 80px;
         height: 80px;
-        margin-top: 60%;
+        margin-top: 16%;
     }
 
+    .photoBox {
+        width: 33%;
+        float: left;
+        margin: 2% 8% 2% 0;
+        border-top: 7px solid #00A86B;
+        padding-top: 16px;
+    }
+
+}
+
+@media only screen and (max-width: 640px) {
+
+    #header {
+        z-index: 3;
+    }
+    
+    #sidebar {
+        height: auto;
+        width: 100%;
+        position: absolute;
+        display: block;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        padding-top: 60px;
+    }
+
+    .profileSection {
+        float: left;
+        margin: 4% 0 4% 16%;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    .info {
+        float: left;
+        margin: 40px 0 4% 4%;
+        width: 48%;
+    }
+
+    .infoBlock {
+        margin-right: 8%;
+        display: block;
+    }
+
+    .line {
+        display: none;
+    }
+
+    .followButton, 
+    .changeButton {
+        position: fixed;
+        width: 100vw;
+        height: 40px;
+        line-height: 40px;
+        bottom: 0;
+        margin: 0;
+        z-index: 2;
+        background-color: #222222;
+    }
+
+    .followButton:hover,
+    .changeButton:hover {
+        background-color: #00A86B;
+    }
+
+    #content {
+        padding: 360px 0;
+        margin: 0;
+        width: 100%;
+        position: absolute;
+        z-index: -1;
+        align-content: center;
+        padding-bottom: 800px;
+    }
+
+    .photoBox {
+        position: relative;
+        z-index: -1;
+        width: 80%;
+        float: left;
+        border-top: 7px solid #00A86B;
+        padding-top: 16px;
+        margin: 0 10%;
+    }
+
+    #userPost {
+        float: none;
+        width: 100%;
+        margin-bottom: 10%;
+    }  
+
+}
+
+@media only screen and (max-width: 496px) {
+    #nav a {
+        font-size: 12px;
+        padding-right: 10px;
+    }
+
+    .info {
+        width: 32%;
+    }
 }

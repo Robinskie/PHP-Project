@@ -24,6 +24,10 @@
     <link rel="stylesheet" href="./css/styleProfile.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,900" rel="stylesheet">
     <link rel="stylesheet" href="https://cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
     <title><?php echo $user->getFullName(); ?> - Zoogram</title>
 </head>
 <body>
@@ -31,19 +35,25 @@
 
     <section id="sidebar">
         <div class="profileSection">
-        <img class="profilePicture" src="<?php echo $user->getAvatar(); ?>" alt="Profile picture">
-        <h1><?php echo $user->getFullName(); ?></h1>
-        <p class="bio"><?php echo $user->getProfileText(); ?></p>
-        <hr>
+            <img class="profilePicture" src="<?php echo $user->getAvatar(); ?>" alt="Profile picture">
+            <h1><?php echo $user->getFullName(); ?></h1>
+            <p class="bio"><?php echo $user->getProfileText(); ?></p>
+            <hr>
         </div>
         <div class="info">
-        <h2>followers</h2>
-        <p><span class="followersCount"><?php echo $followersCount; ?></span></p>
-        <h2>following</h2>
-        <p><?php echo $followingCount; ?></p>
-        <h2>posts</h2>
-        <p><?php echo $postsCount; ?></p>
-        <hr>
+            <div class="infoBlock">
+                <h2>followers</h2>
+                <p><span class="followersCount"><?php echo $followersCount; ?></span></p>
+            </div>
+            <div class="infoBlock">
+                <h2>following</h2>
+                <p><?php echo $followingCount; ?></p>
+            </div>
+            <div class="infoBlock">
+                <h2>posts</h2>
+                <p><?php echo $postsCount; ?></p>
+            </div>
+        <hr class="line">
         </div>
         <?php if ($_GET['id'] == $userId) {
     ?>
