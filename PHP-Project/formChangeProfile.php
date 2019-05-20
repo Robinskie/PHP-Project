@@ -172,32 +172,32 @@ if (!empty($_POST['submit'])) {
 </head>
 <body>
 <?php include_once 'includes/nav.inc.php'; ?>
-    <form method="POST" action="">
-        <p><input type="email" name="oldEmail" id="oldEmail" placeholder="Old Email"></p>
-        <p><input type="email" name="newEmail" id="newEmail" placeholder="New Email"></p>
-        <p><input type="email" name="confirmNewEmail" id="ConfirmNewEmail" placeholder="Confirm Email"></p>
-        <input type="submit" name="submit" id="submit" value="Change email">
+    <form method="POST" action="" class="formopm">
+        <p><input type="email" class="email" name="oldEmail" id="oldEmail" placeholder="Old Email"></p>
+        <p><input type="email" class="email" name="newEmail" id="newEmail" placeholder="New Email"></p>
+        <p><input type="email" class="email" name="confirmNewEmail" id="ConfirmNewEmail" placeholder="Confirm Email"></p>
+        <input type="submit" class="opmaaksubmit" name="submit" value="Change email">
     </form>  
 
     <form method="POST" action="">
-        <p><input type="password" name="oldPw" id="oldPW"placeholder="Old Password"></p>
-        <p><input type="password" name="newPw" id="newPw" placeholder="New Password"></p>
-        <p><input type="password" name="confirmNewPw" id="ConfirmNewPw" placeholder="Confirm Password"></p>
-        <input type="submit" name="submit" id="submit" value="Change password">
+        <p><input type="password" class="email" name="oldPw" id="oldPW"placeholder="Old Password"></p>
+        <p><input type="password" class="email" name="newPw" id="newPw" placeholder="New Password"></p>
+        <p><input type="password" class="email" name="confirmNewPw" id="ConfirmNewPw" placeholder="Confirm Password"></p>
+        <input type="submit" class="opmaaksubmit" name="submit" value="Change password">
     </form>  
 
     <form method="POST"action="" enctype="multipart/form-data">
-        <label for="avatar">Choose an new avatar</label> 
+        <p><label for="avatar">Choose an new avatar</label></p>
         <br>
         <input type="file" name="avatar" accept="image/*" id="avatar"/>
         <br>
-        <input type="submit" name="submit" id="submit" value="Change avatar">
+        <input type="submit" class="opmaaksubmit" name="submit" value="Change avatar">
     </form>
 
     <form method="POST" action="">
-        <label for="profileText">Write your profile text here</label>
-        <input type="text" name="profileText" id="profileText">
-        <input type="submit" name="submit" id="submit" value="Change profiletext">
+        <p><label for="profileText">Write your profile text here</label></p>
+        <input type="text" name="profileText" id="profileText"><br>
+        <input class="opmaaksubmit" type="submit" name="submit" value="Change profiletext">
     </form>
 
 </body>
