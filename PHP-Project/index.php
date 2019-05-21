@@ -22,7 +22,7 @@
 <script>
     function showHint(str) {
 
-    if (str.length == 0) { 
+    if (str.length == 0) { // lengte
     document.getElementById("txtHint").innerHTML = "";
     return;
     } else {
@@ -30,11 +30,11 @@
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("txtHint").innerHTML = this.responseText;
+                // resultaten
                 var hintArray = this.responseText.split(',');
-                console.log(hintArray);  
+                // console.log(hintArray);  
             }
         };
-        // naar PHP file verwijzen
         xmlhttp.open("GET", "ajax/gethint.php?q=" + str, true);
         xmlhttp.send();
     }

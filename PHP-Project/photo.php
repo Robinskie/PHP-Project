@@ -143,7 +143,7 @@
                 map.setCenter (lonLat, zoom);
             });
 
-        //adding a comment stuff
+        // comments
         $("#commentSubmit").on("click", function(e) {
             var photoId = $(this).data("photoid");
             var userId = $(this).data("userid");

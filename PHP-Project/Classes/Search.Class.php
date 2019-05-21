@@ -42,8 +42,10 @@
         }
 
         public function searchNames()
+        // suggesties
         {
             $conn = Db::getInstance();
+            // union geleerd! nieuw
             $statement = $conn->prepare('SELECT name FROM photos UNION SELECT firstName from users UNION SELECT lastName from users');
             $statement->execute();
 
