@@ -48,6 +48,7 @@
 
     <h1>Your feed </h1>
     
+    <!-- feature 6 zoekformulier -->
     <form action="search.php" method="GET">
         <div>
         <input id="search" name="search" type="text" placeholder="Search" autocomplete="off" onkeyup="showHint(this.value)">

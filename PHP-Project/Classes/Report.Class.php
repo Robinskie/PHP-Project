@@ -36,8 +36,6 @@
             $statement->bindValue(':userid', $this->getUserId());
 
             $statement->execute();
-
-            // Photo.Class.php
             $photo = new Photo();
             $photo->setId($this->getPhotoId());
             if ($photo->getReportCount() >= 3) {
