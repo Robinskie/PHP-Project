@@ -36,7 +36,7 @@
 
     <h1>Contact us </h1>
 
-
+    <!-- contactformulier -->
     <form name="contactform" action="" method="post">
                     <label for="name"></label>
                     <input type="text" name="name" id="name" class="name" placeholder="Your name" /><br>

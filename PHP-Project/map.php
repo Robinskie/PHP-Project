@@ -29,7 +29,7 @@
                 method: "POST",
                 url: "getAllLocations.php",
                 data: {format:"json"},
-                dataType: "Json" // de server ga json terugggeven
+                dataType: "Json" // de server gaat json terugggeven
             }).done(function(res) {
                 var response = JSON.stringify(res);
                 var jsonData = JSON.parse(response);
