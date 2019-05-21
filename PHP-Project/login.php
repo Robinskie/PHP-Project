@@ -8,6 +8,7 @@
         $user->setEmail($_POST['email']);
         $user->setPw($_POST['password']);
 
+        // uitleggen
         $email = $_POST['email'];
         $password = $_POST['password'];
 
@@ -18,6 +19,7 @@
             global $errorMessage;
             $errorMessage = 'You did not fill in your password';
         } else {
+            // uitleggen
             $result = $user->login();
             if ($result != false) {
                 $_SESSION['userid'] = $result;
@@ -47,6 +49,7 @@
     <form action="" method="post" enctype="multipart/form-data" id="form">
     <h2 form__title>Sign in</h2>
 
+        <!-- uitleggen -->
         <?php if (!empty($errorMessage)): ?>
         <p id="errorMessage"><?php echo $errorMessage; ?></p>
         <?php endif; ?>

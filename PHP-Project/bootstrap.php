@@ -6,6 +6,7 @@
     });
 
     function checkIfLoggedIn()
+    // uitleggen hoe uitloggen werkt
     {
         if (!empty($_SESSION['userid'])) {
             return true;

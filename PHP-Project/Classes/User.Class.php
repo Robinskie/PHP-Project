@@ -258,6 +258,7 @@
             $result = $statement->fetch(PDO::FETCH_ASSOC);
 
             if (!empty($result)) {
+                // password verify uitleggen
                 if (password_verify($this->pw, $result['password'])) {
                     return $result['id'];
                 } else {
