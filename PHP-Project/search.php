@@ -5,6 +5,7 @@
     redirectIfLoggedOut();
 
     if (!empty($_GET)) {
+        // uitleggen
         if (isset($_GET['search'])) {
             $foundPhotos = Search::searchPhotos($_GET['search']);
             $foundProfiles = Search::searchProfiles($_GET['search']);
@@ -66,6 +67,7 @@
 
     <div class="content">
 
+    <!-- uitleggen -->
     <?php if (!empty($foundProfiles)) {
     foreach ($foundProfiles as $profile) {
         $user = new User();
