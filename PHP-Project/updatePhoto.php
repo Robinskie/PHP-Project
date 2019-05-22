@@ -49,8 +49,8 @@
 
 <body>
     <?php include_once 'includes/nav.inc.php'; ?>
-
-    <h2>Update Photo</h2>
+    <div class="content">
+    <h1>Update Photo</h1>
     <?php
         if ($errorMessage != '') {
             echo "<span class='errorBox'>$errorMessage</span>";
@@ -68,11 +68,14 @@
         </div>
         <textarea name="description" form="updateForm" cols="83" rows="5" style="resize: none"><?php echo $oldPhoto->getDescription(); ?></textarea>
         <div>        
-            <input type="submit" value="Update">
+            <input id="updateBtn" type="submit" value="Update">
+            <a href="#" id="deleteBtn" >Verwijderen</a>
         </div>
     </form>
 
-    <a href="#" id="deleteBtn" >Verwijderen</a>
+    
+
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script>

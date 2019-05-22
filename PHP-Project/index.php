@@ -86,8 +86,9 @@
         $isReported = $photo->getReportState($userId); ?>
         
             <div class="photoBox">
+            <a href="profile.php?id=<?php echo $uploadUser->getId(); ?>"><p class="gebruiker"><?php echo $uploadUser->getFullName(); ?></p></a>
                 <a href="photo.php?id=<?php echo $photo->getId(); ?>">
-                    <a href="profile.php?id=<?php echo $uploadUser->getId(); ?>"><p class="gebruiker"><?php echo $uploadUser->getFullName(); ?></p></a>
+                    
                     <p class="photoDate"><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p><br>
                     <img class="<?php echo $photo->getPhotoFilter(); ?>" src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="250px" height="250px"> 
                     <p> <?php // echo $photo->getName();?></p> 
@@ -135,7 +136,7 @@
 
         foreach ($randomUserPosts as $randomUserPost):
         ?>
-        <div class="photoBox">
+        <div class="photoBoxRandom">
             <a href="photo.php?id=<?php echo $randomUserPost['id']; ?>"><img id="userPost" src="images/photos/<?php echo $randomUserPost['id']; ?>_cropped.png" alt="">
         </div>
         <?php

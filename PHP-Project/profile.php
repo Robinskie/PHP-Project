@@ -57,7 +57,7 @@
         </div>
         <?php if ($_GET['id'] == $userId) {
     ?>
-        <a class="changeButton" href="./formChangeProfile.php">Change your profile</a>
+        <a class="changeButton" href="./formChangeProfile.php">Edit profile</a>
         <?php
 } elseif ($isFollowed) {
         ?>

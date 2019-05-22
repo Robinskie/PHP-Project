@@ -135,7 +135,7 @@ h1 {
     background-color: #00A86B;
 }
 
-#upload, .loadMoreButton, #commentSubmit {
+#upload, .loadMoreButton, #commentSubmit, #editBtn {
     display: inline-block;
     text-align: center;
     border: none;
@@ -255,7 +255,7 @@ h1 {
     font-weight: bold;
 }
 
-.photoBox .reportButton {
+.photoBox #reportButton {
     display: inline-block;
     margin-right: 5px;
     text-align: center;
@@ -278,6 +278,10 @@ h1 {
     background-color: #222222;
 }
 
+#reportButton:hover {
+    background-color: #c44d4d;
+}
+
 .errorBox {
     display: inline-block;
     padding: 10px;
@@ -298,7 +302,7 @@ textarea {
 
 .commentBox {
     padding: 10px;
-    margin: 10px 0px 0px 0px; 
+    margin: 10px 0px 40px 0px; 
 
     background-color: white;
     border-radius: 10px;
@@ -371,6 +375,12 @@ margin-left: 11%;
     margin: 20px 0px;
 }
 
+#description a {
+    text-decoration: none;
+    color: #00A86B;
+    font-weight: 500;
+}
+
 .foundProfile {
     margin-bottom: 20px;
 }
@@ -418,7 +428,7 @@ margin-left: 11%;
     font-weight: 500;
 }
 
-.photoBox {
+.photoBoxRandom {
     width: 25%;
     margin: 2% 8% 2% 0;
     border-top: 7px solid #00A86B;
@@ -429,7 +439,62 @@ margin-left: 11%;
     width: 100%;
 }
 
+#editBtn {
+    display: block;
+    margin-bottom: 24px;
 
+}
+
+#photoPreview {
+    max-width: 40vw;
+    margin: 24px 0;
+}
+
+#updateBtn {
+    display: inline-block;
+    text-align: center;
+    border: none;
+    background-color: #00A86B;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 12px 0px 12px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 180px;
+    text-decoration: none;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+#updateBtn:hover {
+    background-color: #222222;
+}
+
+#deleteBtn {
+    background-color: lightgray;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 12px 0px 12px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 180px;
+    text-decoration: none;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+#deleteBtn:hover {
+    background-color: #c44d4d;
+}
+
+#updateForm {
+    margin-bottom: 40px;
+}
 
 @media only screen and (max-width: 920px) {
     h1 {

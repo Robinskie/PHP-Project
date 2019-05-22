@@ -43,7 +43,7 @@
         </a>
 
         <?php if ($photo->getUploader() == $_SESSION['userid']) :?>
-            <a href="updatePhoto.php?id=<?php echo $photo->getId(); ?>" >Bewerken</a>
+            <a id="editBtn" href="updatePhoto.php?id=<?php echo $photo->getId(); ?>" >Bewerken</a>
         <?php endif; ?>
         
         <div id="opmaken">
