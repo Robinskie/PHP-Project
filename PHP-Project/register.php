@@ -25,32 +25,25 @@
         $avatarTmpName = $user->getAvatarTmpName();
         $profileText = $user->getProfileText();
 
+        global $errorMessage;
+
         if (!$user->filledIn($email)) {
-            global $errorMessage;
             $errorMessage = 'You did not fill in your email.';
         } elseif (!$user->filledIn($firstName)) {
-            global $errorMessage;
             $errorMessage = 'You did not fill in your first name.';
         } elseif (!$user->filledIn($lastName)) {
-            global $errorMessage;
             $errorMessage = 'You did not fill in your last name.';
         } elseif (!$user->filledIn($password)) {
-            global $errorMessage;
             $errorMessage = "You didn't enter a password.";
         } elseif (!$user->filledIn($passwordConfirmation)) {
-            global $errorMessage;
             $errorMessage = 'You need to confirm your password.';
         } elseif (!$user->itemsAreEqual($password, $passwordConfirmation)) {
-            global $errorMessage;
             $errorMessage = "These passwords don't match.";
         } elseif ($user->checkIfEmailAlreadyExists($email)) {
-            global $errorMessage;
             $errorMessage = "There's already an account with this email, try logging in instead or use a different email.";
         } elseif (!$user->isPwStrongEnough($password)) {
-            global $errorMessage;
             $errorMessage = 'This password is not strong enough.';
         } elseif (!$user->checkIfFileTypeIsImage($avatarType)) {
-            global $errorMessage;
             $errorMessage = 'The uploaded file for your avatar is not an image.';
         } else {
             $user->copyAvatartoImageFolder($avatar);

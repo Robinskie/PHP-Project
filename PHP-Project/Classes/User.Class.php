@@ -306,6 +306,17 @@
             return $userPosts;
         }
 
+        public function getThreeUserPosts($userId)
+        {
+            $conn = Db::getInstance();
+            $userPostsStatement = $conn->prepare('SELECT id, photoFilter FROM photos WHERE uploader = :id ORDER BY uploaddate DESC LIMIT 3');
+            $userPostsStatement->bindValue(':id', $userId);
+            $userPostsStatement->execute();
+            $userPosts = $userPostsStatement->fetchAll(PDO::FETCH_ASSOC);
+
+            return $userPosts;
+        }
+
         public function getUserPostsCount($userId)
         {
             $conn = Db::getInstance();
