@@ -2,7 +2,6 @@
 
 require_once '../bootstrap.php';
 
-// uitleggen
 $search = new Search();
 $nameArray = $search->searchNames();
 
@@ -11,12 +10,11 @@ $nameArray = $search->searchNames();
     $hint = '';
         if ($q !== '') {
             $q = strtolower($q);
-            $len = strlen($q); // uitleggen
+            $len = strlen($q);
             foreach ($nameArray as $names) {
                 foreach ($names as $name) {
                     if (stristr($q, substr($name, 0, $len))) {
                         if ($hint === '') {
-                            // uitleggen
                             $hint = '<a id="linkHint" href="search.php?search='.$name.'">'.$name.'</a>';
                         } else {
                             $hint .= ', '.'<a id="linkHint" href="search.php?search='.$name.'">'.$name.'</a>';

@@ -6,7 +6,6 @@
     $userId = $_SESSION['userid'];
 
     if (!empty($_POST)) {
-        // uitleggen wat gebeurt hier
         $message = 'Name: '.$_POST['name']."\n";
         $message .= 'Email: '.$_POST['email']."\n";
         $message .= 'Message: '.$_POST['message']."\n";
@@ -37,7 +36,6 @@
 
     <h1>Contact us </h1>
 
-    <!-- contactformulier uitleggen-->
     <form name="contactform" action="" method="post">
                     <label for="name"></label>
                     <input type="text" name="name" id="name" class="name" placeholder="Your name" /><br>

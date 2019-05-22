@@ -5,7 +5,6 @@
 
         public static function searchPhotos($foundPhotos)
         {
-            // self uitleggen
             self::$conn = Db::getInstance();
             $statement = self::$conn->prepare("SELECT * FROM photos WHERE description LIKE '%$foundPhotos%' ORDER BY uploaddate DESC");
             $statement->execute();
@@ -43,10 +42,8 @@
         }
 
         public function searchNames()
-        // suggesties
         {
             $conn = Db::getInstance();
-            // union uitleggen
             $statement = $conn->prepare('SELECT name FROM photos UNION SELECT firstName from users UNION SELECT lastName from users');
             $statement->execute();
 

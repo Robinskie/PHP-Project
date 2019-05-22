@@ -20,22 +20,19 @@
     <title>Home - Zoogram</title>
 
 <script>
-// suggesties  
     function showHint(str) {
 
-    if (str.length == 0) { // uitleggen 
+    if (str.length == 0) {  
     document.getElementById("txtHint").innerHTML = "";
     return;
     } else {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                // uitleggen
                 document.getElementById("txtHint").innerHTML = this.responseText;
                 var hintArray = this.responseText.split(',');
             }
         };
-        // uitleggen
         xmlhttp.open("GET", "ajax/gethint.php?q=" + str, true);
         xmlhttp.send();
     }
@@ -49,7 +46,7 @@
 
     <h1>Your feed </h1>
     
-    <!-- uitleggen -->
+
     <form action="search.php" method="GET">
         <div>
         <input id="search" name="search" type="text" placeholder="Search" autocomplete="off" onkeyup="showHint(this.value)">
