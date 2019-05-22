@@ -19,7 +19,7 @@
 </head>
 <body>
     <?php include_once 'includes/nav.inc.php'; ?>
-    <div id="mapDiv" class="bigMapDiv"></div>
+    <div id="mapDivBig" class="bigMapDiv"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://openlayers.org/api/OpenLayers.js"></script>
@@ -35,7 +35,7 @@
                 var jsonData = JSON.parse(response);
                 console.log(jsonData);
 
-                map = new OpenLayers.Map("mapDiv");
+                map = new OpenLayers.Map("mapDivBig");
                 map.addLayer(new OpenLayers.Layer.OSM());
 
                 jsonData.forEach(function(key) {

@@ -37,57 +37,64 @@
 
     <h1 id="headingopmaak"><?php echo $photo->getName(); ?></h1>
 
-    <a href="<?php echo $photo->getPhotoPath(); ?>" target="_blank">
-        <img src="<?php echo $photo->getCroppedPhotoPath(); ?>" class="searchresult <?php echo $photo->getPhotoFilter(); ?>" width="250px" height="250px"> 
-    </a>
+    <div class="photoPageContent">
+        <a href="<?php echo $photo->getPhotoPath(); ?>" target="_blank">
+            <img class="croppedImage" src="<?php echo $photo->getCroppedPhotoPath(); ?>" class="searchresult <?php echo $photo->getPhotoFilter(); ?>" width="400px" height="400px"> 
+        </a>
 
-    <?php if ($photo->getUploader() == $_SESSION['userid']) :?>
-        <a href="updatePhoto.php?id=<?php echo $photo->getId(); ?>" >Bewerken</a>
-    <?php endif; ?>
-    
-    <div id="opmaken">
-    <p>Uploaded by: <a href="profile.php?id=<?php echo $uploaderUser->getId(); ?>"><?php echo $uploaderUser->getFirstName().' '.$uploaderUser->getLastName(); ?></a></p>
-    <p>Upload date: <?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
-    <p>Upload location: <span id="locationCity"></span></p><br>
-    <div id="mapDiv" class="mapDiv"></div>
-    <p id="description"><?php echo $photo->getDescription(); ?></p></div>
-    
-    <p><strong>Colors: </strong></p>
-        <?php $colorArray = $photo->getColors();
-            foreach ($colorArray as $color):?>
-                <a href="search.php?color=<?php echo substr($color['color'], strpos($color['color'], '#') + 1); ?>"><div class="colorBall" style="background-color: <?php echo $color['color']; ?>"></div></a>
-    <?php endforeach; ?>
-    
-     <form name="commentForm">
-        <div>
-            <textarea id="commentText" name="commentText" form="commentText" cols="43" rows="5" style="resize: none"></textarea>
+        <?php if ($photo->getUploader() == $_SESSION['userid']) :?>
+            <a href="updatePhoto.php?id=<?php echo $photo->getId(); ?>" >Bewerken</a>
+        <?php endif; ?>
+        
+        <div id="opmaken">
+        <p><strong>Uploaded by:</strong> <a href="profile.php?id=<?php echo $uploaderUser->getId(); ?>"><?php echo $uploaderUser->getFirstName().' '.$uploaderUser->getLastName(); ?></a></p>
+        <p><strong>Upload date: </strong><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
+        <p><strong>Upload location: </strong><span id="locationCity"></span></p><br>
+        <div id="mapDiv" class="mapDiv"></div>
+        <div class="descriptionBox">
+            <p><strong>Description: </strong></p>
+            <p id="description"><?php echo $photo->getDescription(); ?></p>
         </div>
-        <input id="commentSubmit" data-photoid="<?php echo $photo->getId(); ?>" data-userid="<?php echo $_SESSION['userid']; ?>" type="submit" value="Post comment">
-    </form>
-
-     <p><strong>Comments: </strong></p>
-    <div id="comments" class="comments">
-    <?php
-        $commentArray = $photo->getComments();
-
-        foreach ($commentArray as $commentRow):
-            $comment = new Comment();
-            $comment->setId($commentRow['id']);
-            $comment->setData();
-
-            $commentUser = $comment->getCommenterObject();
-        ?>
         
-            <div class="commentBox">
-                <div class="commentUserBox">
-                    <img width="50px" src="<?php echo $commentUser->getAvatar(); ?>">
-                    <strong><?php echo $commentUser->getFullName(); ?></strong>
-                </div>
-                <p><?php echo $comment->getText(); ?></p>
-                <p class="commentDate"><?php echo $comment->getDate(); ?></p>
+        <div class="colorBox">
+        <p><strong>Colors: </strong></p>
+            <?php $colorArray = $photo->getColors();
+                foreach ($colorArray as $color):?>
+                    <a href="search.php?color=<?php echo substr($color['color'], strpos($color['color'], '#') + 1); ?>"><div class="colorBall" style="background-color: <?php echo $color['color']; ?>"></div></a>
+        <?php endforeach; ?>
+        </div>
+
+        <form name="commentForm" class="commentForm">
+            <div>
+                <textarea id="commentText" name="commentText" form="commentText" cols="57" rows="8" style="resize: none"></textarea>
             </div>
-        
-    <?php endforeach; ?>
+            <input id="commentSubmit" data-photoid="<?php echo $photo->getId(); ?>" data-userid="<?php echo $_SESSION['userid']; ?>" type="submit" value="Post comment">
+        </form>
+
+        <p><strong>Comments: </strong></p>
+        <div id="comments" class="comments">
+        <?php
+            $commentArray = $photo->getComments();
+
+            foreach ($commentArray as $commentRow):
+                $comment = new Comment();
+                $comment->setId($commentRow['id']);
+                $comment->setData();
+
+                $commentUser = $comment->getCommenterObject();
+            ?>
+            
+                <div class="commentBox">
+                    <div class="commentUserBox">
+                        <img width="50px" src="<?php echo $commentUser->getAvatar(); ?>">
+                        <strong><?php echo $commentUser->getFullName(); ?></strong>
+                    </div>
+                    <p><?php echo $comment->getText(); ?></p>
+                    <p class="commentDate"><?php echo $comment->getDate(); ?></p>
+                </div>
+            
+        <?php endforeach; ?>
+        </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>

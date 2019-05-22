@@ -139,7 +139,7 @@ form {
     background-color: #00A86B;
 }
 
-#upload, .loadMoreButton {
+#upload, .loadMoreButton, #commentSubmit {
     display: inline-block;
     text-align: center;
     border: none;
@@ -203,11 +203,6 @@ form {
     color: black;
 }
 
-#mapDiv {
-    margin-top: 20px;
-    width: 300px;
-    height: 200px;
-}
 #kleur {
     color: #00A86B;
 }
@@ -215,12 +210,6 @@ form {
 #opmaken a {
     text-decoration: none;
     color: black;
-}
-
-#opmaken {
-    margin-left: 11%;
-    margin-top: 2%;
-    font-size: 10px;
 }
 
 #headingopmaak {
@@ -298,10 +287,25 @@ form {
     padding: 10px;
 }
 
+.colorBox {
+    margin-bottom: 20px;
+}
+
+.commentForm {
+    margin-left: 0px;
+    margin-bottom: 20px;
+}
+
+textarea {
+    border: none;
+}
+
 .commentBox {
     padding: 10px;
-    margin: 10px; 
-    border: 1px solid gray;
+    margin: 10px 0px 0px 0px; 
+
+    background-color: white;
+    border-radius: 10px;
 }
 
 .commentBox .commentDate {
@@ -357,16 +361,18 @@ margin-left: 11%;
 
 .mapDiv {
     display: block;
-    width: 500px;
-    height: 250px;
+    width: 400px;
+    height: 200px;
+    margin-bottom: 20px;
+    border: 10px solid white;
 }
 
-.bigMapDiv {
-    display: block;
-    margin: auto;
-    width: 800px;
-    height: 500px;
-    border: 10px solid #ffffff;
+.photoPageContent {
+    margin: 0px 10%;
+}
+
+.descriptionBox {
+    margin: 20px 0px;
 }
 
 .foundProfile {
@@ -431,5 +437,10 @@ margin-left: 11%;
         font-size: 12px;
         padding-right: 10px;
     }
+}
+
+.croppedImage {
+    border: 10px solid white;
+    margin-bottom: 20px;
 }
 
