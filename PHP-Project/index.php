@@ -87,7 +87,7 @@
         
             <div class="photoBox">
                 <a href="photo.php?id=<?php echo $photo->getId(); ?>">
-                    <p class="gebruiker"><?php echo $uploadUser->getFullName(); ?></p>
+                    <a href="profile.php?id=<?php echo $uploadUser->getId(); ?>"><p class="gebruiker"><?php echo $uploadUser->getFullName(); ?></p></a>
                     <p class="photoDate"><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p><br>
                     <img class="<?php echo $photo->getPhotoFilter(); ?>" src="images/photos/<?php echo $photo->getId(); ?>_cropped.png" width="250px" height="250px"> 
                     <p> <?php // echo $photo->getName();?></p> 
@@ -125,19 +125,19 @@
     } else {
         $randomUser = Db::getRandomOtherUser($userId); ?>
 
-        <p>You're not following anyone yet.<br>
+        <p class="randomUsertext">You're not following anyone yet.<br>
         Perhaps you'll like
 
-        <a href="profile.php?id=<?php echo $randomUser->getId(); ?>"><?php echo $randomUser->getFullName(); ?></a><br></p>
+        <a class="randomUsername" href="profile.php?id=<?php echo $randomUser->getId(); ?>"><?php echo $randomUser->getFullName(); ?></a><br></p>
 
         <?php
-        $randomUserPosts = $randomUser->getUserPosts($randomUser->getId());
+        $randomUserPosts = $randomUser->getThreeUserPosts($randomUser->getId());
 
         foreach ($randomUserPosts as $randomUserPost):
         ?>
-
-        <a href="photo.php?id=<?php echo $randomUserPost['id']; ?>"><img src="images/photos/<?php echo $randomUserPost['id']; ?>_cropped.png" alt="">
-
+        <div class="photoBox">
+            <a href="photo.php?id=<?php echo $randomUserPost['id']; ?>"><img id="userPost" src="images/photos/<?php echo $randomUserPost['id']; ?>_cropped.png" alt="">
+        </div>
         <?php
             endforeach;
     }
