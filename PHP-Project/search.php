@@ -50,7 +50,7 @@
 </head>
 <body>
     <?php include_once 'includes/nav.inc.php'; ?> 
-    <h1>Search results</h1>
+    <h1 id="headingopmaak">Search results</h1>
 
     <?php if (isset($_GET['tag'])) {
     if ($isTagFollowed) {

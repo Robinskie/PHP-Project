@@ -203,6 +203,10 @@ form {
     color: black;
 }
 
+#headingopmaak {
+    margin-left: 10%;
+}
+
 ::placeholder {
     border: none;
     border-radius: 100px;
