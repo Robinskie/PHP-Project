@@ -203,6 +203,26 @@ form {
     color: black;
 }
 
+#mapDiv {
+    margin-top: 20px;
+    width: 300px;
+    height: 200px;
+}
+#kleur {
+    color: #00A86B;
+}
+
+#opmaken a {
+    text-decoration: none;
+    color: black;
+}
+
+#opmaken {
+    margin-left: 11%;
+    margin-top: 2%;
+    font-size: 10px;
+}
+
 #headingopmaak {
     margin-left: 10%;
 }

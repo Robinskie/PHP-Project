@@ -35,7 +35,7 @@
 <body>
     <?php include_once 'includes/nav.inc.php'; ?>
 
-    <h1><?php echo $photo->getName(); ?></h1>
+    <h1 id="headingopmaak"><?php echo $photo->getName(); ?></h1>
 
     <a href="<?php echo $photo->getPhotoPath(); ?>" target="_blank">
         <img src="<?php echo $photo->getCroppedPhotoPath(); ?>" class="searchresult <?php echo $photo->getPhotoFilter(); ?>" width="250px" height="250px"> 
@@ -45,11 +45,12 @@
         <a href="updatePhoto.php?id=<?php echo $photo->getId(); ?>" >Bewerken</a>
     <?php endif; ?>
     
-    <p><strong>Uploaded by: </strong><a href="profile.php?id=<?php echo $uploaderUser->getId(); ?>"><?php echo $uploaderUser->getFirstName().' '.$uploaderUser->getLastName(); ?></a></p>
-    <p><strong>Upload date: </strong><?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
-    <p><strong>Upload location: </strong><span id="locationCity"></span></p>
+    <div id="opmaken">
+    <p>Uploaded by: <a href="profile.php?id=<?php echo $uploaderUser->getId(); ?>"><?php echo $uploaderUser->getFirstName().' '.$uploaderUser->getLastName(); ?></a></p>
+    <p>Upload date: <?php echo howLongAgo(strtotime($photo->getUploadDate())); ?></p>
+    <p>Upload location: <span id="locationCity"></span></p><br>
     <div id="mapDiv" class="mapDiv"></div>
-    <p id="description"><?php echo $photo->getDescription(); ?></p>
+    <p id="description"><?php echo $photo->getDescription(); ?></p></div>
     
     <p><strong>Colors: </strong></p>
         <?php $colorArray = $photo->getColors();
@@ -59,7 +60,7 @@
     
      <form name="commentForm">
         <div>
-            <textarea id="commentText" name="commentText" form="commentText" cols="83" rows="5" style="resize: none"></textarea>
+            <textarea id="commentText" name="commentText" form="commentText" cols="43" rows="5" style="resize: none"></textarea>
         </div>
         <input id="commentSubmit" data-photoid="<?php echo $photo->getId(); ?>" data-userid="<?php echo $_SESSION['userid']; ?>" type="submit" value="Post comment">
     </form>
@@ -92,7 +93,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://openlayers.org/api/OpenLayers.js"></script>
     <script>
-        // find hashtags
+
         var description = document.getElementById("description").innerText;
         findHashtags(description);
         function findHashtags(searchText) {
@@ -108,8 +109,7 @@
             }
         }
 
-        //location stuff
-        var locationCity = document.getElementById("locationCity");
+        var locationCity = document.getElementById("locationCity");  
         var lat = <?php echo $photo->getLatitude(); ?>;
         var lon = <?php echo $photo->getLongitude(); ?>;
         $.ajax({
