@@ -172,6 +172,7 @@ if (!empty($_POST['submit'])) {
 </head>
 <body>
 <?php include_once 'includes/nav.inc.php'; ?>
+<div class="content">
     <form method="POST" action="" class="formopm">
         <p><input type="email" class="email" name="oldEmail" id="oldEmail" placeholder="Old Email"></p>
         <p><input type="email" class="email" name="newEmail" id="newEmail" placeholder="New Email"></p>
@@ -199,6 +200,6 @@ if (!empty($_POST['submit'])) {
         <input type="text" name="profileText" id="profileText"><br>
         <input class="opmaaksubmit" type="submit" name="submit" value="Change profiletext">
     </form>
-
+    </div>
 </body>
 </html>
