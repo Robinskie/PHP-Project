@@ -247,14 +247,14 @@ form {
     color: #ffffff;
     font-weight: 500;
     font-size: 12px;
-    width: 18%;
+    width: 20%;
     padding: 10px 10px 10px 10px;
     text-transform: uppercase;
     font-weight: bold;
 }
 
-.reportButton:hover {
-    background-color: rgb(180, 75, 79);
+#reportButtonback {
+    width: 30%; 
 }
 
 .likeButton:hover {

@@ -109,7 +109,7 @@
 
         if ($isReported) {
             ?>
-                        <a href="#" id="reportButton" class="reportButton" data-id="<?php echo $photo->getId(); ?>" data-reported=1>Take back</a>
+                        <a href="#" id="reportButtonback" class="reportButton" data-id="<?php echo $photo->getId(); ?>" data-reported=1>Take back</a>
                     <?php
         } else {
             ?>

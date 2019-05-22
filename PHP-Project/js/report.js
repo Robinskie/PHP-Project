@@ -23,7 +23,7 @@
 						if(isReported == 0) {
 							reports++;
 							elReports.html(reports);
-							reportButton.html("Take back");
+							reportButton.html("Undo");
 							reportButton.data('reported', 1);
 							
 						} else if(isReported == 1) {
