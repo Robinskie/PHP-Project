@@ -193,6 +193,14 @@ form {
 .suggestions {
     display: inline-block;
     margin-left: 10px;
+    text-decoration: none;
+}
+
+#txtHint a {
+    border-bottom: solid 2px;
+    border-color: #00A86B;
+    text-decoration: none;
+    color: black;
 }
 
 ::placeholder {
