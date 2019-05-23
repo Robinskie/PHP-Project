@@ -496,6 +496,24 @@ margin-left: 11%;
     margin-bottom: 40px;
 }
 
+#followButton {
+    display: inline-block;
+    text-align: center;
+    border: none;
+    background-color: #00A86B;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 12px 0px 12px 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 180px;
+    text-decoration: none;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    margin-left: 10%;
+}
+
 @media only screen and (max-width: 920px) {
     h1 {
         padding-top: 18%;
