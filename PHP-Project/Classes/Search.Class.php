@@ -6,7 +6,7 @@
         public static function searchPhotos($foundPhotos)
         {
             self::$conn = Db::getInstance();
-            $statement = self::$conn->prepare('SELECT * FROM photos WHERE description LIKE :foundPhotos ORDER BY uploaddate DESC');
+            $statement = self::$conn->prepare('SELECT * FROM photos WHERE description LIKE :foundPhotos OR name LIKE :foundPhotos ORDER BY uploaddate DESC');
             $statement->bindValue(':foundPhotos', '%'.$foundPhotos.'%');
             $statement->execute();
 
